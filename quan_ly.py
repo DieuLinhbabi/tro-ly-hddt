@@ -7,7 +7,7 @@ import streamlit as st
 
 import base64
 
-from common import (BRAND, da_ket_noi_sheet, doc_gop_y, doc_tai_khoan, doc_tat_ca_bai, esc, ghi_anh, goi_post,
+from common import (BRAND, LOGO, da_ket_noi_sheet, doc_gop_y, doc_tai_khoan, doc_tat_ca_bai, esc, ghi_anh, goi_post,
                     kiem_tra_mat_khau, lam_moi_du_lieu, ma_hoa_mat_khau, nguon_anh)
 
 # Quyền của từng vai trò
@@ -52,6 +52,7 @@ def dang_nhap(ten: str, mk: str):
 if not ss.user:
     _, giua, _ = st.columns([1, 1.2, 1])
     with giua:
+        st.image(LOGO, width=260)
         st.markdown(f"#### {BRAND}")
         st.markdown("## Đăng nhập quản trị")
         st.caption("Dành cho người quản lý kiến thức và xem góp ý của người dùng.")
@@ -84,8 +85,9 @@ if ss.get("admin_tab") not in menu_duoc_xem:
 
 # ---------- Thanh bên ----------
 with st.sidebar:
+    st.image(LOGO, width="stretch")
     st.markdown(f'<div class="brand">{BRAND}</div><div class="sub">Trang quản lý</div>', unsafe_allow_html=True)
-    st.markdown(f'<div class="sub" style="margin-top:10px">Xin chào <b style="color:#fff">{esc(ss.user["username"])}</b>'
+    st.markdown(f'<div class="sub" style="margin-top:10px">Xin chào <b>{esc(ss.user["username"])}</b>'
                 f' · {esc(ss.user["role"])}</div>', unsafe_allow_html=True)
     st.write("")
     for muc in menu_duoc_xem:
@@ -276,7 +278,7 @@ def trang_gop_y():
             f'<div class="hint">{esc(g["thoi_gian"])}</div></div>'
             f'<div class="label">Câu hỏi</div><div style="font-weight:600">{esc(g["cau_hoi"])}</div>'
             f'<div class="label">Trợ lý đã trả lời</div>'
-            f'<div style="background:#F7F7F4;border-radius:8px;padding:10px 12px;color:#3D4541">{esc(g["tra_loi"].replace("**", ""))}</div>'
+            f'<div style="background:#F6F4F3;border-radius:8px;padding:10px 12px;color:#3D3838">{esc(g["tra_loi"].replace("**", ""))}</div>'
             f'{ghi_chu}</div>', unsafe_allow_html=True)
         c1, c2, _ = st.columns([1, 1, 3])
         if co_quyen("them_bai") and c1.button("✎ Bổ sung kiến thức", key=f"bs_{g['row']}", width="stretch"):

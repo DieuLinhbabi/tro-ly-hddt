@@ -16,6 +16,8 @@ import streamlit as st
 DATA_FILE = Path(__file__).parent / "data" / "huong_dan.json"
 HOTLINE = "1900.2812"
 BRAND = "NHANH INVOICE - TRỢ LÝ"
+LOGO = str(Path(__file__).parent / "assets" / "logo.png")
+ICON = str(Path(__file__).parent / "assets" / "icon.png")
 
 
 # ---------- Kết nối Google Sheet (qua Apps Script) ----------
@@ -186,31 +188,31 @@ def tim_bai(cau_hoi: str, k: int = 4, kem_diem: bool = False) -> list:
 # ---------- Giao diện chung (màu theo bản thiết kế) ----------
 CSS = """
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap');
-html, body, [class*="css"], .stMarkdown, button, input, textarea { font-family: 'Be Vietnam Pro', sans-serif !important; }
-.stApp { background: #F6F5F1; }
-[data-testid="stSidebar"] { background: #14503C; }
-[data-testid="stSidebar"] * { color: #EEF3F0 !important; }
-[data-testid="stSidebar"] .stButton button { background: transparent; border: 1px solid #3C6E5E; justify-content: flex-start; }
-[data-testid="stSidebar"] .stButton button:hover { background: #1E6A50; border-color: #1E6A50; }
-[data-testid="stSidebar"] .stButton button[kind="primary"] { background: #1E6A50; border-color: #1E6A50; font-weight: 600; }
-[data-testid="stSidebar"] [data-testid="stExpander"] { border-color: #2D6A55; background: transparent; }
-.brand { font-weight: 700; font-size: 17px; margin-bottom: 4px; }
-.sub { font-size: 13px; color: #B9CCC4 !important; }
+.stApp { background: #F8F6F5; }
+[data-testid="stSidebar"] { background: #FFFFFF; border-right: 1px solid #ECE7E5; box-shadow: inset 4px 0 0 #C41E24; }
+[data-testid="stSidebar"] * { color: #2B2626 !important; }
+[data-testid="stSidebar"] .stButton button { background: #FFFFFF; border: 1px solid #E6E0DE; justify-content: flex-start; }
+[data-testid="stSidebar"] .stButton button:hover { background: #FCEBEC; border-color: #F2C3C5; }
+[data-testid="stSidebar"] .stButton button[kind="primary"] { background: #C41E24 !important; border-color: #C41E24 !important; font-weight: 600; }
+[data-testid="stSidebar"] .stButton button[kind="primary"] * { color: #FFFFFF !important; }
+[data-testid="stSidebar"] [data-testid="stExpander"] { border-color: #E6E0DE; background: #FFFFFF; }
+.sub { font-size: 13px; color: #7A7070 !important; }
+.brand { font-weight: 700; font-size: 15px; margin-bottom: 4px; letter-spacing: .02em; }
 .badge { display:inline-flex; align-items:center; gap:6px; padding:6px 14px; border-radius:999px;
-         background:#E4EFE9; color:#14503C; font-size:13px; font-weight:600; }
-.hint { font-size: 12.5px; color: #5B635F; }
-.card { background:#FFFFFF; border:1px solid #E2E0D8; border-radius:12px; padding:16px 18px; margin-bottom:12px; }
-.tag-bad { background:#FBEBD9; color:#7A3A08; padding:3px 10px; border-radius:999px; font-size:12.5px; font-weight:600; }
-.tag-good { background:#E4EFE9; color:#14503C; padding:3px 10px; border-radius:999px; font-size:12.5px; font-weight:600; }
-.tag { background:#F1F1EC; color:#3D4541; padding:3px 10px; border-radius:999px; font-size:12.5px; font-weight:600; }
-.label { font-size:12.5px; font-weight:600; color:#5B635F; margin-top:8px; }
-[data-testid="stMetric"] { background:#FFFFFF; border:1px solid #E2E0D8; border-radius:12px; padding:12px 16px; }
-.stButton button[kind="primary"] { background:#14503C; border-color:#14503C; }
+         background:#FCEBEC; color:#A3161C; font-size:13px; font-weight:600; }
+.hint { font-size: 12.5px; color: #6B6565; }
+.card { background:#FFFFFF; border:1px solid #E9E4E2; border-radius:12px; padding:16px 18px; margin-bottom:12px; }
+.tag-bad { background:#FCEBEC; color:#A3161C; padding:3px 10px; border-radius:999px; font-size:12.5px; font-weight:600; }
+.tag-good { background:#E6F3EB; color:#1F6B47; padding:3px 10px; border-radius:999px; font-size:12.5px; font-weight:600; }
+.tag { background:#F2EFEE; color:#4A4444; padding:3px 10px; border-radius:999px; font-size:12.5px; font-weight:600; }
+.label { font-size:12.5px; font-weight:600; color:#6B6565; margin-top:8px; }
+[data-testid="stMetric"] { background:#FFFFFF; border:1px solid #E9E4E2; border-radius:12px; padding:12px 16px; }
+.stButton button[kind="primary"], [data-testid="stFormSubmitButton"] button[kind="primaryFormSubmit"] { background:#C41E24 !important; border-color:#C41E24 !important; color:#FFFFFF !important; }
+.stButton button[kind="primary"]:hover, [data-testid="stFormSubmitButton"] button[kind="primaryFormSubmit"]:hover { background:#A3161C !important; border-color:#A3161C !important; }
+.stApp h1, .stApp h2, .stApp h3, .stApp h4 { -webkit-text-stroke: 0.9px currentColor; letter-spacing: .01em; }  /* Comfortaa vốn mảnh: làm tiêu đề đậm hơn */
 [data-testid="stToolbarActions"], [data-testid="stToolbarActionButton"], [data-testid="stAppDeployButton"] { display:none !important; }
 </style>
 """
-
 
 def ap_dung_giao_dien():
     st.markdown(CSS, unsafe_allow_html=True)

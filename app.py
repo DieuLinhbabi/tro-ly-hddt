@@ -7,9 +7,9 @@ Secrets cần khai báo: xem file HUONG_DAN_CAI_DAT.md
 """
 import streamlit as st
 
-from common import ap_dung_giao_dien
+from common import ICON, ap_dung_giao_dien
 
-st.set_page_config(page_title="Trợ lý Hóa đơn điện tử", page_icon="🧾", layout="wide")
+st.set_page_config(page_title="Trợ lý Hóa đơn điện tử", page_icon=ICON, layout="wide")
 ap_dung_giao_dien()
 
 trang = st.navigation(

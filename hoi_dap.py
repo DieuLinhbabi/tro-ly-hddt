@@ -4,7 +4,7 @@ from collections import OrderedDict
 import streamlit as st
 from groq import Groq
 
-from common import BRAND, HOTLINE, da_ket_noi_sheet, doc_tat_ca_bai, goi_post, nguon_anh, tim_bai
+from common import BRAND, HOTLINE, LOGO, da_ket_noi_sheet, doc_tat_ca_bai, goi_post, nguon_anh, tim_bai
 
 DEFAULT_MODEL = "llama-3.3-70b-versatile"
 GOI_Y = ["Cách điều chỉnh hóa đơn?", "Xóa bỏ hóa đơn đã phát hành", "Lập mẫu 04/SS-HĐĐT", "Thêm người dùng và phân quyền"]
@@ -32,6 +32,7 @@ except Exception as e:
 
 # ---------- Thanh bên ----------
 with st.sidebar:
+    st.image(LOGO, width="stretch")
     st.markdown(f'<div class="brand">{BRAND}</div>', unsafe_allow_html=True)
     if st.button("＋  HỎI ĐÁP NHANH", width="stretch", help="Bắt đầu cuộc hội thoại mới"):
         ss.messages, ss.fb_sent = [], set()
@@ -48,13 +49,10 @@ with st.sidebar:
                 if st.button(b["tieu_de"], key=f"bai_{b['row']}_{b['tieu_de']}", width="stretch"):
                     ss.pending = f"Hướng dẫn: {b['tieu_de']}"
     st.markdown(f'<div class="sub" style="margin-top:24px">Không có câu trả lời?<br>Gọi hotline '
-                f'<b style="color:#fff">{HOTLINE}</b></div>', unsafe_allow_html=True)
+                f'<b>{HOTLINE}</b></div>', unsafe_allow_html=True)
 
 # ---------- Tiêu đề ----------
-c1, c2 = st.columns([3, 1])
-c1.markdown("## HỎI ĐÁP - NHANH")
-c2.markdown('<div style="text-align:right;padding-top:14px"><span class="badge">✓ Chỉ trả lời theo tài liệu</span></div>',
-            unsafe_allow_html=True)
+st.markdown("## HỎI ĐÁP - NHANH")
 
 if "GROQ_API_KEY" not in st.secrets:
     st.error("Chưa khai báo GROQ_API_KEY trong Secrets.")
