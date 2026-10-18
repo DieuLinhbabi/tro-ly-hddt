@@ -1,6 +1,8 @@
 [theme]
-primaryColor = "#14503C"
-backgroundColor = "#F6F5F1"
+primaryColor = "#C41E24"
+backgroundColor = "#F8F6F5"
 secondaryBackgroundColor = "#FFFFFF"
-textColor = "#1A1F1C"
-font = "sans serif"
+textColor = "#221E1E"
+font = "Nunito:https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,400..800;1,400..800&display=swap"
+headingFont = "Comfortaa:https://fonts.googleapis.com/css2?family=Comfortaa:wght@400..700&display=swap"
+headingFontWeights = 700
