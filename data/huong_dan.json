@@ -1,0 +1,357 @@
+[
+  {
+    "nhom": "Nội dung chung",
+    "tieu_de": "Giới thiệu trang chủ",
+    "link": "https://matbao.in/huong-dan-su-dung?product=huong-dan-su-dung-3-0&article=6a8fcc15c70b2c005b59d245",
+    "noi_dung": "Tổng quan về Trang chủ V3\nBáo cáo nhanh một số thông tin\n1. Thống kê tổng số lượng hóa đơn phát sinh và phân loại chi tiết theo từng trạng thái\n- Trên hệ thống tại khu vực Doanh thu và thuế\n\n- Doanh thu và tiền thuế: bán ra, mua vào\n\n- Dự kiến tiền Thuế GTGT:\n\n+ : phải nộp\n+ : còn được khấu trừ\n- Khu vực Mẫu số/Ký hiệu hóa đơn sẽ tổng hợp và hiển thị thông tin số lượng của mẫu hóa đơn bạn đã đăng ký\n\n- Biểu đồ hiển thị so sánh doanh thu và thuế được thể hiện ở 2 khu vực So sánh\n\n- Thông tin về Chữ ký số của bạn sẽ được hiển thị ở khu vực cuối",
+    "anh": [
+      {
+        "src": "trang-chu_1.jpg",
+        "cap": "Trang chủ (Tổng quan): cơ cấu hóa đơn, doanh thu & thuế, mẫu số/ký hiệu, chữ ký số"
+      }
+    ]
+  },
+  {
+    "nhom": "Nội dung chung",
+    "tieu_de": "Thiết lập tài khoản",
+    "link": "https://matbao.in/huong-dan-su-dung?product=huong-dan-su-dung-3-0&article=6a8e7d93b3208985bf8dfcff",
+    "noi_dung": "Thiết lập tài khoản V3\nMục Thiết lập tài khoản , bạn có thể thực hiện thay đổi 1 số thông tin sau:\n- Họ và tên\n\n- Email\n\n- Số điện thoại\n\n- Mật khẩu đăng nhập\n\nĐể truy cập vào mục Thiết lập tài khoản , bạn cần click chuột vào Admin -> chọn mục Thiết lập tài khoản",
+    "anh": [
+      {
+        "src": "thiet-lap-tai-khoan_1.jpg",
+        "cap": "Bấm vào Admin ở góc trên bên phải → chọn Thiết lập tài khoản"
+      },
+      {
+        "src": "thiet-lap-tai-khoan_2.jpg",
+        "cap": "Màn hình Thiết lập tài khoản: thông tin cá nhân và Đổi mật khẩu"
+      }
+    ]
+  },
+  {
+    "nhom": "Nội dung chung",
+    "tieu_de": "Thông tin đơn vị",
+    "link": "https://matbao.in/huong-dan-su-dung?product=huong-dan-su-dung-3-0&article=6a95b5b6c70b2c005b5ea911",
+    "noi_dung": "Hướng dẫn thao tác cập nhật thông tin đơn vị\n- Đăng nhập vào hệ thống.\n\n- Nhấn vào Admin ở góc trên bên phải màn hình.\n\n- Chọn Thông tin đơn vị.\n\n- Tại màn hình Thông tin đơn vị, thực hiện cập nhật:\n- Tên đơn vị\n\n- Mã số thuế\n\n- Người đại diện\n\n- Địa chỉ\n\n- Số tài khoản, Tên ngân hàng (nếu có)\n\n- Điện thoại, Email, Fax, Website (nếu có)\n\n- Kiểm tra lại thông tin đã nhập, đặc biệt là Tên đơn vị, Mã số thuế và Địa chỉ.\n\n- Nhấn Lưu thay đổi để hoàn tất.\n\nLưu ý: Thông tin Tên đơn vị, Mã số thuế và Địa chỉ sẽ được hiển thị trực tiếp trên hóa đơn điện tử. Vui lòng kiểm tra chính xác trước khi lưu.",
+    "anh": [
+      {
+        "src": "thong-tin-don-vi_1.jpg",
+        "cap": "Bấm vào Admin ở góc trên bên phải → chọn Thông tin đơn vị"
+      },
+      {
+        "src": "thong-tin-don-vi_2.jpg",
+        "cap": "Màn hình Thông tin đơn vị: cập nhật rồi bấm Lưu thay đổi"
+      }
+    ]
+  },
+  {
+    "nhom": "Hóa đơn bán ra",
+    "tieu_de": "Danh sách hóa đơn",
+    "link": "https://matbao.in/huong-dan-su-dung?product=huong-dan-su-dung-3-0&article=6a926bb3c70b2c005b5c093c",
+    "noi_dung": "Hướng dẫn sử dụng Danh sách hóa đơn\nKhi vào trang Danh Sách, sẽ hiện danh sách các hóa đơn đã phát hành và hóa đơn nháp. Tại mục Danh sách hóa đơn, có các chức năng : Sao chép hóa đơn, Xóa hóa đơn nháp, In hóa đơn…\n\n1. Lọc theo mẫu số kí hiệu\n2. Lọc theo ngày\n3. Lọc theo số hóa đơn\n4. Lọc theo Tên khách hàng/ Mã khách hang/ Mã số thuế KH\n5. Lọc theo trạng thái hóa đơn\n6. Lọc theo loại hóa đơn\nKhi vào trang Danh Sách, sẽ hiện danh sách các hóa đơn đã phát hành và hóa đơn nháp.\nTại mục Danh sách hóa đơn, có các chức năng như các biểu tượng hiển thị sau:\nSau khi lọc các điều kiện xong, Danh sách hóa đơn sẽ hiện thị các thông tin:\n- Trạng thái hóa đơn\n\n- Số hóa đơn đã phát hành\n\n- Loại hóa đơn: hóa đơn mới (đã kí phát hành),...\n\nTại mục danh sách hóa đơn, có các chức năng:\n- Chọn hóa đơn\n\n- Chọn hóa đơn nháp\n\n- In hóa đơn\n\n- Gửi thư điện tử\n\n- Xuất excel\n\n- Nhập excel\n\n- Đổi kí hiệu\n\n- Tạo mới hóa đơn trên bảng nhập liệu được thiết lập sẵn\n\nSau khi nhấn chức năng Tạo mới => Nhập liệu các trường thông tin sau trên phần mềm:\n\nThông tin khách hàng & hóa đơn\n- Thông tin khách hàng: Nhập các thông tin cần thiết như Mã KH, Họ tên người mua, Đơn vị mua hàng, MST, Địa chỉ, Email, SĐT.\n\n- Thông tin hóa đơn: Chọn Hình thức thanh toán, nhập Ngày tạo bill, Số HĐ/Báo giá/Phiếu và Ghi chú nếu có.\n\n- Có thể tích chọn:\n- Hóa đơn mua hàng trả lại nếu là hóa đơn hàng trả lại.\n\n- Lưu thông tin khách hàng để sử dụng cho các lần sau.\n\n- Tạo/Cập nhật sản phẩm nếu cần cập nhật sản phẩm.\n\nDanh sách hàng hóa, dịch vụ\n  1. + Thêm dòng để thêm hàng hóa/dịch vụ.\n- Cấu hình số thập phân\n\n- Tải file import Excel để nhập nhanh nhiều sản phẩm cùng lúc.\n\n- Xuất file Export Excel hàng hóa dịch vụ\n\nNhập thông tin tên hàng hóa dịch vụ, bạn nhập thông tin lần lượt như sau:\n- Nhập Tên SP/DV, ĐVT, Số lượng, Đơn giá.\n\n- Chọn Thuế suất phù hợp, hệ thống tự tính Thuế GTGT và Tiền sau thuế.\n\n- Tại Tính chất, chọn loại tương ứng như Hàng hóa/DV.\n\nPhí, lệ phí thu hộ\n\n- Nhập Mã lệ phí và Tên lệ phí.\n\n- Nhập Tiền trước thuế và chọn Thuế suất phù hợp.\n\n- Hệ thống tự tính Tiền thuế và Thành tiền.\n\n- Nhấn Xóa dòng chọn/Thêm dòng mới nếu cần nhập thêm phí, lệ phí.\n\n- Có thể tích chọn “Tính thành tiền, tiền thuế theo thuế suất và tổng tiền” nếu muốn hệ thống tự động tính theo tổng tiền.\n\nTổng hợp & thanh toán\n- Chọn Đơn vị tiền tệ và nhập Tỷ giá nếu sử dụng ngoại tệ.\n\n- Kiểm tra các tùy chọn:\n- Không tự tính: Không tự động tính toán số tiền.\n\n- Tính ngược: Tính ngược giá trị từ tổng tiền sau thuế.\n\n- Thuế nhà thầu: Áp dụng khi phát sinh thuế nhà thầu.\n\n- Kiểm tra các khoản Tiền hàng trước thuế, Tổng tiền phí và Tổng tiền sau thuế.\n\n- Số tiền bằng chữ sẽ được hệ thống tự động hiển thị theo tổng tiền.\n\n-\n\nNhấn lưu dữ liệu để hoàn tất tạo mới hóa đơn nháp.\n\nĐể phát hành hóa đơn, bạn thực hiện theo các bước sau:\nBước 1: Chọn mẫu số, ký hiệu\nBước 2: Chọn hóa đơn nháp cần phát hành\nBước 3: Nhấn Phát hành và gửi CQT\n\nNhấn chọn Phát hành và gửi CQT.  Nhập mã pin CKS trường hợp dùng USB Token.\nSau đó, kiểm tra lại thông tin trạng thái hóa đơn sau khi phát hành.",
+    "anh": [
+      {
+        "src": "danh-sach-hoa-don_1.jpg",
+        "cap": "Hóa đơn bán ra → Danh sách hóa đơn: bộ lọc, các chức năng và nút Tạo hóa đơn"
+      },
+      {
+        "src": "danh-sach-hoa-don_2.jpg",
+        "cap": "Màn hình Tạo hóa đơn mới: nhập thông tin khách hàng, hàng hóa rồi bấm Lưu hóa đơn"
+      }
+    ]
+  },
+  {
+    "nhom": "Hóa đơn bán ra",
+    "tieu_de": "Xóa bỏ hóa đơn",
+    "link": "https://matbao.in/huong-dan-su-dung?product=huong-dan-su-dung-3-0&article=6a926b18c70b2c005b5c08b8",
+    "noi_dung": "Hướng dẫn xóa bỏ hóa đơn\nKhi hóa đơn đã xuất bị sai sót về thông tin/ số lượng/ thành tiền,... nhưng bên nhận hóa đơn chưa thực hiện kê khai thuế, bạn có thể xóa bỏ hóa đơn. Để xóa bỏ hóa đơn, bạn sẽ thao tác như sau:\nBước 1: Truy cập vào trang Quản lý Hóa đơn. Tại menu Hóa đơn bán ra, bạn chọn Xóa bỏ hóa đơn.\nBước 2: Thao tác chọn/lọc hóa đơn cần thực hiện xóa bỏ\n1.      Chọn mẫu số kí hiệu\n2.      Chọn khoảng thời gian ngày lập hóa đơn\n3.      Chọn số hóa đơn\n4.      Nhập tên khách hàng\n5.      Nhập mã khách hàng\n6.      Nhập mã số thuế\n7.      Trạng thái hóa đơn\nBước 3: Bạn nhấn chọn vào hóa đơn cần xóa bỏ và nhận Xóa bỏ hóa đơn\nĐể xem lại hóa đơn đã xóa bỏ, bạn quay lại menu trang Quản lý, nhấn chọn Hóa đơn bán ra, chọn Danh sách hóa đơn. Danh sách hóa đơn hiển thị, bạn click chọn vào trạng thái Hóa đơn xóa bỏ, chọn Tìm kiếm.\nKhi đó, bạn chỉ cần click chọn vào biểu tượng con mắt để xem hóa đơn đã xóa bỏ. Các hóa đơn được đánh dấu X như hình bên dưới sẽ là các hóa đơn đã bị xóa bỏ.",
+    "anh": [
+      {
+        "src": "xoa-bo-hoa-don_1.jpg",
+        "cap": "Hóa đơn bán ra → Xóa bỏ hóa đơn: lọc hóa đơn, chọn rồi bấm Xóa bỏ hóa đơn"
+      }
+    ]
+  },
+  {
+    "nhom": "Hóa đơn bán ra",
+    "tieu_de": "Điều chỉnh hóa đơn",
+    "link": "https://matbao.in/huong-dan-su-dung?product=huong-dan-su-dung-3-0&article=6a98d9b3c70b2c005b6165f3",
+    "noi_dung": "Hướng dẫn điều chỉnh hóa đơn\nBước 1: Truy cập vào trang Quản lý Hóa đơn. Tại danh mục Hóa đơn bán ra, chọn Điều chỉnh Hóa Đơn => Tạo mới\n\nBước 2: Bạn chọn mẫu số/ký hiệu, số hóa đơn, kiểu điều chỉnh, chọn xong bạn nhấn Tìm và Điều chỉnh Hóa đơn.\n\nBước 3: Nhập thông tin cần điều chỉnh:\n- Đối với hóa đơn điều chỉnh thông tin: hệ thống vẫn hiển thị thông tin hàng hoá, dịch vụ ở các ô Số lượng, Đơn giá, Thành tiền, Thuế suất GTGT, Thuế GTGT. Nếu thông tin điều chỉnh không liên quan đến hàng hoá dịch vụ thì bạn thực hiện xoá thông tin hàng hoá, dịch vụ. Thông tin sai ở dòng nào thì ghi lại giá trị đúng tại dòng đó và ghi rõ nội dung cần điều chỉnh ở cột Tên hàng hóa dịch vụ. Nếu bị sai thông tin ở nhiều dòng thì thể hiện nhiều dòng.\n\n- Đối với hóa đơn điều chỉnh tăng/giảm: nếu sai đơn giá/số lượng/thành tiền ví dụ: đơn giá hóa đơn đã xuất sai là 30000 (giá đúng là 40000) thì điều chỉnh tăng “chênh lệch giá” thể hiện trên hóa đơn là 10000 sao cho tổng thành tiền của hóa đơn ban đầu và hóa đơn điều chỉnh có giá trị đúng. Ngược lại nếu điều chỉnh giảm thì nhập “số âm chênh lệch giá”\n\n- Nhấn Lưu hoá đơn.\n\nNhấn chọn Đồng ý\n\nHệ thống sẽ trở về Danh sách điều chỉnh hoá đơn, bạn có thể xem danh sách hóa đơn bị điều chỉnh và hoá đơn điều chỉnh dưới dạng hóa đơn nháp.\n\nTại Danh sách hoá đơn, bạn có thể thực hiện 1 số chức năng: xem, chỉnh sửa và xoá.\n\nBước 4: Bạn tải biên bản mẫu (hoặc sử dụng biên bản nội bộ), điền đầy đủ thông tin sau đó tải lên biên bản vào hệ thống.\n\nCách 1: Bạn nhập các thông tin còn thiếu vào mẫu biên bản có sẳn trên hệ thống (bên A, bên B và lý do,…) => nhấn Lưu dữ liệu\n\nCách 2: Bạn có thể tải biên bản nội bộ có sẵn bằng cách nhấn chọn Upload File => Chọn tệp => Upload File\n\nHệ thống sẽ hiển thị kết quả như sau:  Bạn có thể tiến hành Chỉnh sửa thông tin nếu cần.\n\nBạn có thể tải hoặc in biên bản từ hệ thống.\n(Video hướng dẫn: https://youtu.be/zJP7fYrTeUU)",
+    "anh": [
+      {
+        "src": "dieu-chinh-hoa-don_1.jpg",
+        "cap": "Bước 1: Hóa đơn bán ra → Điều chỉnh hóa đơn → bấm Tạo mới"
+      },
+      {
+        "src": "dieu-chinh-hoa-don_2.jpg",
+        "cap": "Bước 2: Chọn Mẫu số/Ký hiệu, nhập Số hóa đơn, chọn Kiểu điều chỉnh rồi bấm Tìm & điều chỉnh hóa đơn"
+      }
+    ]
+  },
+  {
+    "nhom": "Hóa đơn bán ra",
+    "tieu_de": "Thay thế hóa đơn",
+    "link": "https://matbao.in/huong-dan-su-dung?product=huong-dan-su-dung-3-0&article=6a98da37c70b2c005b6166c9",
+    "noi_dung": "Hướng dẫn thay thế hóa đơn\nBước 1: Truy cập vào trang Quản lý Hóa đơn. Tại danh mục Hóa đơn bán ra, chọn Thay thế Hóa Đơn => Tạo mới\nBước 2: Bạn chọn mẫu số/ký hiệu, số hóa đơn, bạn nhấn Tìm và Thay thế Hóa đơn.\n\nBước 3:\n·       Kiểm tra mẫu số/ký hiệu hóa đơn gốc\n·       Ngày phát hành hóa đơn gốc\n·       Cập nhật thông tin mới cần thay thế\n·       Nhấn Lưu hoá đơn.\n\nNhấn chọn Đồng ý\n\nHệ thống sẽ trở về Danh sách thay thế hóa đơn, bạn có thể xem danh sách hóa đơn bị thay thế và hoá đơn thay thế dưới dạng hóa đơn nháp.\n\n Tại Danh sách hoá đơn, bạn có thể thực hiện 1 số chức năng: xem, chỉnh sửa, xoá hoá đơn thay thế nháp\n\nBước 4: Bạn tải biên bản mẫu (hoặc sử dụng biên bản nội bộ), điền đầy đủ thông tin sau đó tải lên biên bản vào hệ thống.\n\nCách 1: Bạn nhập các thông tin còn thiếu vào mẫu biên bản có sẳn trên hệ thống (bên A, bên B và lý do,…) => nhấn Lưu dữ liệu\n\n Cách 2: Bạn có thể tải biên bản nội bộ có sẵn bằng cách nhấn chọn Upload File => Chọn tệp => Upload File\n\nHệ thống sẽ hiển thị kết quả như sau:  Bạn có thể tiến hành Chỉnh sửa thông tin nếu cần.\nBạn có thể tải hoặc in biên bản từ hệ thống.\n(Video hướng dẫn: https://youtu.be/Lvjy5mAB_sI)",
+    "anh": [
+      {
+        "src": "thay-the-hoa-don_1.jpg",
+        "cap": "Bước 1: Hóa đơn bán ra → Thay thế hóa đơn → bấm Tạo mới"
+      },
+      {
+        "src": "thay-the-hoa-don_2.jpg",
+        "cap": "Bước 2: Chọn Mẫu số/Ký hiệu, nhập Số hóa đơn rồi bấm Tìm & thay thế hóa đơn"
+      }
+    ]
+  },
+  {
+    "nhom": "Hóa đơn bán ra",
+    "tieu_de": "Mẫu 04/SS-HĐĐT",
+    "link": "https://matbao.in/huong-dan-su-dung?product=huong-dan-su-dung-3-0&article=6a98db04c70b2c005b6167fd",
+    "noi_dung": "Thông báo sai sót hóa đơn - mẫu 04/SS-HĐĐT\nBước 1: Click vào Hóa đơn bán ra -> chọn mục Mẫu số 04/SS-HĐĐT\nBước 2: Click vào Tạo mới\nBước 3:  Chọn Mẫu số ký hiệu hóa đơn (1) -> chọn Loại xữ lý (2) -> chọn Số hóa đơn cần thực hiện\n\nBước 4: Ghi rõ lý do\nBước 5: Click vào Lưu dữ liệu\nBước 6:\n-            Mục (1) click vào để chọn tờ 04/SS-HĐĐT cần thực hiện.\n-            Mục (2) thực hiện ký tờ 04/SS-HĐĐT bạn đã chọn.\n-            Mục (3) sau khi ký thực hiện Gửi CQT\n-            Mục (4) xem tờ khai 04/SS-HĐĐT\n-            Mục (5) Thực hiện tải tờ khai theo file xml\n-            Mục (6) xem kết quả CQT",
+    "anh": [
+      {
+        "src": "mau-04-ss-hddt_1.jpg",
+        "cap": "Hóa đơn bán ra → Mẫu 04/SS-HĐĐT: danh sách thông báo, các nút Ký số, Gửi CQT, Xem tờ khai, Tải XML"
+      },
+      {
+        "src": "mau-04-ss-hddt_2.jpg",
+        "cap": "Bấm Tạo mới: nhập thông tin chung, chọn loại thông báo, Chọn hóa đơn sai sót rồi Lưu dữ liệu"
+      }
+    ]
+  },
+  {
+    "nhom": "Hóa đơn bán ra",
+    "tieu_de": "Bảng tổng hợp dữ liệu hóa đơn điện tử",
+    "link": "https://matbao.in/huong-dan-su-dung?product=huong-dan-su-dung-3-0&article=6a968344c70b2c005b5f48ec",
+    "noi_dung": "Bước 1: Tạo mới Bạn vào mục Hóa đơn => Bảng tổng hợp dữ liệu HDDT – CQT , sau đó nhấn chọn Tạo bảng tổng hợp\n\nBước 2: Tạo thông tin dữ liệu các chỉ tiêu\n [1] Kỳ dữ liệu\n- Chọn ngày: bảng tổng hợp gửi theo ngày\n- Chọn tháng hoặc quý: doanh nghiệp gửi bảng tờ khai theo kỳ tháng/quý báo cáo thuế\nNgày: Bảng tổng hợp\n[2] Lần đầu: nếu lần đầu thì đánh dấu\n[3] Bổ sung: Nếu là lần đầu thì bổ sung bằng 0. Ngược lại thì nhập 1 hoặc 2 hoặc 3 …\n[4] Ngày lập: chọn ngày lập\n[5] Số: số bảng tổng hợp trong ngày/tháng/quý\nBước 3: Tiến hành nhập thông tin cần thiết, chọn Ký hiệu và chọn Hóa đơn\n\nĐánh dấu tích vào ô vuông nhỏ để chọn các hóa đơn, tiếp theo nhấn Nhập\n\nSau đó, tiếp tục chọn mẫu/Ký hiệu, hóa đơn cần đẩy dữ liệu vào bảng tổng hợp.  Thông tin sẽ hiển thị như hình dưới, sau đó bạn nhấn Lưu dữ liệu => nhấn Lưu.\n\nLúc này hệ thống bắt đầu tạo dữ liệu. Bạn hãy chờ đợi khoảng 15-30 giây.  Tiếp theo, hệ thống sẽ hiển thị thông tin bạn mới tạo ở trạng thái Chờ ký\n\nBạn có thể tiến hành chỉnh sửa/xóa đối với thông tin tổng hợp ở trạng thái Chờ ký\n\nBước 4: Ký số  Bạn đánh dấu tích để chọn bảng tổng hợp vào ô Chọn, sau đó nhấn Ký số -> màn hình sẽ hiện một hộp thoại nhỏ yêu cầu nhập mã PIN -> Sau khi nhập xong mã PIN của Chữ ký số -> nhấn đồng ý.\n\nTrạng thái thay đổi thành Đã ký\n\nBước 5: Gửi CQT  Tiếp tục đánh dấu tích để chọn bảng tổng hợp ở trạng đã ký vào ô Chọn, rồi nhấn Gửi CQT\nThông tin sẽ được hiển thị như hình dưới  :",
+    "anh": [
+      {
+        "src": "bang-tong-hop-du-lieu_1.jpg",
+        "cap": "Hóa đơn bán ra → Bảng tổng hợp dữ liệu HĐĐT - CQT → bấm Tạo bảng tổng hợp"
+      },
+      {
+        "src": "bang-tong-hop-du-lieu_2.jpg",
+        "cap": "Nhập kỳ dữ liệu, lần đầu/bổ sung, Chọn hóa đơn rồi bấm Lưu dữ liệu"
+      }
+    ]
+  },
+  {
+    "nhom": "Hóa đơn bán ra",
+    "tieu_de": "Lịch sử gửi mail",
+    "link": "https://matbao.in/huong-dan-su-dung?product=huong-dan-su-dung-3-0&article=6a4df07eda8bc7523cd306e1",
+    "noi_dung": "Chức năng này giúp bạn quản lý và theo dõi được trạng thái các email thông báo phát hành hóa đơn đã gửi cho đối tác của bạn.\nLưu ý: Nếu trước đó bạn đã tạo Danh sách Khách hàng và có nhập email của đối tác thì khi bạn nhấn phát hành Hóa đơn, hệ thống sẽ tự động gửi mail cho đối tác của bạn.\nĐể quản lý Lịch sử gửi mail Bạn sẽ thực hiện như sau:\nBước 1: Ngay tại menu Hóa đơn bán ra, bạn chọn Lịch sử gửi mail, giao diện sẽ hiển thị như sau:\nĐối với trường hợp không thể hiện thông tin địa chỉ email người nhận là do bạn chưa nhập thông tin email của khách hàng, nhưng bạn vẫn có thể thực hiện thao tác gửi email bằng chức năng này bằng cách chọn vào biểu tượng ở mục Sửa.\nCách 1: Sau khi hiển thị màn hình chỉnh sửa, bạn nhập địa chỉ email mà bạn muốn gửi tới ở mục Mail người nhận sau đó bấm Gửi mail để lưu thông tin địa chỉ email.\nCách 2: Bạn đánh dấu vào ô vuông ở cột Chọn và bấm Gửi mail để hoàn tất gửi mail.\nBước 2: Bạn kiểm tra trạng thái hoặc loại gửi email trên hệ thống như sau\nBước 3: Sau khi email hiện trạng thái Đã gửi, bạn thông báo đến người nhận để kiểm tra email thông báo.",
+    "anh": [
+      {
+        "src": "lich-su-gui-mail_1.jpg",
+        "cap": "Hóa đơn bán ra → Lịch sử gửi mail: lọc, xem trạng thái và Gửi mail"
+      }
+    ]
+  },
+  {
+    "nhom": "Báo cáo",
+    "tieu_de": "Kiểm tra & cảnh báo sai lệch Hóa đơn",
+    "link": "https://matbao.in/huong-dan-su-dung?product=huong-dan-su-dung-3-0&article=6a95b63fc70b2c005b5ea9ae",
+    "noi_dung": "Tính năng Kiểm tra & cảnh báo sai lệch hóa đơn giúp người dùng rà soát dữ liệu hóa đơn, phát hiện các trường hợp số liệu chi tiết không khớp với số liệu tổng hợp và cảnh báo số thập phân không phù hợp đối với hóa đơn có đơn vị tiền tệ là VNĐ.\n\nTại màn hình chính của phần mềm, thực hiện:\nBáo cáo → Kiểm tra & cảnh báo sai lệch HĐ\n\nMàn hình hiển thị các điều kiện tìm kiếm gồm:\n- Mẫu số / Ký hiệu: Lựa chọn mẫu số, ký hiệu hóa đơn cần kiểm tra hoặc để trống để kiểm tra tất cả.\n\n- Khoảng thời gian: Chọn thời gian phát hành hóa đơn cần kiểm tra.\n\n- Nhấn Tìm kiếm để thực hiện kiểm tra.\n\nLưu ý: Có thể kết hợp Mẫu số/Ký hiệu và Khoảng thời gian để giới hạn phạm vi kiểm tra, giúp việc rà soát dữ liệu nhanh và chính xác hơn.\n2. Kiểm tra số liệu chi tiết với sổ tổng hợp của hóa đơn\nChức năng giúp đối chiếu số liệu được thể hiện trên các dòng chi tiết hàng hóa, dịch vụ với số liệu tổng hợp trên hóa đơn.\nHệ thống thực hiện kiểm tra các chỉ tiêu như:\n- Thành tiền.\n\n- Tiền thuế.\n\n- Tổng tiền thanh toán.\n\n- Các số liệu tổng hợp khác trên hóa đơn, tùy theo loại hóa đơn và dữ liệu được lập.\n\nNguyên tắc kiểm tra\nHệ thống tổng hợp số liệu từ từng dòng chi tiết trên hóa đơn và so sánh với số liệu tổng hợp tương ứng.\nMục đích\nViệc kiểm tra giúp phát hiện các trường hợp:\n- Số liệu giữa phần chi tiết và phần tổng hợp không khớp.\n\n- Hóa đơn có thể bị sai khi nhập hoặc kết xuất dữ liệu.\n\n- Công thức tính tổng thành tiền, tiền thuế hoặc tổng tiền chưa chính xác.\n\n- Dữ liệu hóa đơn cần được rà soát trước khi sử dụng cho mục đích kê khai, đối soát hoặc quản lý.",
+    "anh": [
+      {
+        "src": "kiem-tra-canh-bao-sai-lech_1.jpg",
+        "cap": "Báo cáo → Kiểm tra & cảnh báo sai lệch HĐ: chọn Mẫu số/Ký hiệu, khoảng thời gian rồi bấm Tìm kiếm"
+      }
+    ]
+  },
+  {
+    "nhom": "Báo cáo",
+    "tieu_de": "Báo cáo số lượng xuất hóa đơn",
+    "link": "https://matbao.in/huong-dan-su-dung?product=huong-dan-su-dung-3-0&article=6a9315b0c70b2c005b5c8f09",
+    "noi_dung": "Báo cáo số lượng xuất hóa đơn V3\nĐể thực hiện xem/xuất báo cáo số lượng xuất hóa đơn theo khoảng thời gian, bạn thực hiện như sau:\nBước 1: Tại menu Báo cáo, chọn chức năng Báo cáo số lượng xuất hóa đơn\nBước 2: Chọn khoảng thời gian kết xuất, sau đó nhập mã số thuế doanh nghiệp và bấm Báo cáo nhanh.\nBước 3: Kiểm tra thông tin hiển thị theo các cột trên danh sách, nhấn Xuất danh sách, hệ thống sẽ tự động tải dữ liệu theo định dạng excel về máy tính để lưu trữ.\nFile danh sách khi tải về sẽ có giao diện như hình bên dưới.",
+    "anh": []
+  },
+  {
+    "nhom": "Báo cáo",
+    "tieu_de": "Tờ khai 01/GTGT TT80/2021",
+    "link": "https://matbao.in/huong-dan-su-dung?product=huong-dan-su-dung-3-0&article=6a98e06ac70b2c005b617029",
+    "noi_dung": "Trang Tờ khai 01/GTGT – TT80/2021 dùng để quản lý các tờ khai thuế GTGT theo mẫu 01/GTGT ban hành kèm Thông tư 80/2021/TT-BTC.\nTại đây, người dùng có thể xem danh sách tờ khai đã tạo, tra cứu bảng kê, chỉnh sửa, xóa và tải tờ khai XML.\n1. Danh sách tờ khai\nDanh sách hiển thị các thông tin:\nTrường thông tin | Mô tả\nSTT | Số thứ tự của tờ khai trong danh sách.\nKỳ tính thuế | Kỳ kê khai của tờ khai, ví dụ: tháng 1/2026, quý Q1/2025.\nLần | Số lần nộp tờ khai của cùng một kỳ tính thuế.\nThuế khấu trừ | Số thuế GTGT được khấu trừ theo tờ khai.\nThuế phải nộp | Số thuế GTGT phải nộp theo tờ khai.\nNgày tạo | Ngày người dùng tạo tờ khai trên hệ thống.\nBảng kê | Các bảng dữ liệu liên quan đến tờ khai.\nChọn | Chọn tờ khai để thực hiện thao tác tương ứng.\nChỉnh sửa | Cho phép mở và cập nhật lại tờ khai.\n2. Các chức năng trên trang\n2.1. Tạo mới\nNhấn\nđể lập một tờ khai 01/GTGT mới.\nNgười dùng thực hiện nhập các thông tin theo kỳ tính thuế và dữ liệu phát sinh, sau đó lưu tờ khai.\nLưu ý: Cần kiểm tra đúng kỳ tính thuế và lần kê khai trước khi tạo tờ khai.\n2.2. Sửa tờ khai\nTại cột Chỉnh sửa, nhấn\ntương ứng với tờ khai cần cập nhật.\nNgười dùng có thể kiểm tra và điều chỉnh thông tin tờ khai, bảng kê và các dữ liệu liên quan.\n2.3. Xóa tờ khai\nChọn tờ khai cần xóa tại cột Chọn, sau đó nhấn\nLưu ý: Kiểm tra kỹ tờ khai trước khi xóa để tránh xóa nhầm dữ liệu.\n2.4. Tải XML\nChọn tờ khai cần xuất, sau đó nhấn\nđể tải tờ khai dưới định dạng XML phục vụ việc kiểm tra hoặc nộp dữ liệu theo quy định.\n3. Bảng kê của tờ khai\nTại cột Bảng kê, hệ thống cung cấp các liên kết để người dùng xem dữ liệu chi tiết:\n- Danh sách bán ra: Xem các hóa đơn, chứng từ bán ra được tổng hợp vào tờ khai.\n\n- Danh sách mua vào: Xem các hóa đơn, chứng từ mua vào được sử dụng để kê khai, khấu trừ thuế.\n\n- Bảng kê đối soát/giải trình: Xem dữ liệu phục vụ đối soát hoặc giải trình số liệu trên tờ khai, nếu có.\n\nNgười dùng có thể nhấn trực tiếp vào từng liên kết để kiểm tra dữ liệu trước khi hoàn tất tờ khai.\n4. Phân trang danh sách\nPhía cuối danh sách cho phép người dùng:\n- Chuyển sang trang trước/trang sau.\n\n- Chọn số lượng bản ghi hiển thị trên mỗi trang.\n\n- Theo dõi tổng số trang của danh sách.\n\nVí dụ: 10/trang nghĩa là hệ thống hiển thị tối đa 10 tờ khai trên mỗi trang.\n\nHướng dẫn tạo tờ khai 01/GTGT (TT80/2021)\n\nChọn:\n- Kỳ kê khai thuế: tháng/quý\n- Loại tờ khai: lần đầu/bổ sung\n- Có kèm phụ lục giảm thuế hay không?\n\n=> Sau đó nhấn nút: Tạo tờ khai\nHệ thống sẽ sinh bảng kê mua vào/ bán ra. Chúng ta có thể bỏ tích chọn các hóa đơn không cần khai báo.\nTại đây bạn có thể xuất danh sách hóa đơn trên bảng kê\nSau đó bạn nhấn nút Lưu dữ liệu",
+    "anh": [
+      {
+        "src": "to-khai-01-gtgt_1.jpg",
+        "cap": "Báo cáo → Tờ khai 01/GTGT TT80/2021: danh sách tờ khai, các nút Tải XML, Xóa, + Tạo mới"
+      }
+    ]
+  },
+  {
+    "nhom": "Báo cáo",
+    "tieu_de": "Báo cáo THSD hóa đơn (BC26)",
+    "link": "https://matbao.in/huong-dan-su-dung?product=huong-dan-su-dung-3-0&article=6a98e262c70b2c005b6172b5",
+    "noi_dung": "Báo cáo THSD hóa đơn (BC26) giúp người dùng theo dõi tình hình sử dụng hóa đơn theo từng mẫu số, ký hiệu và kỳ báo cáo. Hệ thống tổng hợp số lượng hóa đơn tồn đầu kỳ, mua trong kỳ, tổng số sử dụng và số đã sử dụng. Người dùng có thể xem báo cáo, in báo cáo hoặc xuất dữ liệu dưới dạng Excel/XML.\nChức năng Báo cáo tình hình sử dụng hóa đơn (BC26) dùng để tổng hợp và theo dõi tình hình sử dụng hóa đơn theo mẫu số, ký hiệu hóa đơn và kỳ báo cáo. Người dùng có thể tra cứu số lượng hóa đơn tồn đầu kỳ, mua trong kỳ, tổng số sử dụng và số hóa đơn đã sử dụng.\n1. Bộ lọc báo cáo\nNgười dùng lựa chọn các thông tin:\n- Mẫu số / Ký hiệu: Chọn mẫu số và ký hiệu hóa đơn cần lập báo cáo.\n\n- Quý: Chọn kỳ báo cáo theo quý.\n\n- Năm: Chọn năm cần báo cáo.\n\n- Nhấn Báo cáo nhanh để hệ thống tổng hợp dữ liệu theo các điều kiện đã chọn.\n\n2. Nội dung báo cáo\nHệ thống hiển thị danh sách hóa đơn với các thông tin:\nTrường | Mô tả\nSTT | Số thứ tự của dòng dữ liệu.\nTên hóa đơn | Tên loại hóa đơn được sử dụng.\nKý hiệu mẫu | Ký hiệu mẫu số của hóa đơn.\nKý hiệu HĐ | Ký hiệu của hóa đơn.\nTồn đầu kỳ – Tổng số | Tổng số hóa đơn còn tồn tại thời điểm đầu kỳ.\nTồn đầu kỳ – Từ số | Số hóa đơn bắt đầu của dải tồn đầu kỳ.\nTồn đầu kỳ – Đến số | Số hóa đơn kết thúc của dải tồn đầu kỳ.\nMua trong kỳ – Từ số | Số hóa đơn bắt đầu của số hóa đơn mua trong kỳ.\nMua trong kỳ – Đến số | Số hóa đơn kết thúc của số hóa đơn mua trong kỳ.\nTổng số sử dụng – Từ số | Số hóa đơn bắt đầu trong phạm vi hóa đơn sử dụng trong kỳ.\nTổng số sử dụng – Đến số | Số hóa đơn kết thúc trong phạm vi hóa đơn sử dụng trong kỳ.\nCộng | Tổng số hóa đơn theo phạm vi báo cáo.\nĐã sử dụng | Số lượng hóa đơn đã được sử dụng trong kỳ.\nĐối với hóa đơn điện tử theo nghị định 254/2026/NĐ-CP không có tồn đầu kỳ và tồn cuối kỳ ->\n3. Các chức năng xuất báo cáo\nSau khi có dữ liệu báo cáo, người dùng có thể:\n- In báo cáo: In báo cáo tình hình sử dụng hóa đơn.\n\n- Xuất file XLS: Xuất dữ liệu báo cáo ra file Excel để lưu trữ hoặc kiểm tra.\n\n- Xuất file XML: Xuất dữ liệu báo cáo theo định dạng XML phục vụ kê khai/nộp dữ liệu theo quy định.",
+    "anh": [
+      {
+        "src": "bc26_1.jpg",
+        "cap": "Báo cáo → Báo cáo THSD hóa đơn (BC26): chọn mẫu số/ký hiệu, quý, năm rồi bấm Báo cáo nhanh"
+      }
+    ]
+  },
+  {
+    "nhom": "Bảng kê",
+    "tieu_de": "Bảng kê hóa đơn",
+    "link": "https://matbao.in/huong-dan-su-dung?product=huong-dan-su-dung-3-0&article=6a8e92ccc70b2c005b58cfbb",
+    "noi_dung": "Bảng kê theo số hóa đơn\nBước 1: Click vào Bảng kê -> chọn mục Bảng kê hóa đơn\nBước 2: Thực hiện\n- Mục (1) chọn loại hóa đơn.\n\n- Mục (2) chọn mẫu số và ký hiệu.\n\n- Mục (3) chọn trạng thái hóa đơn\n\n- Mục (4) chọn thời gian\n\n- Mục (5) thực hiện báo cá nhanh trên hệ thống\n\n- Mục (6) thực hiện tải nhanh file Excel",
+    "anh": [
+      {
+        "src": "bang-ke-hoa-don_1.jpg",
+        "cap": "Bảng kê → Bảng kê hóa đơn: chọn Bán ra/Mua vào, bộ lọc rồi bấm Báo cáo nhanh hoặc Tải nhanh Excel"
+      }
+    ]
+  },
+  {
+    "nhom": "Bảng kê",
+    "tieu_de": "Bảng kê theo thuế suất",
+    "link": "https://matbao.in/huong-dan-su-dung?product=huong-dan-su-dung-3-0&article=6a95b65dc70b2c005b5ea9da",
+    "noi_dung": "Để báo cáo hóa đơn, chứng từ hàng hóa/dịch vụ thống kê theo từng mức thuế suất VAT bán ra), bạn sẽ thực hiện như sau:\nNgay tại mục trang Quản lý Hóa đơn, trong mục Bảng kê => Chọn Bảng kê theo thuế suất\n\nTrong bảng kê theo thuế suất, bạn loại hóa đơn muốn xem => chọn Hóa đơn bán ra/ Hóa đơn mua vào (1)\nTiếp đến chọn lần lượt các thông tin sau để lọc dữ liệu:\n(2) Mẫu số và ký hiệu hóa đơn.\n(3) Trạng thái hóa đơn.\n(4) Thời gian xem hóa đơn theo Tháng/ quý và năm, sau đó nhấn Báo cáo nhanh.\nKhi đó hệ thống sẽ tự xuất ra báo cáo theo kỳ báo cáo mà bạn chọn, bạn có thể tải Excel và in báo cáo để phục vụ cho việc lưu trữ báo cáo.",
+    "anh": [
+      {
+        "src": "bang-ke-thue-suat_1.jpg",
+        "cap": "Bảng kê → Bảng kê theo thuế suất: chọn bộ lọc rồi bấm Báo cáo nhanh"
+      }
+    ]
+  },
+  {
+    "nhom": "Bảng kê",
+    "tieu_de": "Bảng kê theo sản phẩm",
+    "link": "https://matbao.in/huong-dan-su-dung?product=huong-dan-su-dung-3-0&article=6a98f9c3c70b2c005b618cd8",
+    "noi_dung": "Mục đích: để thống kê chi tiết từng sản phẩm trên từng số hóa đơn. Để xem báo cáo theo sản phẩm, bạn sẽ thực hiện như sau: Ngay tại menu Báo cáo, bạn chọn Bảng kê theo sản phẩm. Chọn Bán ra hoặc Mua vào, Mẫu số & Ký hiệu, Trạng thái hóa đơn, Ngày/tháng/năm cần xem báo cáo -> sau đó bấm Báo cáo Nhanh.\n\nBạn có thể  bấm Tải danh sách lưu về nội bộ để phục vụ cho việc làm báo cáo của đơn vị bằng cách nhấn Tải nhanh Excel.",
+    "anh": [
+      {
+        "src": "bang-ke-san-pham_1.jpg",
+        "cap": "Bảng kê → Bảng kê theo sản phẩm: chọn bộ lọc rồi bấm Báo cáo nhanh"
+      }
+    ]
+  },
+  {
+    "nhom": "Bảng kê",
+    "tieu_de": "Bảng kê theo phần mềm kế toán",
+    "link": "https://matbao.in/huong-dan-su-dung?product=huong-dan-su-dung-3-0&article=6a93101dc70b2c005b5c8a57",
+    "noi_dung": "Chức năng này hỗ trợ bạn xuất bảng kê dữ liệu theo phần mềm kế toán MISA ( ý nghĩ mang tính chất tham khảo khi kê khai báo cáo thuế theo quý/tháng)\nBước 1: Ngay tại menu Bảng kê, bạn chọn Bảng kê theo phần mềm kế toán, giao diện sẽ hiển thị như sau\n\nBước 2: Bạn chọn Mẫu số - ký hiệu và Khoảng thời gian, sau đó bấm Báo cáo nhanh.\nBước 3: Kiểm tra thông tin theo các cột trên màn hình hiển thị và xuất Danh sách theo định dạng excel để lọc dữ liệu cần tìm kiếm.\nKhi bạn cần bật/tắt tính năng cột hiển thị, bạn nhấn chọn biểu tượng ở góc phải để thao tác.",
+    "anh": [
+      {
+        "src": "bang-ke-phan-mem-ke-toan_1.jpg",
+        "cap": "Bảng kê → Bảng kê phần mềm kế toán: chọn mẫu số, phần mềm, thời gian rồi bấm Báo cáo nhanh"
+      }
+    ]
+  },
+  {
+    "nhom": "Cài đặt/cấu hình",
+    "tieu_de": "Tờ khai 01/ĐKTĐ-HĐĐT",
+    "link": "https://matbao.in/huong-dan-su-dung?product=huong-dan-su-dung-3-0&article=6a992a99c70b2c005b61c541",
+    "noi_dung": "Trong Cài đặt/Cấu hình -> chọn Tờ khai 01/ĐKTĐ-HĐĐT -> Tạo mới -> Điền thông tin vào tờ mẫu Thay đổi thông tin sử dụng hóa đơn như sau: Những nội dung có đánh dấu “*” là trường thông tin bắt buộc\n\nLoại đăng ký: chọn loại đăng ký cho Tờ khai 01/ĐKTĐ-HĐĐT\n\nThông tin chung:\n- Đăng ký mới: Doanh nghiệp lần đầu tiên đăng ký sử dụng hoá đơn điện tử.\n\n- Thay đổi thông tin: Áp dụng cho doanh nghiệp đã đăng ký sử dụng hóa đơn thành công trước đó.\n\n- Ngày lập: ngày thực hiện lập tờ khai 01/ĐKTĐ-HĐĐT (ngày hiện tại)\n\n- Mã số thuế:\n\n- Cơ quan thuế quản lý: gõ tên hoặc từ khóa CQT quản lý -> sau đó chọn.\n\n- Địa danh (*): Tỉnh/thành phố sẽ tự động theo CQT quản lý\n\n- Mã cơ quan thuế: không được nhập hệ thống sẽ tự lấy thông tin sau khi chọn đúng Cơ Quan Thuế quản lý.\n\nĐại diện pháp luật:\n\n- Họ và tên (*): người đại diện pháp luật trên Giấy phép kinh doanh\n\n- Căn cước công dân (*):\n\n- Ngày sinh (ngày/tháng/năm) (*):\n\n- Số điện thoại (*):\n\n- Số hộ chiếu: không bắt buộc\n\n- Giới tính: Nữ/Nam\n\nLưu ý: Đối với trường hợp là người nước ngoài, vui lòng để trống thông tin Căn cước công dân và nhập Số hộ chiếu.\nNgười liên hệ:\n\n- Họ và tên (*): người liên hệ, không bắt buộc phải là Người đại diện pháp luật.\n\n- Địa chỉ (*):: Địa chỉ của doanh nghiệp\n\n- Email (*):\n\n- Số điện thoại (*):\n\nCấu hình hoá đơn:\n-          Hình thức hóa đơn:\n-          Nếu bạn chọn Có mã của cơ quan thuế: thì phương thức chuyển dữ liệu là Chuyển đầy đủ thông tin hóa đơn (hệ thống sẽ ẩn đi nút chuyển bảng tổng hợp dữ liệu điện tử)\n-          Nếu bạn chọn Không có mã của cơ quan thuế: thì phương thức chuyển dữ liệu bạn có thể chọn Chuyển bảng tổng hợp dữ liệu điện tử hoặc chuyển đầy đủ thông tin hóa đơn\n\nHình thức gửi dữ liệu: Mặc định để trống, trừ trường hợp tổ chức/cá nhân sử dụng hóa đơn không mã và có hình thức gừi bảng tổng hợp -> phải tích chọn Chuyển dữ liệu qua tổ chức truyền nhận.\n\nLoại hoá đơn sử dụng:\n-          Hóa đơn giá trị gia tăng:  các doanh nghiệp/HKD có phương pháp tính thuế GTGT Khấu trừ.\n-          Hóa đơn GTGT tích hợp biên lai thu thuế, phí, lệ phí: các doanh nghiệp/HKD có phương pháp tính thuế GTGT Khấu trừ có tích hợp biên lai thu thuế, phí, lệ phí\n-          Hóa đơn bán hàng: các doanh nghiệp/HKD có phương pháp tính thuế GTGT theo tỷ lệ doanh thu hay khoán doanh thu.\n-          Hóa đơn bán hàng tích hợp biên lai thu thuế, phí, lệ phí: các doanh nghiệp/HKD có phương pháp tính thuế GTGT heo tỷ lệ doanh thu hay khoán doanh thu có tích hợp biên lai thu thuế, phí, lệ phí.\n-          Hóa đơn thương mại: hóa đơn xuất khẩu.\n-          Hóa đơn bán tài sản công.\n-          Hóa đơn bán hàng dự trữ quốc gia.\n-          Các loại hóa đơn khác: tem, vé điện tử.\n-          Các chứng từ được in, phát hành, sử dụng và quản lý như hóa đơn: phiếu xuất kho kiêm vận chuyển nội bộ, Phiếu xuất kho bán hàng đại lý,..\n\nDanh sách chứng thư số: cắm chữ ký token vào máy tính, sau đó bạn chọn mục Tải chữ ký để hệ thống ghi nhận chữ ký số của bạn vào trong bảng danh sách chứng thư số.\n\nNếu bạn muốn thêm chữ ký số nữa thì bạn sẽ nhấn vào dấu + Thêm.\nLưu ý: Bạn sử dụng bao nhiêu chữ ký số để ký hóa đơn, thì bạn phải điền đầy đủ bấy nhiêu chữ ký số mà bạn dùng. CQT chấp nhận tờ khai mới nhất, tờ khai cũ (trước đó) được xem như không còn giá trị sử dụng.\nDanh sách bổ sung:\n-          Danh sách tổ chức cung cấp giải pháp hóa đơn điện tử sử dụng:\n-          Danh sách tổ chức truyền nhận sử dụng\nLưu ý: Bạn sử dụng bao nhiêu nhà cung cấp cũng tương ứng với các tổ chức truyền nhận, thì bạn cũng liệt kê đầy trong danh sách bổ sung.\n\nSau khi nhập và kiểm tra thông tin chính xac, nhấn chọn Lưu dữ liệu.\n\nHệ thống hiển thị danh sách tờ khai Đăng ký/thay đổi thông tin sử dụng hóa đơn điện tử\nTại đây, bạn có thể xem, sửa, xoá tờ khai, Ký số, Gửi Cơ quan Thuế và Sao chép.\n\nSau khi gửi tờ khai thành công, bạn nhấn quay lại hoặc nhấn vào Tờ khai 01/ĐKTĐ-HDDT cũng sẽ theo dõi ở mục Trạng thái",
+    "anh": [
+      {
+        "src": "to-khai-01-dktd_1.jpg",
+        "cap": "Cài đặt/Cấu hình → Tờ khai 01/ĐKTĐ-HĐĐT → bấm Tạo tờ khai mới"
+      },
+      {
+        "src": "to-khai-01-dktd_2.jpg",
+        "cap": "Điền lần lượt các mục ở cột trái (Loại đăng ký, Thông tin chung, Đại diện pháp luật…) rồi Lưu dữ liệu"
+      }
+    ]
+  },
+  {
+    "nhom": "Cài đặt/cấu hình",
+    "tieu_de": "Cấu hình tải hóa đơn TCT",
+    "link": "https://matbao.in/huong-dan-su-dung?product=huong-dan-su-dung-3-0&article=6a92749ac70b2c005b5c1007",
+    "noi_dung": "Hướng dẫn sử dụng Cấu hình tải hóa đơn TCT V3\n- Cấu hình tải hóa đơn TCT V3 giúp hệ thống tự động tra cứu, xử lí và tải hóa đơn đầu vào trực tiếp từ cổng Tổng cục Thuế.\nCác bước thực hiện:\n\n- Nhập thông tin đăng nhập\n\n- Tên đăng nhập: Nhập Mã số thuế (MST) của Doanh nghiệp\n- Mật khẩu: Nhập mật khẩu tài khoản Thuế điện tử tương ứng\n- Xác thực: Nhập chính xác Mã captcha hiển thị trên màn hình\n\n- Kiểm tra và Lưu\n\n- Bấm Kiểm tra kết nối CQT để đảm bảo thông tin đúng\n- Bấm Lưu cấu hình để hoàn tất\nLưu ý:\n- Thay đổi mật khẩu: Nếu bạn đổi mật khẩu tài khoản Thuế điện tử trên trang Tổng cục Thuế, hãy vào lại phần cấu hình này để cập nhật mật khẩu mới. Nếu không cập nhật, hệ thống sẽ không thể đồng bộ hóa đơn đầu vào về.\n- Đổi mật khẩu định kỳ: Hệ thống Thuế thường bắt buộc đổi mật khẩu sau 3 đến 6 tháng. Vui long lưu ý mốc thời gian này để cập nhật kịp thời",
+    "anh": [
+      {
+        "src": "cau-hinh-tai-hoa-don-tct_1.jpg",
+        "cap": "Cài đặt/Cấu hình → Cấu hình tải hóa đơn TCT → bấm Thêm cấu hình"
+      }
+    ]
+  },
+  {
+    "nhom": "Cài đặt/cấu hình",
+    "tieu_de": "Mẫu hóa đơn",
+    "link": "https://matbao.in/huong-dan-su-dung?product=huong-dan-su-dung-3-0&article=6a8e9330c70b2c005b58d01c",
+    "noi_dung": "Hướng dẫn tạo mẫu hóa đơn v3\nĐể tạo Mẫu hóa đơn, bạn thực hiện theo các bước hướng dẫn sau:\nBước 1: Click vào Cài đặt/ cấu hình -> chọn mục Mẫu hóa đơn\n\nBước 2: Click vào Thêm mới\n\nBước 3:\n- Mục (1) Chọn loại hóa đơn , ví dụ: Hóa đơn giá trị gia tắng, Hóa đơn bán hàng,...\n\n- Mục (2) chọn trường hóa đơn, ví dụ: Hóa đơn khỏi tạo tử máy tính tiền,...\n\n- Mục (3) chọn giao diện hóa đơn -> chọn mẫu nào thì click chuột trực tiếp vào mẫu đó\n\nBước 4: Thiết lập thông tin sẽ mẫu hóa đơn\n4.1 Số hiệu & ký hiệu:\n\n4.2 Thông tin đơn vị phát hành (không thay đổi được ở đây)\n4.3 Logo/ Viền/ nền của hóa đơn:\n\n4.4 Chân bảng & cấu hình:",
+    "anh": [
+      {
+        "src": "mau-hoa-don_1.jpg",
+        "cap": "Cài đặt/Cấu hình → Mẫu hóa đơn → bấm Thêm mới"
+      },
+      {
+        "src": "mau-hoa-don_2.jpg",
+        "cap": "Chọn Loại hóa đơn, Trường hóa đơn rồi bấm vào mẫu muốn dùng"
+      }
+    ]
+  },
+  {
+    "nhom": "Cài đặt/cấu hình",
+    "tieu_de": "Chữ ký số",
+    "link": "https://matbao.in/huong-dan-su-dung?product=huong-dan-su-dung-3-0&article=6a98fd5dc70b2c005b619293",
+    "noi_dung": "Hướng dẫn cài chữ ký số trên MatBao-invoice\nĐể cài đặt phần mềm ký số USB Token trên hệ thống MB-invoice, thực hiện theo các bước sau:\nBước 1: Truy cập chức năng Chữ ký số: Cài đặt/Cấu hình → Chữ ký số\nBước 2: Tải file cài đặt\nTại màn hình “Cài đặt phần mềm ký số USB Token phiên bản .NET”, hệ thống cung cấp các file cần thiết:\n- Download file cài đặt (32 bit): dành cho máy tính sử dụng Windows 32-bit.\n\n- Download file cài đặt (64 bit): dành cho máy tính sử dụng Windows 64-bit.\n\n- Download .NET Framework: sử dụng khi máy tính chưa cài đặt hoặc chưa đáp ứng yêu cầu về .NET Framework.\n\n- Download chương trình đọc PDF: cài đặt nếu máy tính chưa có phần mềm hỗ trợ đọc file PDF.\n\nBước 3: Chọn phiên bản phù hợp\nKiểm tra hệ điều hành Windows của máy tính:\n- Windows 64-bit → chọn file cài đặt (64 bit).\n\n- Windows 32-bit → chọn file cài đặt (32 bit).\n\nSau đó nhấn “tại đây” tương ứng để tải bộ cài về máy.\nBước 4: Cài đặt phần mềm\nSau khi tải file về:\n- Mở file cài đặt vừa tải.\n\n- Thực hiện các bước cài đặt theo hướng dẫn trên màn hình.\n\n- Chọn Install/Cài đặt và chờ quá trình cài đặt hoàn tất.\n\n- Khởi động lại máy tính nếu hệ thống yêu cầu.\n\nLưu ý: Nên cài đặt đúng phiên bản 32-bit hoặc 64-bit tương ứng với hệ điều hành máy tính để phần mềm ký số hoạt động ổn định.\nBước 5: Kiểm tra USB Token\nSau khi cài đặt xong:\n- Cắm USB Token vào máy tính.\n\n- Kiểm tra máy tính đã nhận USB Token.\n\n- Đăng nhập lại MB-invoice và thực hiện thao tác ký hóa đơn để kiểm tra.\n\nTóm tắt đường dẫn: Cài đặt/Cấu hình → Chữ ký số → Cài đặt phần mềm ký số USB Token phiên bản .NET → Chọn file 32-bit/64-bit phù hợp → Cài đặt.",
+    "anh": [
+      {
+        "src": "chu-ky-so_1.jpg",
+        "cap": "Cài đặt/Cấu hình → Chữ ký số: tải file cài đặt 32 bit/64 bit, .NET Framework, chương trình đọc PDF"
+      }
+    ]
+  },
+  {
+    "nhom": "Cài đặt/cấu hình",
+    "tieu_de": "Cấu hình hóa đơn",
+    "link": "https://matbao.in/huong-dan-su-dung?product=huong-dan-su-dung-3-0&article=6a968403c70b2c005b5f49d4",
+    "noi_dung": "Tại mục cấu hình hóa đơn, người dùng có thể thao tác tùy chỉnh hiển thị, email, tích hợp và nghiệp vụ hệ thống.\n\n- Cấu hình  hiển thị & nhập liệu:\n\n1.Số chữ số thập phân  và  Độ rộng cột bảng hàng hóa\n- Số chữ số thập phân\n\nSố chữ số sau dấu phẩy khi hiển thị/in. Ví dụ minh họa với số 1.234.567,891.\nHệ thống sẽ cho lưu tối đa 6 chữ số thập phân, và nếu bạn không muốn thể hiện số thập phân thì bạn sẽ chọn số 0 để giá trị được làm tròn.\nBước 1: Bạn chọn giá trị cần cấu hình: Số lượng, Đơn giá, Thành tiền, Tiền thuế, Tổng tiền thanh toán\nBước 2: Chọn vào biểu tượng mũ để tăng giảm số thập phân tùy chỉnh\nBước 3: Nhấn lưu cấu hình.\n\n- Độ rộng cột bảng hàng hóa  (%)\n\nTỷ lệ rộng/hẹp của các cột khi nhập hóa đơn. Giá trị tương đối — phần còn lại tự dành cho các cột cố định (STT, ĐVT, thao tác…). Mỗi cột vẫn có bề rộng tối thiểu để dễ nhập.\nBước 1: Chọn vào giá trị cần điều chỉnh độ rộng: Mã hàng, Tên hàng, Số lượng, Đơn giá, Thành tiền, Tiền thuế, Tổng tiền\nBước 2: Chọn biểu tượng mũ như hình hướng dẫn để tăng giảm độ rộng\nBước 3: Lưu cấu hình\n\nNếu muốn sử dụng lại thiết lập ban đầu, tại mục Số chữ số thập phân và Độ rộng cột bảng hàng hóa , nhấn Khôi phục mặc định, sau đó nhấn Lưu cấu hình.\n\n2. Trang nhập liệu\nCấu hình trang nhập liệu: Cấu hình các trường mở rộng (khách hàng, hàng hóa) hiển thị khi lập hóa đơn, theo mẫu số/ký hiệu.\nTheo nhu cầu sử dụng đặc thù của Công ty, người dùng có thể chủ động cấu hình thêm những trường cần sử dụng trên hóa đơn: Cấu hình thông tin khách hàng mở rộng và Cấu hình cột hàng hóa, dịch vụ mở rộng, Danh sách cấu hình field mở rộng theo mẫu số/ ký hiệu thực hiện các bước như sau:\n\nBước 1: Chọn mẫu số, ký hiệu cần cấu hình\nBước 2: Nhập thông tin tên cột cần hiển thị\nBước 3: Tích chọn trạng thái hiển thị\nBước 4: Lưu cấu hình\n\nSau khi lưu cấu hình hoàn tất, bạn vào Danh sách hóa đơn và Tạo mới để kiểm tra trường dữ liệu đã cấu hình.\n\nEmail & Tích hợp\n1. Cấu hình SMTP\nChức năng này dùng máy chủ gửi email riêng của đơn vị (dùng khi gửi hóa đơn cho khách hàng).\n\n- Tên hiển thị: Là tên bạn có thể đặt tùy ý, giúp đối tác dễ nhận biết khi nhận email thông báo hóa đơn của Công ty bạn.\n\n- Địa chỉ Email gửi: Địa chỉ tài khoản Yahoo đã lấy mật khẩu ứng dụng ở trên\n\n- Mật khẩu Email: Mật khẩu ứng dụng Yahoo mail bạn đã tạo ở trên.\n\n- Máy chủ SMTP: Máy chủ server mail đang sử dụng.\n\nVí dụ: Yahoo mail, giá trị sẽ là: smtp.mail.yahoo.com.\n            Gmail, giá trị sẽ là: smtp.gmail.com.\n- SMTP Port: SSL (465) hoặc TLS (587)\n\n- Tích chọn ô Sử dụng thông tin Email khách hàng\n\nSau khi thiết lập thông tin cấu hình SMTP gửi mail, bạn nhấn Lưu cấu hình SMTP và bạn có thể sử dụng tính năng Test gửi mail để kiểm tra =>\n\nTiếp theo, bạn nhập Email gửi đến và sau đó nhấn Gửi và sau đó kiểm tra email test để nhận thông tin.\n\nNội dung email:\nTính năng Cấu hình nội dung Email cho phép người dùng tùy chỉnh mẫu email gửi hóa đơn cho khách hàng. Nội dung có thể được soạn thảo bằng mã nguồn HTML và xem trước kết quả ngay trên giao diện, thực hiện các bước như sau:\nBước 1: Cấu hình hóa đơn => Chọn Nội dung email\n\nBước 2: Chọn loại email cần cấu hình\n\nHệ thống cung cấp 2 loại email:\n- Email hóa đơn (đã ký): Mẫu email gửi cho khách hàng sau khi hóa đơn điện tử đã được ký.\n\n- Email hóa đơn nháp (trước khi ký): Mẫu email gửi khi hóa đơn chưa được ký.\n\nChọn tab tương ứng với loại email muốn chỉnh sửa.\nBước 3: Chèn trường dữ liệu và Tải  & chèn logo\n\nTại khu vực Chèn trường dữ liệu, có thể chọn các trường thông tin có sẵn để đưa vào nội dung email, gồm: Tên khách hàng, MST khách hàng, Đơn vị bán, Mẫu số, Ký hiệu, Số hóa đơn, Ngày lập, Mã CQT, Mã tra cứu, Link xem HĐ, Link kiểm tra\nNhấn vào trường dữ liệu muốn sử dụng. Hệ thống sẽ chèn trường tương ứng vào nội dung HTML.\nNhấn Tải & chèn logo để tải logo và chèn vào nội dung email theo nhu cầu.\nBước 4: Chỉnh sửa nội dung và kiểm tra email\nMẫu email gửi hóa đơn cho khách hàng. Soạn nội dung bên trái, kết quả hiển thị ngay bên phải.\n\nTại khu vực Mã nguồn HTML, thực hiện chỉnh sửa nội dung email theo nhu cầu.\nCó thể thay đổi: Tiêu đề và lời chào, Nội dung thông báo phát hành hóa đơn, Thông tin hóa đơn, Định dạng văn bản, Liên kết hoặc các nội dung HTML khác\nKhu vực Xem trước (dữ liệu mẫu) ở bên phải sẽ hiển thị kết quả email sau khi áp dụng nội dung đã cấu hình.\nKiểm tra lại: Nội dung hiển thị, Thông tin khách hàng, Thông tin hóa đơn, Các trường dữ liệu đã chèn, Liên kết xem và kiểm tra hóa đơn.\nBước 5: Lưu cấu hình\nSau khi hoàn tất chỉnh sửa, nhấn Lưu cấu hình ở góc trên bên phải để áp dụng thay đổi.\n\nLiên kết API:\nBước 1: Bạn truy cập vào mục Cài đăt/ Cấu hình, chọn Cấu hình hóa đơn => Chọn Liên kết API\n\nHệ thống hiển thị mục để cấu hình liên kế API: Thông tin API, Cấu hình Webhook\nBước 2: Nhập thông tin để liên kết, tick chọn Kích hoạt và nhấn Cập nhật cấu hình API.\n\nDuyệt số lượng:\nChức năng Duyệt số lượng hóa đơn cho phép người dùng thiết lập số lượng hóa đơn được phép phát hành cho từng mẫu số- ký hiệu hóa đơn.\nTại màn hình Duyệt số lượng hóa đơn, hệ thống hiển thị:\n- Tổng số lượng: Tổng số hóa đơn được cấp cho mẫu.\n\n- Số còn lại: Số lượng hóa đơn chưa được phân bổ/sử dụng.\n\n- Đã sử dụng: Số lượng hóa đơn đã phát hành.\n\n- Còn lại: Số lượng hóa đơn còn lại của từng mẫu.\n\n- Số lượng: Ô nhập số lượng hóa đơn cần duyệt cho mẫu.\n\n Các bước thực hiện như sau:\n\nBước 1: Kiểm tra thông tin số lượng hóa đơn còn lại.\nBước 2: Tại cột Số lượng, nhập số lượng hóa đơn muốn duyệt cho mẫu hóa đơn tương ứng.\nVí dụ: Nhập 1.000 nếu muốn duyệt toàn bộ 1.000 hóa đơn còn lại.\nBước 3: Nhấn Lưu cấu hình để hoàn tất.\n\nBảng kê/ Báo cáo\n\nChức năng Cấu hình Bảng kê / Báo cáo cho phép người dùng tùy chỉnh các cột hiển thị trên bảng kê hoặc báo cáo, bao gồm ẩn/hiện cột, sắp xếp thứ tự và điều chỉnh độ rộng cột.\n 1: Chọn loại bảng kê cần cấu hình, hiện tại hệ thống có 3 loại bảng kê: Bảng kê hóa đơn, Báo cáo sản phẩm, Bảng kê  thuế suất\n2: Tìm nhanh cột cần cấu hình theo tên.\n3: Nhấn chọn biểu tượng > để hiện cột\n4: Nhấn chọn biểu tượng\nđể kéo đổi thứ tự các cột\n5. Tại cột Độ rộng (px), nhập giá trị độ rộng mong muốn cho từng cột hoặc nhấn vào biểu tượng tăng giảm tại cột\n6. Sắp xếp thứ tự cột, nhấn vào biểu tượng\nđể lên trước hoặc xuống sau.\n7. Lưu cấu hình\n\nNếu muốn trở về thiết lập ban đầu của hệ thống, nhấn Cấu hình mặc định.\nSau khi kiểm tra lại cấu hình, nhấn Lưu cấu hình để áp dụng.\n\nCấu hình khác\n\nCác tùy chọn nghiệp vụ khi lập hóa đơn, ký số và gửi cơ quan thuế.\nTại màn hình cấu hình nghiệp vụ, thiết lập các tùy chọn theo nhu cầu, giá trị hoặc bật/tắt các tùy chọn tương ứng => Kiểm tra và nhấn Lưu cấu hình để hoàn tất\n\n- Số dòng sản phẩm/dịch vụ trên trang cuối hóa đơn: Áp dung cho hóa đơn có 1 trang hoặc trang cuối đối với hóa đơn nhiều trang, tại ô số dòng chọn số dòng cần mặc định\n\n- Không tự tính giá trị đơn hàng: Khi chọn tính năng này, bạn có thể điều chỉnh kết quả các giá trị như thành tiền, tiền thuế GTGT, tổng tiền, cộng tiền hàng, tổng tiền sau thuế 3\n\n- .Tính thành tiền, tiền thuế theo số lượng và tổng tiền: Khi chọn tính năng này thì mặc định khi tạo hóa đơn, chỉ cần nhập số lượng, loại thuế suất và tổng tiền, hệ thống sẽ tự động tính lại đơn giá, tiền thuế và thành tiền trước thuế.4.\n\n- Tìm kiếm hóa đơn theo ngày hiện tại: Khi chọn tính năng này, trang danh sách hóa đơn sẽ hiện thị mặc định các hóa đơn đã xuất trong ngày hiện tại.5.\n\n- Cấu hình Thuế suất GTGT mặc định: Chọn loại thuế suất mặc định của công ty, để lúc tạo mới hóa đơn sẽ mặc định loại thuế suất đó.6.\n\n- Kỳ nộp báo cáo tình hình sử dụng hóa đơn: Hệ thống có loại lựa chọn: Tháng, Qúy.8 .\n\n- Gửi email thông báo đính kèm file : Gửi email thông báo: khi gửi mail đính kèm file hóa đơn: PDF, XML. PDF và XML\n\n- Gửi email thông báo tự động khi xóa bỏ hóa đơn: Khi chọn tính năng này, quý khách sẽ nhận được thông báo qua email về việc xóa bỏ hóa đơn.\n\n- Loại chữ ký: Cấu hình loại Chữ ký: USB Token, Chữ ký số Server\n\n-  Tắt gửi hóa đơn (Có mã, không mã, hóa đơn máy tính tiền) lên quan thuế. Chỉ tắt đối với CKS Server: Khi chọn tính năng này, hóa đơn sẽ không được gửi lên cơ quan thuế. Các tính năng gửi khác (tờ khai 01, thông báo sai sót 04 và bảng tổng hợp) vẫn được gửi lên cơ quan thuế.11\n\n- Cho phép ký dữ liệu XML của hóa đơn khởi tạo từ máy tính tiền. Chỉ áp dụng đối với CKS Server.",
+    "anh": [
+      {
+        "src": "cau-hinh-hoa-don_1.jpg",
+        "cap": "Cài đặt/Cấu hình → Cấu hình hóa đơn: chọn nhóm ở cột trái, chỉnh rồi bấm Lưu cấu hình"
+      }
+    ]
+  },
+  {
+    "nhom": "Cài đặt/cấu hình",
+    "tieu_de": "Quản lý người dùng",
+    "link": "https://matbao.in/huong-dan-su-dung?product=huong-dan-su-dung-3-0&article=6a931777c70b2c005b5c9092",
+    "noi_dung": "Quản lý người dùng V3\nĐể thực hiện thêm mới người dùng, bạn nhấn Tạo mới người dùng để thêm user mới ( số lượng user sẽ tùy thuộc theo gói dịch vụ hóa đơn điện tử Nhanh.vn đã đăng ký)\nĐể thực hiện thay đổi mật khẩu cho tài khoản admin và user, bạn thực hiện các bước như sau:\nBước 1: Trong mục Cài đặt/Cấu hình -> chọn Quản lý người dùng -> Chọn biểu tượng Chỉnh sửa.\nBước 2: Bạn nhấn nút chỉnh sửa để cập nhật thông tin bao gồm:\n- Tên đầy đủ ( không bắt buộc): nhập theo tên đăng nhập hoặc tên riêng\n\n- Mật khẩu và nhập lại mật khẩu: đặt mật khẩu mới để quản lý hóa đơn\n\n- Email( bắt buộc): nhập thông tin email cá nhân hoặc doanh nghiệp\n\n- Phân quyền sử dụng mẫu hóa đơn: chọn mẫu số-ký hiệu để quản lý trên hệ thống\n\n- Phân quyền truy cập: phân quyền theo chức vụ ( admin là quyền được sử dụng đầy đủ các tính năng trên trang quản lý hóa đơn\n\nBước 3: Sau khi nhập đầy đủ thông tin theo hướng dẫn, bấm Lưu dữ liệu -> Đăng xuất và đăng nhập lại hệ thống.",
+    "anh": [
+      {
+        "src": "quan-ly-nguoi-dung_1.jpg",
+        "cap": "Cài đặt/Cấu hình → Quản lý người dùng: Tạo mới người dùng hoặc bấm biểu tượng chỉnh sửa"
+      }
+    ]
+  },
+  {
+    "nhom": "Cài đặt/cấu hình",
+    "tieu_de": "Vai trò quyền hạn",
+    "link": "https://matbao.in/huong-dan-su-dung?product=huong-dan-su-dung-3-0&article=6a98fdf6c70b2c005b619456",
+    "noi_dung": "Tạo vai trò quyền hạn cho người dùng\nBước 1: Nhấn chọn Cài đặt/Cấu hình => Chọn Vai trò quyền hạn\n\nBước 2: Tạo phân quyền\n- Chon mục Tạo mới quyền để tạo mới vai trò quyền hạn, phân quyền chức năng tùy theo nhu cầu tổ chức, cơ cấu doanh nghiệp\n\nHoặc có thể chỉnh sửa quyền hạn, xoá quyền.\n\nTích chọn các ô nếu muốn phân quyền chức năng\n\nNhấn Lưu dữ liệu\n\nSau đó nhấn Đồng ý.\n\nHệ thống sẽ hiển thị danh sách Vai trò quyền hạn.",
+    "anh": [
+      {
+        "src": "vai-tro-quyen-han_1.jpg",
+        "cap": "Cài đặt/Cấu hình → Vai trò quyền hạn: bấm Tạo mới quyền hoặc chỉnh sửa vai trò có sẵn"
+      }
+    ]
+  },
+  {
+    "nhom": "Cài đặt/cấu hình",
+    "tieu_de": "Cấu hình ký tự động",
+    "link": "https://matbao.in/huong-dan-su-dung?product=huong-dan-su-dung-3-0&article=6a8e93fac70b2c005b58d0f9",
+    "noi_dung": "Hướng dẫn cấu hình ký tự động v3\nLưu ý quan trọng trước khi thực hiện :\n- Hệ thống sẽ không lọc hóa đơn, có bao nhiệu hóa đơn nháp sẽ tự động phát hành\n\n- Bắt buộc phải dùng Chữ ký số tập trung (HSM) mới dùng được tính năng này.\n\nBước 1: Click vào Cài đặt/ Cấu hính -> chọn mục Cấu hình ký tự động.\n\nBước 2:  Thiết lập cấu hình\n- Mục (1) chọn mẫu số ký hiệu\n\n- Mục (2) cấu hình ký tự động theo khoảng thời gian. Ví du: Bạn chọn Chu ký 30 phút, thời gian bắt đầu 08:00 và thời gian kết thúc 23:57 -> Có nghĩ là bắt đầu ký từ 08:00, sau đó +30phut thực hiện ký (08:30, 09:00, 09:30,..),.. cứ như cho đến 23:57.\n\n- Mục (3) cấu hình ký tự động tại thời điểm cố định. Ví dụ: bạn chọn ký lúc 23:00 vào đúng 23:00 mọi ngày các hóa đơn nháp sẽ tự đống ký\n\n- Mục (4) click vào để kích hoạt\n\n- Mục (5) để Lưu thiết lập",
+    "anh": [
+      {
+        "src": "cau-hinh-ky-tu-dong_1.jpg",
+        "cap": "Cài đặt/Cấu hình → Cấu hình ký tự động: chọn mẫu số, cấu hình thời gian, tick Kích hoạt rồi Lưu dữ liệu"
+      }
+    ]
+  },
+  {
+    "nhom": "Cài đặt/cấu hình",
+    "tieu_de": "Cấu hình cảnh báo",
+    "link": "https://matbao.in/huong-dan-su-dung?product=huong-dan-su-dung-3-0&article=6a95b6fac70b2c005b5eaa4f",
+    "noi_dung": "Chức năng Cảnh báo giúp người dùng phát hiện các sai lệch trong dữ liệu hóa đơn, đặc biệt là sai lệch giữa số liệu chi tiết và sổ tổng hợp, cũng như các trường hợp số tiền có phần thập phân không phù hợp với đơn vị tiền tệ VNĐ.\n\n1.     Cấu hình tần suất nhận thông báo\nTại mục Tần suất nhận thông báo, người dùng thiết lập khoảng thời gian hệ thống gom nhóm các cảnh báo trước khi gửi thông báo.\nNhập Khoảng thời gian gom tin (giờ) => Nhập số giờ mong muốn, ví dụ: 2 giờ.\n Hệ thống sẽ gom các cảnh báo phát sinh trong khoảng thời gian đã cấu hình thành một thông báo tổng hợp.\n2.      Cấu hình Cảnh báo qua Email\nTại mục Cảnh báo qua Email, người dùng có thể nhận báo cáo tổng hợp các cảnh báo sai lệch hóa đơn qua email.\n\nNhập địa chỉ email vào ô Danh sách Email => Nhấn Enter hoặc Tab để thêm emai\nCó thể thêm nhiều địa chỉ email để cùng nhận báo cáo.\n\n3.      Bật /Tắt cảnh báo Email\nBật công tắc ở Trạng thái kênh để kích hoạt gửi cảnh báo qua Email.\nTắt công tắc nếu không muốn nhận cảnh báo qua Email.\nLưu cấu hình: Sau khi hoàn tất cấu hình tần suất và kênh nhận thông báo:",
+    "anh": [
+      {
+        "src": "cau-hinh-canh-bao_1.jpg",
+        "cap": "Cài đặt/Cấu hình → Cấu hình cảnh báo: nhập khoảng thời gian gom tin, bật kênh Email rồi Lưu thay đổi"
+      }
+    ]
+  }
+]
