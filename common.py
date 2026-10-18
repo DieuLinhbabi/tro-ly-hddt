@@ -207,6 +207,7 @@ html, body, [class*="css"], .stMarkdown, button, input, textarea { font-family: 
 .label { font-size:12.5px; font-weight:600; color:#5B635F; margin-top:8px; }
 [data-testid="stMetric"] { background:#FFFFFF; border:1px solid #E2E0D8; border-radius:12px; padding:12px 16px; }
 .stButton button[kind="primary"] { background:#14503C; border-color:#14503C; }
+[data-testid="stToolbarActions"], [data-testid="stToolbarActionButton"], [data-testid="stAppDeployButton"] { display:none !important; }
 </style>
 """
 
