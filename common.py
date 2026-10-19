@@ -90,21 +90,26 @@ def nguon_anh(src: str):
     return str(f) if f.is_file() else None
 
 
+def la_an(o: str) -> bool:
+    """Cột F 'Ẩn trên web': ghi Ẩn (hoặc x) thì bài không hiện ở mục lục, trợ lý vẫn dùng để trả lời."""
+    return bo_dau(str(o).strip()) in {"an", "x", "true", "1", "co"}
+
+
 @st.cache_data(ttl=300, show_spinner=False)  # tự đọc lại Sheet mỗi 5 phút
 def doc_tat_ca_bai() -> list[dict]:
     """Mọi dòng trong tab kiến thức, kể cả bài chưa có nội dung."""
     if not da_ket_noi_sheet():
         mau = json.loads(DATA_FILE.read_text(encoding="utf-8"))
-        return [{"anh": [], **b, "row": None} for b in mau]
+        return [{"anh": [], "an": False, **b, "row": None} for b in mau]
     bai_viet, nhom = [], ""
     for r in _goi_get("articles"):
-        c = (list(r["cells"]) + ["", "", "", "", ""])[:5]
+        c = (list(r["cells"]) + ["", "", "", "", "", ""])[:6]
         c = [str(x).strip() for x in c]
         nhom = c[0] or nhom  # ô Nhóm trống = cùng nhóm với dòng trên
         if not (c[1] or c[3]):
             continue  # dòng trống hẳn
         bai_viet.append({"row": r["row"], "nhom": nhom, "tieu_de": c[1], "link": c[2], "noi_dung": c[3],
-                         "anh": doc_anh(c[4])})
+                         "anh": doc_anh(c[4]), "an": la_an(c[5])})
     return bai_viet
 
 

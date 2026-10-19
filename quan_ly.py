@@ -109,6 +109,17 @@ if not da_ket_noi_sheet():
 
 
 # ======================= KIẾN THỨC =======================
+def doi_hien_nhom(n: str, rows: list, k: str):
+    """Chỉ chạy khi người quản lý bấm bật/tắt: ghi cột 'Ẩn trên web' cho cả nhóm."""
+    hien_web = ss[k]
+    try:
+        goi_post({"action": "set_hidden", "rows": rows, "value": "" if hien_web else "Ẩn"})
+        lam_moi_du_lieu()
+        st.toast(f"Đã {'hiện' if hien_web else 'ẩn'} nhóm {n} trên web.")
+    except Exception as e:
+        ss.loi_hien_nhom = str(e)
+
+
 def trang_kien_thuc():
     h1, h2 = st.columns([3, 2])
     h1.markdown("## Kiến thức")
@@ -134,6 +145,21 @@ def trang_kien_thuc():
     m[3].metric("Số nhóm", len({b["nhom"] for b in bai if b["nhom"]}))
 
     ds_nhom = list(dict.fromkeys(b["nhom"] for b in bai if b["nhom"]))
+    nhom_an = {n for n in ds_nhom if all(x["an"] for x in bai if x["nhom"] == n)}
+
+    if co_quyen("sua_bai"):
+        with st.expander(f"👁  Hiển thị nhóm trên web · đang ẩn {len(nhom_an)}/{len(ds_nhom)} nhóm"):
+            st.caption("Tắt để ẩn cả nhóm khỏi mục lục bên trái trang hỏi đáp. "
+                       "Bài bị ẩn vẫn được trợ lý dùng để trả lời.")
+            cot = st.columns(3)
+            for i, n in enumerate(ds_nhom):
+                rows = [x["row"] for x in bai if x["nhom"] == n]
+                k = f"hien_nhom_{n}"
+                ss[k] = n not in nhom_an  # luôn lấy theo dữ liệu mới nhất trên Sheet
+                cot[i % 3].toggle(f"{n} ({len(rows)} bài)", key=k, on_change=doi_hien_nhom, args=(n, rows, k))
+            if ss.get("loi_hien_nhom"):
+                st.error(f"Chưa đổi được: {ss.pop('loi_hien_nhom')}")
+
     trai, phai = st.columns([3, 2], gap="large")
 
     with trai:
@@ -146,7 +172,8 @@ def trang_kien_thuc():
                 and (loc_nhom == "Tất cả nhóm" or b["nhom"] == loc_nhom)
                 and (loc_tt == "Tất cả" or (loc_tt == "Đã có nội dung") == bool(b["noi_dung"]))]
         bang = [{"Nhóm": b["nhom"], "Tên bài": b["tieu_de"],
-                 "Trạng thái": "✅ Đã có nội dung" if b["noi_dung"] else "⚠️ Chưa có nội dung"} for b in hien]
+                 "Trạng thái": "✅ Đã có nội dung" if b["noi_dung"] else "⚠️ Chưa có nội dung",
+                 "Trên web": "🙈 Ẩn" if b["an"] else "Hiện"} for b in hien]
         chon = st.dataframe(bang, width="stretch", hide_index=True, height=520,
                             on_select="rerun", selection_mode="single-row", key="bang_bai")
         st.caption(f"Hiển thị {len(hien)} / {len(bai)} bài · Bấm vào một dòng để sửa")
@@ -178,6 +205,8 @@ def trang_kien_thuc():
             nhom_moi = st.text_input("Tên nhóm mới (nếu chọn Nhóm mới)") if co_quyen("them_bai") else ""
             ten = st.text_input("Tên bài", value=b["tieu_de"] if b else ss.bai_moi_goi_y)
             link = st.text_input("Link bài gốc", value=b["link"] if b else "")
+            an_bai = st.checkbox("Ẩn bài này khỏi mục lục trên web (trợ lý vẫn dùng để trả lời)",
+                                 value=b["an"] if b else False)
             noi_dung = st.text_area("Nội dung hướng dẫn", value=b["noi_dung"] if b else "", height=300,
                                     placeholder="Dán nội dung bài hướng dẫn vào đây. Nên ghi từng bước, "
                                                 "giữ đúng tên menu và nút bấm.")
@@ -220,7 +249,9 @@ def trang_kien_thuc():
                     ds_anh.append({"src": f"drive:{kq['id']}", "cap": ds_cap[i].strip() if i < len(ds_cap) else ""})
                 goi_post({"action": "save_article", "row": b["row"] if b else None, "nhom": ten_nhom,
                           "ten": ten.strip(), "link": link.strip(), "noi_dung": noi_dung.strip(),
-                          "anh": ghi_anh(ds_anh)})
+                          "anh": ghi_anh(ds_anh),
+                          # bài mới thêm vào nhóm đang ẩn thì cũng ẩn theo nhóm
+                          "an": "Ẩn" if an_bai or (b is None and ten_nhom in nhom_an) else ""})
             except Exception as e:
                 st.error(f"Chưa lưu được: {e}")
                 return
