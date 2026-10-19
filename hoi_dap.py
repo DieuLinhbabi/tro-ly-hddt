@@ -7,7 +7,7 @@ from collections import OrderedDict
 import streamlit as st
 from groq import Groq
 
-from common import BRAND, HOTLINE, LOGO, da_ket_noi_sheet, doc_tat_ca_bai, goi_post, nguon_anh, tim_bai
+from common import BRAND, HOTLINE, LOGO, bo_dau, da_ket_noi_sheet, doc_tat_ca_bai, goi_post, nguon_anh, tim_bai
 
 DEFAULT_MODEL = "llama-3.3-70b-versatile"
 VISION_MODEL = "qwen/qwen3.8-27b"  # model Groq đọc được ảnh; đổi bằng GROQ_VISION_MODEL trong Secrets
@@ -15,6 +15,8 @@ CAU_HOI_ANH = "Màn hình trong ảnh là gì và tôi cần làm gì tiếp the
 PROMPT_DOC_ANH = ("Đây là ảnh chụp màn hình phần mềm hóa đơn điện tử do người dùng gửi. Hãy mô tả ngắn gọn bằng tiếng Việt: "
                   "đang ở màn hình/menu nào, các nút và ô nhập chính, và chép NGUYÊN VĂN mọi thông báo lỗi hay cảnh báo "
                   "nếu có. Nếu ảnh không phải màn hình phần mềm, nói rõ ảnh có gì. Không đoán cách xử lý.")
+# Nhóm chỉ dùng để trợ lý trả lời, không hiện ở mục lục bên trái
+NHOM_AN = {"tinh huong thuong gap"}  # viết không dấu, chữ thường
 GOI_Y = ["Cách điều chỉnh hóa đơn?", "Xóa bỏ hóa đơn đã phát hành", "Lập mẫu 04/SS-HĐĐT", "Thêm người dùng và phân quyền"]
 LOI_CHAO = ("Xin chào! Bạn cần tìm cách làm thao tác nào trên phần mềm hóa đơn điện tử? "
             "Có thể bắt đầu với một câu hỏi gợi ý bên dưới.")
@@ -52,7 +54,7 @@ with st.sidebar:
                 unsafe_allow_html=True)
     nhom_bai = OrderedDict()
     for b in bai_viet:
-        if b["noi_dung"]:
+        if b["noi_dung"] and bo_dau((b["nhom"] or "").strip()) not in NHOM_AN:
             nhom_bai.setdefault(b["nhom"] or "Khác", []).append(b)
     for nhom, ds in nhom_bai.items():
         with st.expander(nhom):
