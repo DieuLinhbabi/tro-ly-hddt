@@ -22,10 +22,12 @@ LOI_CHAO = ("Xin chào! Bạn cần tìm cách làm thao tác nào trên phần 
 SYSTEM_PROMPT = f"""Bạn là "Trợ lý Hóa đơn điện tử" của Nhanh.vn, hỗ trợ người dùng tra cứu cách sử dụng phần mềm hóa đơn điện tử.
 Quy tắc:
 - CHỈ trả lời dựa trên phần TÀI LIỆU được cung cấp. Không tự suy đoán thao tác không có trong tài liệu.
+- Được thêm lưu ý hoặc giải thích ngắn cho dễ hiểu (ví dụ kết quả sau khi làm xong), nhưng không bịa tên menu, tên nút hay thao tác không có trong tài liệu.
 - Nếu tài liệu không có thông tin, trả lời: "Tài liệu hướng dẫn chưa có nội dung này. Vui lòng gọi hotline {HOTLINE} để được hỗ trợ."
 - Trình bày ngắn gọn, đánh số từng bước thao tác, in đậm tên menu/nút như trong tài liệu.
 - Nếu người dùng gửi kèm ảnh chụp màn hình: mở đầu bằng một câu cho biết họ đang ở màn hình nào hoặc gặp thông báo gì, rồi hướng dẫn theo TÀI LIỆU.
-- Không ghi nguồn, tên bài hay link ở câu trả lời.
+- Không ghi nguồn, tên bài, tên mục tài liệu hay link ở câu trả lời.
+- Dòng cuối cùng của câu trả lời luôn là [[BAI:x]], với x là số thứ tự TÀI LIỆU bạn dựa vào nhiều nhất; ghi [[BAI:0]] nếu không dùng tài liệu nào. Người dùng không thấy dòng này.
 - Luôn trả lời bằng tiếng Việt."""
 
 ss = st.session_state
@@ -136,6 +138,33 @@ def doc_anh_bang_ai(anh: bytes, cau_hoi: str) -> str:
     return re.sub(r"<think>.*?</think>", "", mo_ta, flags=re.S).strip()
 
 
+tra_loi_goc = [""]  # câu trả lời nguyên bản, còn dòng [[BAI:x]]
+
+
+def an_ma_bai(dong_chu):
+    """Hiện câu trả lời từng chữ nhưng giữ lại phần [[BAI:x]] ở cuối, không cho người dùng thấy."""
+    tra_loi_goc[0] = ""
+    cho = ""
+    for manh in dong_chu:
+        tra_loi_goc[0] += manh
+        cho += manh
+        i = cho.find("[[")
+        if i == -1:
+            j = cho.rfind("[")  # có thể là nửa đầu của "[["
+            if j != -1 and j == len(cho) - 1:
+                yield cho[:j]
+                cho = cho[j:]
+            else:
+                yield cho
+                cho = ""
+        else:
+            if cho[:i]:
+                yield cho[:i]
+            cho = cho[i:]  # từ "[[" trở đi giữ lại, không hiện
+    if "[[" not in cho:
+        yield cho
+
+
 # ---------- Hội thoại ----------
 with st.chat_message("assistant", avatar="🧾"):
     st.markdown(LOI_CHAO)
@@ -188,7 +217,8 @@ if cau_hoi:
 
     ket_qua = tim_bai(f"{cau_hoi}\n{mo_ta_anh}", kem_diem=True)
     tai_lieu = [b for _, b in ket_qua]
-    ngu_canh = "\n\n---\n\n".join(f"[{b['nhom']} > {b['tieu_de']}]\n{b['noi_dung']}" for b in tai_lieu) \
+    ngu_canh = "\n\n---\n\n".join(f"[TÀI LIỆU {i}: {b['nhom']} > {b['tieu_de']}]\n{b['noi_dung']}"
+                                   for i, b in enumerate(tai_lieu, 1)) \
         or "(Không tìm thấy bài liên quan)"
     lich_su = [{"role": m["role"], "content": m["content"]} for m in ss.messages[-7:-1]]
     messages = ([{"role": "system", "content": SYSTEM_PROMPT}] + lich_su
@@ -200,16 +230,21 @@ if cau_hoi:
     with st.chat_message("assistant", avatar="🧾"):
         try:
             stream = client.chat.completions.create(model=model, messages=messages, temperature=0.2, stream=True)
-            tra_loi = st.write_stream(chunk.choices[0].delta.content or "" for chunk in stream)
+            tra_loi = st.write_stream(an_ma_bai(chunk.choices[0].delta.content or "" for chunk in stream)).strip()
         except Exception as e:
             tra_loi = f"⚠️ Lỗi khi gọi AI: {e}"
             st.error(tra_loi)
-    # Ảnh của bài khớp nhất, chỉ khi bài đó vượt trội rõ ràng và trợ lý có trả lời được
+    # Ảnh minh họa: lấy theo bài mà trợ lý cho biết đã dựa vào (dòng [[BAI:x]] cuối câu trả lời)
+    m_bai = re.search(r"\[\[\s*BAI\s*:\s*(\d+)\s*\]\]", tra_loi_goc[0])
     anh = []
-    if ket_qua and "chưa có nội dung" not in tra_loi.lower() and not tra_loi.startswith("⚠️"):
-        diem_1 = ket_qua[0][0]
-        diem_2 = ket_qua[1][0] if len(ket_qua) > 1 else 0
-        if diem_1 >= 1.3 * diem_2:
-            anh = ket_qua[0][1].get("anh", [])
+    if not tra_loi.startswith("⚠️") and "chưa có nội dung" not in tra_loi.lower():
+        if m_bai:
+            so = int(m_bai.group(1))
+            if 1 <= so <= len(tai_lieu):
+                anh = tai_lieu[so - 1].get("anh", [])
+        elif ket_qua:  # trợ lý không ghi số bài: chỉ hiện ảnh khi bài đầu vượt trội rõ ràng
+            diem_2 = ket_qua[1][0] if len(ket_qua) > 1 else 0
+            if ket_qua[0][0] >= 1.3 * diem_2:
+                anh = ket_qua[0][1].get("anh", [])
     ss.messages.append({"role": "assistant", "content": tra_loi, "question": cau_hoi + (" [kèm ảnh]" if anh_gui else ""), "anh": anh})
     st.rerun()
