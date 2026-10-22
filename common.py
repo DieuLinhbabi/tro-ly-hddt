@@ -34,8 +34,14 @@ def da_ket_noi_sheet() -> bool:
 
 def _goi_get(action: str) -> list[dict]:
     qs = urllib.parse.urlencode({"action": action, "token": _cfg("APPS_SCRIPT_TOKEN")})
-    with urllib.request.urlopen(f"{_cfg('APPS_SCRIPT_URL')}?{qs}", timeout=30) as r:
-        data = json.loads(r.read().decode("utf-8"))
+    for lan in range(2):  # Google đôi lúc phản hồi chậm: thử lại 1 lần
+        try:
+            with urllib.request.urlopen(f"{_cfg('APPS_SCRIPT_URL')}?{qs}", timeout=45) as r:
+                data = json.loads(r.read().decode("utf-8"))
+            break
+        except (TimeoutError, OSError):
+            if lan == 1:
+                raise
     if not data.get("ok"):
         raise RuntimeError(data.get("error", "Lỗi không rõ từ Google Sheet"))
     return data["rows"]
@@ -95,12 +101,34 @@ def la_an(o: str) -> bool:
     return bo_dau(str(o).strip()) in {"an", "x", "true", "1", "co"}
 
 
-@st.cache_data(ttl=300, show_spinner=False)  # tự đọc lại Sheet mỗi 5 phút
+def _du_lieu_mau() -> list[dict]:
+    mau = json.loads(DATA_FILE.read_text(encoding="utf-8"))
+    return [{"anh": [], "an": False, **b, "row": None} for b in mau]
+
+
+@st.cache_resource(show_spinner=False)
+def _ban_du_phong() -> dict:
+    """Bản kiến thức đọc thành công gần nhất, dùng tạm khi Google Sheet phản hồi chậm."""
+    return {}
+
+
 def doc_tat_ca_bai() -> list[dict]:
     """Mọi dòng trong tab kiến thức, kể cả bài chưa có nội dung."""
     if not da_ket_noi_sheet():
-        mau = json.loads(DATA_FILE.read_text(encoding="utf-8"))
-        return [{"anh": [], "an": False, **b, "row": None} for b in mau]
+        return _du_lieu_mau()
+    du_phong = _ban_du_phong()
+    try:
+        bai = _doc_tu_sheet()
+        du_phong["bai"] = bai
+        return bai
+    except Exception:
+        if du_phong.get("bai"):
+            return du_phong["bai"]  # Sheet chậm: dùng bản gần nhất, người dùng không bị gián đoạn
+        raise
+
+
+@st.cache_data(ttl=300, show_spinner=False)  # tự đọc lại Sheet mỗi 5 phút
+def _doc_tu_sheet() -> list[dict]:
     bai_viet, nhom = [], ""
     for r in _goi_get("articles"):
         c = (list(r["cells"]) + ["", "", "", "", "", ""])[:6]
@@ -150,7 +178,7 @@ def kiem_tra_mat_khau(mat_khau: str, da_ma_hoa: str) -> bool:
 
 
 def lam_moi_du_lieu():
-    doc_tat_ca_bai.clear()
+    _doc_tu_sheet.clear()
     _chi_muc.clear()
 
 
@@ -215,6 +243,11 @@ CSS = """
 .stButton button[kind="primary"], [data-testid="stFormSubmitButton"] button[kind="primaryFormSubmit"] { background:#C41E24 !important; border-color:#C41E24 !important; color:#FFFFFF !important; }
 .stButton button[kind="primary"]:hover, [data-testid="stFormSubmitButton"] button[kind="primaryFormSubmit"]:hover { background:#A3161C !important; border-color:#A3161C !important; }
 .stApp h1, .stApp h2, .stApp h3, .stApp h4 { -webkit-text-stroke: 0.9px currentColor; letter-spacing: .01em; }  /* Comfortaa vốn mảnh: làm tiêu đề đậm hơn */
+[data-testid="stSidebar"] [data-testid="stImage"], [data-testid="stSidebar"] [data-testid="stImageContainer"],
+[data-testid="stSidebar"] [data-testid="stFullScreenFrame"] { display:flex; justify-content:center; width:100%; margin:0 auto; }
+[data-testid="stSidebarHeader"] { height: 2.25rem; padding-bottom: 0; }
+[data-testid="stSidebarUserContent"] { padding-top: 0.25rem; }
+[data-testid="stSidebar"] .brand { text-align: center; margin-top: 6px; }
 [data-testid="stToolbarActions"], [data-testid="stToolbarActionButton"], [data-testid="stAppDeployButton"] { display:none !important; }
 </style>
 """

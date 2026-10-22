@@ -43,7 +43,7 @@ except Exception as e:
 
 # ---------- Thanh bên ----------
 with st.sidebar:
-    st.image(LOGO, width="stretch")
+    st.image(LOGO, width=210)
     st.markdown(f'<div class="brand">{BRAND}</div>', unsafe_allow_html=True)
     if st.button("＋  HỎI ĐÁP NHANH", width="stretch", help="Bắt đầu cuộc hội thoại mới"):
         ss.messages, ss.fb_sent = [], set()
@@ -68,7 +68,7 @@ st.markdown("## HỎI ĐÁP - NHANH")
 if "GROQ_API_KEY" not in st.secrets:
     st.error("Chưa khai báo GROQ_API_KEY trong Secrets.")
     st.stop()
-client = Groq(api_key=st.secrets["GROQ_API_KEY"])
+client = Groq(api_key=st.secrets["GROQ_API_KEY"], max_retries=1, timeout=60)
 model = st.secrets.get("GROQ_MODEL", DEFAULT_MODEL)
 vision_model = st.secrets.get("GROQ_VISION_MODEL", VISION_MODEL)
 
@@ -113,6 +113,26 @@ def hien_anh(ds: list[dict]):
         st.image(x, caption=a["cap"] or None, width="stretch")
 
 
+# Gói miễn phí của Groq chỉ cho khoảng 8.000 token/phút, nên gửi tài liệu vừa đủ để trả lời nhanh
+GIOI_HAN_BAI = [3500, 1500, 1000]  # số ký tự tối đa của bài khớp nhất, bài thứ 2, bài thứ 3
+
+
+def rut_gon(text: str, toi_da: int) -> str:
+    return text if len(text) <= toi_da else text[:toi_da].rsplit("\n", 1)[0] + "\n(...)"
+
+
+def tham_so_them(ten_model: str) -> dict:
+    """Model gpt-oss suy nghĩ trước khi trả lời: để mức nghĩ thấp cho nhanh."""
+    return {"reasoning_effort": "low"} if "gpt-oss" in ten_model else {}
+
+
+def bao_loi_ai(e: Exception) -> str:
+    t = str(e).lower()
+    if "rate" in t or "429" in t or "413" in t or "too large" in t:
+        return f"⚠️ Trợ lý đang quá tải, bạn vui lòng thử lại sau ít phút hoặc gọi hotline {HOTLINE}."
+    return f"⚠️ Lỗi khi gọi AI: {e}"
+
+
 def chuan_bi_anh(f) -> bytes:
     """Thu nhỏ ảnh người dùng gửi (tối đa 1600px, JPEG) để gửi AI nhanh và nhẹ."""
     from PIL import Image
@@ -128,7 +148,7 @@ def doc_anh_bang_ai(anh: bytes, cau_hoi: str) -> str:
     """Nhờ model đọc ảnh mô tả màn hình/lỗi, để trợ lý tìm đúng bài hướng dẫn."""
     url = "data:image/jpeg;base64," + base64.b64encode(anh).decode()
     kq = client.chat.completions.create(
-        model=vision_model, temperature=0.2,
+        model=vision_model, temperature=0.2, max_tokens=800,
         messages=[{"role": "user", "content": [
             {"type": "text", "text": f"{PROMPT_DOC_ANH}\nCâu hỏi kèm theo của người dùng: {cau_hoi}"},
             {"type": "image_url", "image_url": {"url": url}},
@@ -215,12 +235,12 @@ if cau_hoi:
             except Exception as e:
                 st.warning(f"Chưa đọc được ảnh ({e}). Trợ lý sẽ trả lời theo câu hỏi chữ.")
 
-    ket_qua = tim_bai(f"{cau_hoi}\n{mo_ta_anh}", kem_diem=True)
+    ket_qua = tim_bai(f"{cau_hoi}\n{mo_ta_anh}", k=len(GIOI_HAN_BAI), kem_diem=True)
     tai_lieu = [b for _, b in ket_qua]
-    ngu_canh = "\n\n---\n\n".join(f"[TÀI LIỆU {i}: {b['nhom']} > {b['tieu_de']}]\n{b['noi_dung']}"
+    ngu_canh = "\n\n---\n\n".join(f"[TÀI LIỆU {i}: {b['nhom']} > {b['tieu_de']}]\n{rut_gon(b['noi_dung'], GIOI_HAN_BAI[i - 1])}"
                                    for i, b in enumerate(tai_lieu, 1)) \
         or "(Không tìm thấy bài liên quan)"
-    lich_su = [{"role": m["role"], "content": m["content"]} for m in ss.messages[-7:-1]]
+    lich_su = [{"role": m["role"], "content": rut_gon(m["content"], 600)} for m in ss.messages[-5:-1]]
     messages = ([{"role": "system", "content": SYSTEM_PROMPT}] + lich_su
                 + [{"role": "user", "content": f"TÀI LIỆU:\n{ngu_canh}\n\n"
                                               + (f"NGƯỜI DÙNG GỬI KÈM ẢNH CHỤP MÀN HÌNH, NỘI DUNG ẢNH:\n{mo_ta_anh}\n\n"
@@ -229,10 +249,12 @@ if cau_hoi:
 
     with st.chat_message("assistant", avatar="🧾"):
         try:
-            stream = client.chat.completions.create(model=model, messages=messages, temperature=0.2, stream=True)
+            with st.spinner("Trợ lý đang soạn câu trả lời..."):
+                stream = client.chat.completions.create(model=model, messages=messages, temperature=0.2, stream=True,
+                                                        max_tokens=1500, **tham_so_them(model))
             tra_loi = st.write_stream(an_ma_bai(chunk.choices[0].delta.content or "" for chunk in stream)).strip()
         except Exception as e:
-            tra_loi = f"⚠️ Lỗi khi gọi AI: {e}"
+            tra_loi = bao_loi_ai(e)
             st.error(tra_loi)
     # Ảnh minh họa: lấy theo bài mà trợ lý cho biết đã dựa vào (dòng [[BAI:x]] cuối câu trả lời)
     m_bai = re.search(r"\[\[\s*BAI\s*:\s*(\d+)\s*\]\]", tra_loi_goc[0])

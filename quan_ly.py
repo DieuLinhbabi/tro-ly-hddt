@@ -85,7 +85,7 @@ if ss.get("admin_tab") not in menu_duoc_xem:
 
 # ---------- Thanh bên ----------
 with st.sidebar:
-    st.image(LOGO, width="stretch")
+    st.image(LOGO, width=210)
     st.markdown(f'<div class="brand">{BRAND}</div><div class="sub">Trang quản lý</div>', unsafe_allow_html=True)
     st.markdown(f'<div class="sub" style="margin-top:10px">Xin chào <b>{esc(ss.user["username"])}</b>'
                 f' · {esc(ss.user["role"])}</div>', unsafe_allow_html=True)
@@ -145,7 +145,7 @@ def trang_kien_thuc():
     m[3].metric("Số nhóm", len({b["nhom"] for b in bai if b["nhom"]}))
 
     ds_nhom = list(dict.fromkeys(b["nhom"] for b in bai if b["nhom"]))
-    nhom_an = {n for n in ds_nhom if all(x["an"] for x in bai if x["nhom"] == n)}
+    nhom_an = {n for n in ds_nhom if all(x.get("an") for x in bai if x["nhom"] == n)}
 
     if co_quyen("sua_bai"):
         with st.expander(f"👁  Hiển thị nhóm trên web · đang ẩn {len(nhom_an)}/{len(ds_nhom)} nhóm"):
@@ -173,7 +173,7 @@ def trang_kien_thuc():
                 and (loc_tt == "Tất cả" or (loc_tt == "Đã có nội dung") == bool(b["noi_dung"]))]
         bang = [{"Nhóm": b["nhom"], "Tên bài": b["tieu_de"],
                  "Trạng thái": "✅ Đã có nội dung" if b["noi_dung"] else "⚠️ Chưa có nội dung",
-                 "Trên web": "🙈 Ẩn" if b["an"] else "Hiện"} for b in hien]
+                 "Trên web": "🙈 Ẩn" if b.get("an") else "Hiện"} for b in hien]
         chon = st.dataframe(bang, width="stretch", hide_index=True, height=520,
                             on_select="rerun", selection_mode="single-row", key="bang_bai")
         st.caption(f"Hiển thị {len(hien)} / {len(bai)} bài · Bấm vào một dòng để sửa")
@@ -206,7 +206,7 @@ def trang_kien_thuc():
             ten = st.text_input("Tên bài", value=b["tieu_de"] if b else ss.bai_moi_goi_y)
             link = st.text_input("Link bài gốc", value=b["link"] if b else "")
             an_bai = st.checkbox("Ẩn bài này khỏi mục lục trên web (trợ lý vẫn dùng để trả lời)",
-                                 value=b["an"] if b else False)
+                                 value=bool(b.get("an")) if b else False)
             noi_dung = st.text_area("Nội dung hướng dẫn", value=b["noi_dung"] if b else "", height=300,
                                     placeholder="Dán nội dung bài hướng dẫn vào đây. Nên ghi từng bước, "
                                                 "giữ đúng tên menu và nút bấm.")
