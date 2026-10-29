@@ -203,9 +203,53 @@ def _chi_muc():
     return bai, docs, df, avg
 
 
+# Từ viết tắt / cách nói khác mà khách hay dùng -> thêm từ trong tài liệu để tìm đúng bài (viết không dấu)
+DONG_NGHIA = {
+    "hd": "hoa don", "hddt": "hoa don dien tu", "cks": "chu ky so", "cqt": "co quan thue",
+    "tct": "tong cuc thue", "mst": "ma so thue", "kh": "khach hang", "sp": "san pham", "ncc": "nha cung cap",
+    "hang loat": "nhieu cung luc excel", "nhieu hoa don": "hang loat cung luc", "cung luc": "hang loat nhieu",
+    "copy": "sao chep", "nhan ban": "sao chep", "huy hoa don": "xoa bo hoa don", "huy": "xoa bo",
+    "sua hoa don": "dieu chinh thay the hoa don",
+}
+
+
+def mo_rong_cau_hoi(cau_hoi: str) -> str:
+    """Thêm từ đồng nghĩa vào câu hỏi trước khi tìm bài."""
+    t = " " + " ".join(re.findall(r"\w+", bo_dau(cau_hoi))) + " "
+    them = [v for k, v in DONG_NGHIA.items() if f" {k} " in t]
+    return cau_hoi + (" " + " ".join(them) if them else "")
+
+
+def trich_doan(noi_dung: str, cau_hoi: str, toi_da: int) -> str:
+    """Bài dài: giữ phần mở đầu và các đoạn khớp câu hỏi nhất (không cắt cụt cuối bài)."""
+    if len(noi_dung) <= toi_da:
+        return noi_dung
+    dong = [d for d in noi_dung.splitlines() if d.strip()]  # bỏ dòng trống
+    q = set(tach_tu(mo_rong_cau_hoi(cau_hoi)))
+    diem = [len(q & set(tach_tu(d))) for d in dong]
+    chon = set(range(min(3, len(dong))))  # vài dòng đầu để biết bài nói về gì
+    do_dai = sum(len(dong[i]) + 1 for i in chon)
+    for i in sorted(range(len(dong)), key=lambda i: -diem[i]):
+        if diem[i] == 0:
+            break
+        for j in range(max(0, i - 2), min(len(dong), i + 6)):  # lấy cả các bước ngay sau dòng khớp
+            if j not in chon and do_dai + len(dong[j]) + 1 <= toi_da:
+                chon.add(j)
+                do_dai += len(dong[j]) + 1
+        if do_dai >= toi_da:
+            break
+    kq, truoc = [], -1
+    for i in sorted(chon):
+        if truoc != -1 and i != truoc + 1:
+            kq.append("(...)")
+        kq.append(dong[i])
+        truoc = i
+    return "\n".join(kq)
+
+
 def tim_bai(cau_hoi: str, k: int = 4, kem_diem: bool = False) -> list:
     bai, docs, df, avg = _chi_muc()
-    q, n, kq = tach_tu(cau_hoi), len(docs), []
+    q, n, kq = tach_tu(mo_rong_cau_hoi(cau_hoi)), len(docs), []
     for i, d in enumerate(docs):
         tf, diem = Counter(d), 0.0
         for t in q:

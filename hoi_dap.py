@@ -7,7 +7,7 @@ from collections import OrderedDict
 import streamlit as st
 from groq import Groq
 
-from common import BRAND, HOTLINE, LOGO, da_ket_noi_sheet, doc_tat_ca_bai, goi_post, nguon_anh, tim_bai
+from common import BRAND, HOTLINE, LOGO, trich_doan, da_ket_noi_sheet, doc_tat_ca_bai, goi_post, nguon_anh, tim_bai
 
 DEFAULT_MODEL = "llama-3.3-70b-versatile"
 VISION_MODEL = "qwen/qwen3.8-27b"  # model Groq đọc được ảnh; đổi bằng GROQ_VISION_MODEL trong Secrets
@@ -23,7 +23,8 @@ SYSTEM_PROMPT = f"""Bạn là "Trợ lý Hóa đơn điện tử" của Nhanh.vn
 Quy tắc:
 - CHỈ trả lời dựa trên phần TÀI LIỆU được cung cấp. Không tự suy đoán thao tác không có trong tài liệu.
 - Được thêm lưu ý hoặc giải thích ngắn cho dễ hiểu (ví dụ kết quả sau khi làm xong), nhưng không bịa tên menu, tên nút hay thao tác không có trong tài liệu.
-- Nếu tài liệu không có thông tin, trả lời: "Tài liệu hướng dẫn chưa có nội dung này. Vui lòng gọi hotline {HOTLINE} để được hỗ trợ."
+- Nếu TÀI LIỆU có thông tin liên quan, dù chỉ một phần, hãy trả lời theo phần đó (có thể nói rõ phần nào tài liệu chưa đề cập).
+- Chỉ khi không có tài liệu nào liên quan mới trả lời: "Tài liệu hướng dẫn chưa có nội dung này. Vui lòng gọi hotline {HOTLINE} để được hỗ trợ."
 - Trình bày ngắn gọn, đánh số từng bước thao tác, in đậm tên menu/nút như trong tài liệu.
 - Nếu người dùng gửi kèm ảnh chụp màn hình: mở đầu bằng một câu cho biết họ đang ở màn hình nào hoặc gặp thông báo gì, rồi hướng dẫn theo TÀI LIỆU.
 - Không ghi nguồn, tên bài, tên mục tài liệu hay link ở câu trả lời.
@@ -77,8 +78,9 @@ def gui_gop_y(i: int, danh_gia: str, ghi_chu: str = ""):
     m = ss.messages[i]
     try:
         if da_ket_noi_sheet():
+            bai_dung = "; ".join(m.get("bai", [])) or "không tìm thấy bài nào"
             goi_post({"action": "feedback", "danh_gia": danh_gia, "cau_hoi": m.get("question", ""),
-                      "tra_loi": m["content"], "ghi_chu": ghi_chu})
+                      "tra_loi": f"{m['content']}\n\n[Bài trợ lý đã tìm: {bai_dung}]", "ghi_chu": ghi_chu})
         ss.fb_sent.add(i)
         st.toast("Cảm ơn bạn đã góp ý!")
     except Exception as e:
@@ -235,9 +237,11 @@ if cau_hoi:
             except Exception as e:
                 st.warning(f"Chưa đọc được ảnh ({e}). Trợ lý sẽ trả lời theo câu hỏi chữ.")
 
-    ket_qua = tim_bai(f"{cau_hoi}\n{mo_ta_anh}", k=len(GIOI_HAN_BAI), kem_diem=True)
+    # Câu hỏi nối tiếp ("cái này", "còn sao chép thì sao") cần thêm câu hỏi trước để tìm đúng bài
+    cau_truoc = next((m["content"] for m in reversed(ss.messages[:-1]) if m["role"] == "user"), "")
+    ket_qua = tim_bai(f"{cau_hoi}\n{cau_hoi}\n{mo_ta_anh}\n{cau_truoc}", k=len(GIOI_HAN_BAI), kem_diem=True)
     tai_lieu = [b for _, b in ket_qua]
-    ngu_canh = "\n\n---\n\n".join(f"[TÀI LIỆU {i}: {b['nhom']} > {b['tieu_de']}]\n{rut_gon(b['noi_dung'], GIOI_HAN_BAI[i - 1])}"
+    ngu_canh = "\n\n---\n\n".join(f"[TÀI LIỆU {i}: {b['nhom']} > {b['tieu_de']}]\n{trich_doan(b['noi_dung'], f"{cau_hoi} {mo_ta_anh}", GIOI_HAN_BAI[i - 1])}"
                                    for i, b in enumerate(tai_lieu, 1)) \
         or "(Không tìm thấy bài liên quan)"
     lich_su = [{"role": m["role"], "content": rut_gon(m["content"], 600)} for m in ss.messages[-5:-1]]
@@ -250,7 +254,7 @@ if cau_hoi:
     with st.chat_message("assistant", avatar="🧾"):
         try:
             with st.spinner("Trợ lý đang soạn câu trả lời..."):
-                stream = client.chat.completions.create(model=model, messages=messages, temperature=0.2, stream=True,
+                stream = client.chat.completions.create(model=model, messages=messages, temperature=0, stream=True,
                                                         max_tokens=1500, **tham_so_them(model))
             tra_loi = st.write_stream(an_ma_bai(chunk.choices[0].delta.content or "" for chunk in stream)).strip()
         except Exception as e:
@@ -268,5 +272,6 @@ if cau_hoi:
             diem_2 = ket_qua[1][0] if len(ket_qua) > 1 else 0
             if ket_qua[0][0] >= 1.3 * diem_2:
                 anh = ket_qua[0][1].get("anh", [])
-    ss.messages.append({"role": "assistant", "content": tra_loi, "question": cau_hoi + (" [kèm ảnh]" if anh_gui else ""), "anh": anh})
+    ss.messages.append({"role": "assistant", "content": tra_loi, "question": cau_hoi + (" [kèm ảnh]" if anh_gui else ""),
+                        "anh": anh, "bai": [b["tieu_de"] for b in tai_lieu]})
     st.rerun()
