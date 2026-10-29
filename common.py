@@ -242,7 +242,6 @@ CSS = """
 [data-testid="stMetric"] { background:#FFFFFF; border:1px solid #E9E4E2; border-radius:12px; padding:12px 16px; }
 .stButton button[kind="primary"], [data-testid="stFormSubmitButton"] button[kind="primaryFormSubmit"] { background:#C41E24 !important; border-color:#C41E24 !important; color:#FFFFFF !important; }
 .stButton button[kind="primary"]:hover, [data-testid="stFormSubmitButton"] button[kind="primaryFormSubmit"]:hover { background:#A3161C !important; border-color:#A3161C !important; }
-.stApp h1, .stApp h2, .stApp h3, .stApp h4 { -webkit-text-stroke: 0.9px currentColor; letter-spacing: .01em; }  /* Comfortaa vốn mảnh: làm tiêu đề đậm hơn */
 [data-testid="stSidebar"] [data-testid="stImage"], [data-testid="stSidebar"] [data-testid="stImageContainer"],
 [data-testid="stSidebar"] [data-testid="stFullScreenFrame"] { display:flex; justify-content:center; width:100%; margin:0 auto; }
 [data-testid="stSidebarHeader"] { height: 2.25rem; padding-bottom: 0; }
