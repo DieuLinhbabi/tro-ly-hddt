@@ -21,6 +21,20 @@ LOGO = str(Path(__file__).parent / "assets" / "logo.png")
 ICON = str(Path(__file__).parent / "assets" / "icon.png")
 
 
+def _logo_nho() -> str:
+    """Logo thu nhỏ dạng data URI, hiện ở đầu trang khi khách ẩn thanh menu."""
+    import base64, io
+    from PIL import Image
+    anh = Image.open(LOGO)
+    anh.thumbnail((360, 120))
+    bo = io.BytesIO()
+    anh.save(bo, "PNG", optimize=True)
+    return "data:image/png;base64," + base64.b64encode(bo.getvalue()).decode()
+
+
+LOGO_NHO = _logo_nho()
+
+
 # ---------- Kết nối Google Sheet (qua Apps Script) ----------
 def _cfg(key: str):
     try:
@@ -337,7 +351,7 @@ CSS = """
 .hero { padding: 10px 0 6px; }
 .hero-badge { display:inline-block; padding: 6px 14px; border-radius: 999px; background: #FFFFFF; border: 1px solid #F3D3D4;
   color: #B3191F !important; font-size: 13px; font-weight: 600; box-shadow: 0 3px 10px rgba(196,30,36,.08); }
-.hero-title { font-size: 34px; font-weight: 800; color: #221E1E; margin: 14px 0 4px; letter-spacing: -.01em; }
+.hero-title { font-size: 32px; font-weight: 800; color: #221E1E; margin: 14px 0 4px; letter-spacing: -.01em; }
 .hero-sub { color: #7A6E6E; font-size: 15px; margin-bottom: 8px; }
 [data-testid="stChatMessage"] { background: #FFFFFF; border: 1px solid #F1E5E2; border-radius: 24px; padding: 16px 20px;
   box-shadow: 0 8px 24px rgba(120,40,40,.06); border-bottom-left-radius: 8px; margin-right: 4%; }
@@ -358,6 +372,10 @@ CSS = """
 [data-testid="stChatMessageAvatarImage"] { width: 46px !important; height: 46px !important; }
 [data-testid="stChatMessage"] { box-sizing: border-box; }
 
+
+.stMainBlockContainer:has(.hero), .stApp:has(.hero) [data-testid="stBottomBlockContainer"] { max-width: 980px; margin-left: auto; margin-right: auto; }
+.hero-logo { display: none; height: 46px; margin: 0 0 18px; }
+.stApp:has([data-testid="stSidebar"][data-collapsed="true"]) .hero-logo { display: block; }
 </style>
 """
 

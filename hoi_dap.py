@@ -9,7 +9,7 @@ from collections import OrderedDict
 import streamlit as st
 from groq import Groq
 
-from common import BRAND, HOTLINE, LOGO, che_thong_tin, goi_post_nen, trich_doan, da_ket_noi_sheet, doc_tat_ca_bai, goi_post, nguon_anh, tim_bai
+from common import LOGO_NHO, BRAND, HOTLINE, LOGO, che_thong_tin, goi_post_nen, trich_doan, da_ket_noi_sheet, doc_tat_ca_bai, goi_post, nguon_anh, tim_bai
 
 DEFAULT_MODEL = "llama-3.3-70b-versatile"
 VISION_MODEL = "qwen/qwen3.8-27b"  # model Groq đọc được ảnh; đổi bằng GROQ_VISION_MODEL trong Secrets
@@ -69,7 +69,8 @@ with st.sidebar:
                 unsafe_allow_html=True)
 
 # ---------- Tiêu đề ----------
-st.markdown('<div class="hero"><span class="hero-badge">✨ Trợ lý 24/7 · trả lời trong vài giây</span>'
+st.markdown(f'<div class="hero"><img class="hero-logo" src="{LOGO_NHO}">'
+            '<span class="hero-badge">✨ Trợ lý 24/7 · trả lời trong vài giây</span>'
             '<div class="hero-title">Chào bạn, hôm nay bạn cần tra cứu thông tin gì?</div>'
             '<div class="hero-sub">Gõ câu hỏi, dán hoặc tải ảnh lỗi lên đây, trợ lý sẽ giúp bạn ✨</div></div>',
             unsafe_allow_html=True)
