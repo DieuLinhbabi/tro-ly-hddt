@@ -13,7 +13,8 @@ DEFAULT_MODEL = "llama-3.3-70b-versatile"
 VISION_MODEL = "qwen/qwen3.8-27b"  # model Groq đọc được ảnh; đổi bằng GROQ_VISION_MODEL trong Secrets
 CAU_HOI_ANH = "Màn hình trong ảnh là gì và tôi cần làm gì tiếp theo?"
 PROMPT_DOC_ANH = ("Đây là ảnh chụp màn hình phần mềm hóa đơn điện tử do người dùng gửi. Hãy mô tả ngắn gọn bằng tiếng Việt: "
-                  "đang ở màn hình/menu nào, các nút và ô nhập chính, và chép NGUYÊN VĂN mọi thông báo lỗi hay cảnh báo "
+                  "tiêu đề màn hình/menu CHỈ KHI nhìn thấy rõ trong ảnh (nếu không thấy thì ghi 'không rõ màn hình', "
+                  "không tự đặt tên), tên các cột/nút/ô nhập nhìn thấy, và chép NGUYÊN VĂN mọi thông báo lỗi hay cảnh báo "
                   "nếu có. Nếu ảnh không phải màn hình phần mềm, nói rõ ảnh có gì. Không đoán cách xử lý.")
 GOI_Y = ["Cách điều chỉnh hóa đơn?", "Xóa bỏ hóa đơn đã phát hành", "Lập mẫu 04/SS-HĐĐT", "Thêm người dùng và phân quyền"]
 LOI_CHAO = ("Xin chào! Bạn cần tìm cách làm thao tác nào trên phần mềm hóa đơn điện tử? "
@@ -27,7 +28,7 @@ Quy tắc:
 - Nếu TÀI LIỆU có thông tin liên quan, dù chỉ một phần, hãy trả lời theo phần đó (có thể nói rõ phần nào tài liệu chưa đề cập).
 - Chỉ khi không có tài liệu nào liên quan mới trả lời: "Tài liệu hướng dẫn chưa có nội dung này. Vui lòng gọi hotline {HOTLINE} để được hỗ trợ."
 - Trình bày ngắn gọn, đánh số từng bước thao tác, in đậm tên menu/nút như trong tài liệu.
-- Nếu người dùng gửi kèm ảnh chụp màn hình: mở đầu bằng một câu cho biết họ đang ở màn hình nào hoặc gặp thông báo gì, rồi hướng dẫn theo TÀI LIỆU.
+- Nếu người dùng gửi kèm ảnh chụp màn hình: mở đầu bằng một câu nêu thông báo/lỗi họ gặp. Chỉ nêu tên màn hình khi phần mô tả ảnh ghi rõ tiêu đề màn hình hoặc TÀI LIỆU cho biết thông báo đó hiển thị ở màn hình nào; không tự đặt tên màn hình. Sau đó hướng dẫn theo TÀI LIỆU.
 - Không ghi nguồn, tên bài, tên mục tài liệu hay link ở câu trả lời.
 - Dòng cuối cùng của câu trả lời luôn là [[BAI:x]], với x là số thứ tự TÀI LIỆU bạn dựa vào nhiều nhất; ghi [[BAI:0]] nếu không dùng tài liệu nào. Người dùng không thấy dòng này.
 - Luôn trả lời bằng tiếng Việt."""
