@@ -1,0 +1,24 @@
+# Giữ trang Trợ lý Hóa đơn điện tử luôn thức trên Streamlit Cloud.
+# Cứ khoảng 4 tiếng GitHub mở trang một lần bằng trình duyệt thật (miễn phí với repo công khai).
+name: Giữ web luôn thức
+
+on:
+  schedule:
+    - cron: "17 */4 * * *"
+  workflow_dispatch:   # cho phép bấm chạy tay trong tab Actions
+
+jobs:
+  mo-trang:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Cài trình duyệt
+        run: |
+          pip install playwright==1.55.0
+          python -m playwright install --with-deps chromium
+      - name: Mở trang trợ lý
+        run: python .github/giu_thuc.py
