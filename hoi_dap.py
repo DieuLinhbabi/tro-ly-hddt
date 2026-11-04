@@ -17,8 +17,8 @@ CAU_HOI_ANH = "Màn hình trong ảnh là gì và tôi cần làm gì tiếp the
 PROMPT_DOC_ANH = ("Đây là ảnh chụp màn hình phần mềm hóa đơn điện tử do người dùng gửi. Hãy mô tả ngắn gọn bằng tiếng Việt: "
                   "đang ở màn hình/menu nào, các nút và ô nhập chính, và chép NGUYÊN VĂN mọi thông báo lỗi hay cảnh báo "
                   "nếu có. Nếu ảnh không phải màn hình phần mềm, nói rõ ảnh có gì. Không đoán cách xử lý.")
-GOI_Y = ["Cách điều chỉnh hóa đơn?", "Xóa bỏ hóa đơn đã phát hành", "Lập mẫu 04/SS-HĐĐT", "Thêm người dùng và phân quyền"]
-ICON_GOI_Y = ["✏️", "🗑️", "📮", "👥"]
+GOI_Y = ["Cách điều chỉnh hóa đơn?", "Hóa đơn sai thì xử lý thế nào?", "Lập mẫu 04/SS-HĐĐT", "Thêm người dùng và phân quyền"]
+ICON_GOI_Y = ["✏️", "🧐", "📮", "👥"]
 AVATAR_TRO_LY = "assets/mascot.png"
 LOI_CHAO = ("Xin chào! Bạn cần tìm cách làm thao tác nào trên phần mềm hóa đơn điện tử? "
             "Có thể bắt đầu với một câu hỏi gợi ý bên dưới.")
