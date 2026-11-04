@@ -71,7 +71,7 @@ with st.sidebar:
 # ---------- Tiêu đề ----------
 st.markdown('<div class="hero"><span class="hero-badge">✨ Trợ lý 24/7 · trả lời trong vài giây</span>'
             '<div class="hero-title">Chào bạn, hôm nay bạn cần tra cứu thông tin gì?</div>'
-            '<div class="hero-sub">Hỏi cách thao tác trên phần mềm hóa đơn điện tử, hoặc bấm dấu + để gửi ảnh chụp màn hình.</div></div>',
+            '<div class="hero-sub">Gõ câu hỏi, dán hoặc tải ảnh lỗi lên đây, trợ lý sẽ giúp bạn ✨</div></div>',
             unsafe_allow_html=True)
 
 if "GROQ_API_KEY" not in st.secrets:
