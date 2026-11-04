@@ -327,6 +327,37 @@ CSS = """
 [data-testid="stSidebar"] .brand { text-align: center; margin-top: 6px; }
 [data-testid="stChatMessage"] { scroll-margin-top: 72px; }  /* chừa chỗ cho thanh trên cùng khi tự cuộn về câu hỏi */
 [data-testid="stToolbarActions"], [data-testid="stToolbarActionButton"], [data-testid="stAppDeployButton"] { display:none !important; }
+/* ===== Phương án A: Mềm mại ===== */
+.stApp { background: radial-gradient(#EFDCD8 1.2px, transparent 1.2px) 0 0/22px 22px, #FBF7F4; }
+[data-testid="stSidebar"] { box-shadow: 6px 0 28px rgba(150,40,40,.07); border-right: none; }
+[data-testid="stSidebar"] .stButton button, [data-testid="stSidebar"] [data-testid="stExpander"] details { border-radius: 16px !important; }
+[data-testid="stSidebar"] [data-testid="stExpander"] { border-radius: 16px; border: 1px solid #F0E3E0; }
+[data-testid="stSidebar"] .stButton button[kind="secondary"]:first-of-type { }
+.hotline-card { margin-top: 22px; padding: 14px 16px; border-radius: 18px; background: #FDEEEE; font-size: 13.5px; line-height: 1.6; }
+.hero { padding: 10px 0 6px; }
+.hero-badge { display:inline-block; padding: 6px 14px; border-radius: 999px; background: #FFFFFF; border: 1px solid #F3D3D4;
+  color: #B3191F !important; font-size: 13px; font-weight: 600; box-shadow: 0 3px 10px rgba(196,30,36,.08); }
+.hero-title { font-size: 34px; font-weight: 800; color: #221E1E; margin: 14px 0 4px; letter-spacing: -.01em; }
+.hero-sub { color: #7A6E6E; font-size: 15px; margin-bottom: 8px; }
+[data-testid="stChatMessage"] { background: #FFFFFF; border: 1px solid #F1E5E2; border-radius: 24px; padding: 16px 20px;
+  box-shadow: 0 8px 24px rgba(120,40,40,.06); border-bottom-left-radius: 8px; margin-right: 4%; }
+[data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"]) { background: #C41E24; border-color: #C41E24;
+  margin-left: auto; margin-right: 0; width: fit-content; max-width: 78%; border-radius: 24px; border-bottom-right-radius: 8px; box-shadow: 0 8px 20px rgba(196,30,36,.18); }
+[data-testid="stChatMessage"]:has([data-testid="stChatMessageAvatarUser"]) p { color: #FFFFFF; }
+[data-testid="stChatMessageAvatarUser"] { background: #FFFFFF; color: #C41E24; }
+.stMain .stButton button[kind="secondary"] { border-radius: 16px; background: #FFF8F7; border: 1.5px solid #F4D6D6; color: #4A2B2B;
+  padding: 10px 14px; justify-content: flex-start; transition: all .15s ease; }
+.stMain .stButton button[kind="secondary"]:hover { background: #FDECEC; border-color: #E8A9AB; transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(196,30,36,.12); color: #A3161C; }
+[data-testid="stChatInput"] { border-radius: 26px !important; border: 1.5px solid #F2C9CA !important; box-shadow: 0 10px 28px rgba(196,30,36,.10); background:#FFFFFF; }
+[data-testid="stChatInput"] > div { border-radius: 26px !important; }
+[data-testid="stChatInputSubmitButton"] { background: #C41E24 !important; border-radius: 999px !important; }
+[data-testid="stChatInputSubmitButton"] svg { fill: #FFFFFF !important; color:#FFFFFF !important; }
+[data-testid="stBottomBlockContainer"] { background: transparent; }
+
+[data-testid="stChatMessageAvatarImage"] { width: 46px !important; height: 46px !important; }
+[data-testid="stChatMessage"] { box-sizing: border-box; }
+
 </style>
 """
 

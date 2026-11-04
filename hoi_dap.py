@@ -18,6 +18,8 @@ PROMPT_DOC_ANH = ("Đây là ảnh chụp màn hình phần mềm hóa đơn đi
                   "đang ở màn hình/menu nào, các nút và ô nhập chính, và chép NGUYÊN VĂN mọi thông báo lỗi hay cảnh báo "
                   "nếu có. Nếu ảnh không phải màn hình phần mềm, nói rõ ảnh có gì. Không đoán cách xử lý.")
 GOI_Y = ["Cách điều chỉnh hóa đơn?", "Xóa bỏ hóa đơn đã phát hành", "Lập mẫu 04/SS-HĐĐT", "Thêm người dùng và phân quyền"]
+ICON_GOI_Y = ["✏️", "🗑️", "📮", "👥"]
+AVATAR_TRO_LY = "assets/mascot.png"
 LOI_CHAO = ("Xin chào! Bạn cần tìm cách làm thao tác nào trên phần mềm hóa đơn điện tử? "
             "Có thể bắt đầu với một câu hỏi gợi ý bên dưới.")
 
@@ -63,11 +65,14 @@ with st.sidebar:
             for b in ds:
                 if st.button(b["tieu_de"], key=f"bai_{b['row']}_{b['tieu_de']}", width="stretch"):
                     ss.pending = f"Hướng dẫn: {b['tieu_de']}"
-    st.markdown(f'<div class="sub" style="margin-top:24px">Không có câu trả lời?<br>Gọi hotline '
-                f'<b>{HOTLINE}</b></div>', unsafe_allow_html=True)
+    st.markdown(f'<div class="hotline-card">Không có câu trả lời?<br>Gọi hotline <b>{HOTLINE}</b></div>',
+                unsafe_allow_html=True)
 
 # ---------- Tiêu đề ----------
-st.markdown("## HỎI ĐÁP - NHANH")
+st.markdown('<div class="hero"><span class="hero-badge">✨ Trợ lý 24/7 · trả lời trong vài giây</span>'
+            '<div class="hero-title">Chào bạn, hôm nay bạn cần tra cứu thông tin gì?</div>'
+            '<div class="hero-sub">Hỏi cách thao tác trên phần mềm hóa đơn điện tử, hoặc bấm dấu + để gửi ảnh chụp màn hình.</div></div>',
+            unsafe_allow_html=True)
 
 if "GROQ_API_KEY" not in st.secrets:
     st.error("Chưa khai báo GROQ_API_KEY trong Secrets.")
@@ -212,16 +217,16 @@ def an_ma_bai(dong_chu):
 
 
 # ---------- Hội thoại ----------
-with st.chat_message("assistant", avatar="🧾"):
+with st.chat_message("assistant", avatar=AVATAR_TRO_LY):
     st.markdown(LOI_CHAO)
     if not ss.messages:
-        cols = st.columns(len(GOI_Y))
-        for col, g in zip(cols, GOI_Y):
-            if col.button(g, width="stretch"):
+        cols = st.columns(2)
+        for i, (g, ic) in enumerate(zip(GOI_Y, ICON_GOI_Y)):
+            if cols[i % 2].button(f"{ic}  {g}", width="stretch", key=f"goiy_{i}"):
                 ss.pending = g
 
 for i, m in enumerate(ss.messages):
-    with st.chat_message(m["role"], avatar="🧾" if m["role"] == "assistant" else None):
+    with st.chat_message(m["role"], avatar=AVATAR_TRO_LY if m["role"] == "assistant" else None):
         if m.get("img"):
             st.image(m["img"], width=320)
         st.markdown(m["content"])
@@ -291,7 +296,7 @@ if cau_hoi:
                                                  if mo_ta_anh else "")
                                               + f"CÂU HỎI: {cau_hoi}"}])
 
-    with st.chat_message("assistant", avatar="🧾"):
+    with st.chat_message("assistant", avatar=AVATAR_TRO_LY):
         try:
             with st.spinner("Trợ lý đang soạn câu trả lời..."):
                 stream = client.chat.completions.create(model=model, messages=messages, temperature=0, stream=True,
