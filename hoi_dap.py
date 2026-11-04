@@ -1,6 +1,7 @@
 """Màn hình hỏi đáp cho người dùng (không cần đăng nhập)."""
 import base64
 import io
+import json
 import re
 from collections import OrderedDict
 
@@ -87,6 +88,27 @@ def gui_gop_y(i: int, danh_gia: str, ghi_chu: str = ""):
         st.toast("Cảm ơn bạn đã góp ý!")
     except Exception as e:
         st.error(f"Chưa gửi được góp ý: {e}")
+
+
+def nut_sao_chep(noi_dung: str):
+    """Nút sao chép câu trả lời dạng chữ thường (bỏ ký hiệu **, #) để dán vào Zalo, email..."""
+    chu = re.sub(r"\*\*|__|^#+\s*", "", noi_dung, flags=re.M).strip()
+    components.html(f"""<style>body{{margin:0;padding:2px 0}}</style>
+<button id="b" style="font:500 14px 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;color:#221E1E;
+background:#FFFFFF;border:1px solid #E6E0DE;border-radius:8px;padding:6px 14px;cursor:pointer">📋 Sao chép câu trả lời</button>
+<script>
+const chu = {json.dumps(chu)};
+const b = document.getElementById("b");
+function xong() {{ b.textContent = "✓ Đã sao chép"; setTimeout(() => b.textContent = "📋 Sao chép câu trả lời", 2000); }}
+function cachCu() {{
+  const t = document.createElement("textarea"); t.value = chu; document.body.appendChild(t); t.select();
+  try {{ document.execCommand("copy"); xong(); }} catch (e) {{ b.textContent = "Không sao chép được"; }}
+  t.remove();
+}}
+b.onclick = () => {{
+  if (navigator.clipboard) navigator.clipboard.writeText(chu).then(xong).catch(cachCu); else cachCu();
+}};
+</script>""", height=44)
 
 
 def khung_gop_y(i: int):
@@ -205,6 +227,8 @@ for i, m in enumerate(ss.messages):
         st.markdown(m["content"])
         if m["role"] == "assistant":
             hien_anh(m.get("anh", []))
+            if not m["content"].startswith("⚠️"):
+                nut_sao_chep(m["content"])
             khung_gop_y(i)
 
 # Sau khi có câu trả lời: đưa màn hình về đúng câu hỏi vừa hỏi để đọc từ đầu, không bị cuộn xuống cuối
