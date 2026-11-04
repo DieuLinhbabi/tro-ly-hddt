@@ -30,7 +30,9 @@ Quy tắc:
 - Được thêm lưu ý hoặc giải thích ngắn cho dễ hiểu (ví dụ kết quả sau khi làm xong), nhưng không bịa tên menu, tên nút hay thao tác không có trong tài liệu.
 - Nếu TÀI LIỆU có thông tin liên quan, dù chỉ một phần, hãy trả lời theo phần đó (có thể nói rõ phần nào tài liệu chưa đề cập).
 - Chỉ khi không có tài liệu nào liên quan mới trả lời: "Tài liệu hướng dẫn chưa có nội dung này. Vui lòng gọi hotline {HOTLINE} để được hỗ trợ."
-- Trình bày ngắn gọn, đánh số từng bước thao tác, in đậm tên menu/nút như trong tài liệu.
+- Trình bày ngắn gọn, đánh số từng bước thao tác, in đậm tên menu/nút như trong tài liệu. Không dùng thẻ HTML (như <br>); không kẻ bảng khi một ô cần nhiều dòng, hãy dùng danh sách gạch đầu dòng.
+- Trả lời như nhân viên CSKH: ngắn gọn, đúng trọng tâm, chỉ nêu cách làm cho đúng trường hợp của người dùng; KHÔNG liệt kê tất cả các trường hợp.
+- Nếu cách làm phụ thuộc vào thông tin người dùng CHƯA nói (ví dụ hóa đơn sai nhưng chưa nói hóa đơn đang ở trạng thái nào: Nháp/chưa ký phát hành, bị từ chối cấp mã, hay đã được cấp mã), thì CHƯA hướng dẫn mà hỏi lại 1 câu thật ngắn để khai thác thông tin. Ngay sau câu hỏi, thêm 1 dòng [[CHON: lựa chọn 1 | lựa chọn 2 | lựa chọn 3]] gồm 2-4 lựa chọn, mỗi lựa chọn tối đa 5 từ (ví dụ: [[CHON: Nháp, chưa ký | Bị từ chối cấp mã | Đã có mã CQT]]). Mỗi lần chỉ hỏi 1 câu. Khi đã đủ thông tin thì trả lời luôn, không hỏi thêm.
 - Nếu người dùng gửi kèm ảnh chụp màn hình: mở đầu bằng một câu cho biết họ đang ở màn hình nào hoặc gặp thông báo gì, rồi hướng dẫn theo TÀI LIỆU.
 - Không ghi nguồn, tên bài, tên mục tài liệu hay link ở câu trả lời.
 - Dòng cuối cùng của câu trả lời luôn là [[BAI:x]], với x là số thứ tự TÀI LIỆU bạn dựa vào nhiều nhất; ghi [[BAI:0]] nếu không dùng tài liệu nào. Người dùng không thấy dòng này.
@@ -261,9 +263,16 @@ for i, m in enumerate(ss.messages):
         st.markdown(m["content"])
         if m["role"] == "assistant":
             hien_anh(m.get("anh", []))
-            if not m["content"].startswith("⚠️"):
-                nut_sao_chep(m["content"])
-            khung_gop_y(i)
+            if m.get("chon"):
+                if i == len(ss.messages) - 1:  # chỉ cho bấm ở câu hỏi lại mới nhất
+                    cot = st.columns(len(m["chon"]))
+                    for j, (c, lua_chon) in enumerate(zip(cot, m["chon"])):
+                        if c.button(lua_chon, key=f"chon_{i}_{j}", width="stretch"):
+                            ss.pending = lua_chon
+            else:
+                if not m["content"].startswith("⚠️"):
+                    nut_sao_chep(m["content"])
+                khung_gop_y(i)
 
 # Sau khi có câu trả lời: đưa màn hình về đúng câu hỏi vừa hỏi để đọc từ đầu, không bị cuộn xuống cuối
 if ss.get("cuon_den") is not None:
@@ -353,11 +362,18 @@ if cau_hoi:
         ket_qua_hoi = "Chưa có nội dung"
     else:
         ket_qua_hoi = "Đã trả lời"
+    # Câu hỏi lại kèm lựa chọn: dòng [[CHON: a | b | c]] -> hiện thành nút bấm
+    m_chon = re.search(r"\[\[\s*CHON\s*:(.*?)\]\]", tra_loi_goc[0], re.S)
+    chon = [x.strip() for x in m_chon.group(1).split("|") if x.strip()][:4] if m_chon else []
+    if chon:
+        anh = []  # câu hỏi lại thì chưa cần ảnh minh họa
+        ket_qua_hoi = "Hỏi lại thông tin"
+    tra_loi = re.sub(r"<br\s*/?>", " ", tra_loi)
     bai_dung = (tai_lieu[int(m_bai.group(1)) - 1]["tieu_de"]
                 if m_bai and 1 <= int(m_bai.group(1)) <= len(tai_lieu) else "")
     goi_post_nen({"action": "log_question", "cau_hoi": che_thong_tin(cau_hoi), "co_anh": bool(anh_gui),
                   "bai": bai_dung, "ket_qua": ket_qua_hoi, "giay": round(time.time() - bat_dau, 1)})
     ss.cuon_den = len(ss.messages) - 1  # vị trí câu hỏi vừa gửi
     ss.messages.append({"role": "assistant", "content": tra_loi, "question": cau_hoi + (" [kèm ảnh]" if anh_gui else ""),
-                        "anh": anh, "bai": [b["tieu_de"] for b in tai_lieu]})
+                        "anh": anh, "bai": [b["tieu_de"] for b in tai_lieu], "chon": chon})
     st.rerun()

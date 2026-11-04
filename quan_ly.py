@@ -437,7 +437,9 @@ def trang_thong_ke():
         return
 
     hom_nay = dt.date.today()
-    tra_loi_duoc = sum(x["ket_qua"] == "Đã trả lời" for x in ds)
+    HOI_LAI = "Hỏi lại thông tin"  # trợ lý hỏi lại khách trước khi hướng dẫn: không tính là trả lời được/không được
+    tinh_ty_le = [x for x in ds if x["ket_qua"] != HOI_LAI]
+    tra_loi_duoc = sum(x["ket_qua"] == "Đã trả lời" for x in tinh_ty_le)
     giay = []
     for x in ds:  # Sheet tiếng Việt ghi "2,3" thay vì "2.3"
         try:
@@ -447,7 +449,7 @@ def trang_thong_ke():
     m = st.columns(4)
     m[0].metric("Tổng lượt hỏi", len(ds))
     m[1].metric("7 ngày gần nhất", sum(1 for x in ds if (d := ngay(x)) and (hom_nay - d).days < 7))
-    m[2].metric("Tỷ lệ trả lời được", f"{tra_loi_duoc / len(ds):.0%}")
+    m[2].metric("Tỷ lệ trả lời được", f"{tra_loi_duoc / len(tinh_ty_le):.0%}" if tinh_ty_le else "—")
     m[3].metric("Thời gian trả lời TB", f"{sum(giay) / len(giay):.1f} giây" if giay else "—")
 
     trai, phai = st.columns(2, gap="large")
@@ -466,7 +468,7 @@ def trang_thong_ke():
     with phai:
         st.markdown("#### Câu chưa trả lời được")
         st.caption("Nên ưu tiên bổ sung kiến thức cho các câu này.")
-        chua = [x for x in reversed(ds) if x["ket_qua"] != "Đã trả lời"]
+        chua = [x for x in reversed(ds) if x["ket_qua"] not in ("Đã trả lời", HOI_LAI)]
         if chua:
             st.dataframe([{"Thời gian": x["thoi_gian"], "Câu hỏi": x["cau_hoi"], "Kết quả": x["ket_qua"]}
                           for x in chua[:200]], hide_index=True, width="stretch", height=420)
