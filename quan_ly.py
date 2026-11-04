@@ -438,7 +438,12 @@ def trang_thong_ke():
 
     hom_nay = dt.date.today()
     tra_loi_duoc = sum(x["ket_qua"] == "Đã trả lời" for x in ds)
-    giay = [float(x["giay"]) for x in ds if x["giay"].replace(".", "", 1).isdigit()]
+    giay = []
+    for x in ds:  # Sheet tiếng Việt ghi "2,3" thay vì "2.3"
+        try:
+            giay.append(float(x["giay"].strip().replace(",", ".")))
+        except ValueError:
+            pass
     m = st.columns(4)
     m[0].metric("Tổng lượt hỏi", len(ds))
     m[1].metric("7 ngày gần nhất", sum(1 for x in ds if (d := ngay(x)) and (hom_nay - d).days < 7))
