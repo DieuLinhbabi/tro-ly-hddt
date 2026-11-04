@@ -258,6 +258,8 @@ DONG_NGHIA = {
     "hang loat": "nhieu cung luc excel", "nhieu hoa don": "hang loat cung luc", "cung luc": "hang loat nhieu",
     "copy": "sao chep", "nhan ban": "sao chep", "huy hoa don": "xoa bo hoa don", "huy": "xoa bo",
     "sua hoa don": "dieu chinh thay the hoa don",
+    "tao hoa don": "tao moi lap hoa don danh sach", "lap hoa don": "tao moi hoa don danh sach",
+    "xuat hoa don": "tao moi lap phat hanh hoa don", "viet hoa don": "tao moi lap hoa don",
 }
 
 
