@@ -216,6 +216,34 @@ def an_ma_bai(dong_chu):
         yield cho
 
 
+# Tự tải lại trang khi mất kết nối với máy chủ (để lâu không dùng, máy ngủ, app vừa cập nhật...)
+# để khách không gặp màn hình "đơ" bấm không được. Chỉ tải lại khi máy chủ đã sẵn sàng.
+TU_KET_NOI_LAI = """<script>
+const w = window.parent;
+if (!w.__tuKetNoiLai) {
+  w.__tuKetNoiLai = true;
+  const s = w.document.createElement("script");
+  s.textContent = `
+    (function () {
+      let mat = 0, dangThu = false;
+      setInterval(async function () {
+        const loi = document.querySelector('[data-testid="stConnectionStatus"]');
+        mat = loi ? mat + 5 : 0;
+        if (mat < 20 || dangThu) return;
+        dangThu = true;
+        try {
+          const r = await fetch("_stcore/health", {cache: "no-store"});
+          if (r.ok) { location.reload(); return; }
+        } catch (e) {}
+        dangThu = false;
+      }, 5000);
+    })();`;
+  w.document.head.appendChild(s);
+}
+</script>"""
+st.iframe(TU_KET_NOI_LAI, height=1)
+
+
 # ---------- Hội thoại ----------
 with st.chat_message("assistant", avatar=AVATAR_TRO_LY):
     st.markdown(LOI_CHAO)
