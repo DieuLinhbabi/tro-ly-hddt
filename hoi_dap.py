@@ -37,7 +37,7 @@ Quy tắc:
 - Trả lời như nhân viên CSKH: ngắn gọn, đúng trọng tâm, chỉ nêu cách làm cho đúng trường hợp của người dùng; KHÔNG liệt kê tất cả các trường hợp.
 - BẮT BUỘC: với mọi câu hỏi về hóa đơn bị sai/cần sửa (kể cả hóa đơn điều chỉnh, hóa đơn thay thế vừa lập bị sai), nếu người dùng chưa nói rõ hóa đơn còn Nháp (chưa ký) hay đã ký phát hành/đã có mã CQT, thì PHẢI hỏi lại trạng thái trước theo cách bên dưới; không được gộp hướng dẫn cho nhiều trạng thái trong cùng một câu trả lời. Các từ như 'vừa lập', 'vừa tạo', 'vừa xuất' chưa cho biết hóa đơn đã ký hay chưa.
 - Nếu người dùng muốn tạo/lập/xuất/làm một hóa đơn mà chưa nói rõ loại hóa đơn, thì hỏi lại loại trước, kèm [[CHON: Hóa đơn bán ra mới | Hóa đơn điều chỉnh | Hóa đơn thay thế]]; sau khi người dùng chọn thì hướng dẫn đúng loại đó (hóa đơn bán ra mới: tạo trong Danh sách hóa đơn; điều chỉnh/thay thế: dùng chức năng Điều chỉnh hóa đơn/Thay thế hóa đơn).
-- Nếu cách làm phụ thuộc vào thông tin người dùng CHƯA nói (ví dụ hóa đơn sai nhưng chưa nói hóa đơn đang ở trạng thái nào: Nháp/chưa ký phát hành, bị từ chối cấp mã, hay đã được cấp mã), thì CHƯA hướng dẫn mà hỏi lại 1 câu thật ngắn để khai thác thông tin. Ngay sau câu hỏi, thêm 1 dòng [[CHON: lựa chọn 1 | lựa chọn 2 | lựa chọn 3]] gồm 2-4 lựa chọn, mỗi lựa chọn tối đa 5 từ (ví dụ: [[CHON: Nháp, chưa ký | Bị từ chối cấp mã | Đã có mã CQT]]). Mỗi vấn đề chỉ hỏi lại TỐI ĐA 1 lần: khi người dùng đã trả lời hoặc bấm chọn thì phải hướng dẫn luôn, không hỏi lại nữa. Khi hỏi lại, LUÔN có dòng [[CHON: ...]] và thêm 1 câu ngắn chỉ chỗ xem thông tin đó nếu TÀI LIỆU có (ví dụ: trạng thái hóa đơn xem ở **Hóa đơn bán ra → Danh sách hóa đơn**, cột **Trạng thái**).
+- Nếu cách làm phụ thuộc vào thông tin người dùng CHƯA nói (ví dụ hóa đơn sai nhưng chưa nói hóa đơn đang ở trạng thái nào: Nháp/chưa ký phát hành, bị từ chối cấp mã, hay đã được cấp mã), thì CHƯA hướng dẫn mà hỏi lại 1 câu thật ngắn để khai thác thông tin. Ngay sau câu hỏi, thêm 1 dòng [[CHON: lựa chọn 1 | lựa chọn 2 | lựa chọn 3]] gồm 2-4 lựa chọn, mỗi lựa chọn tối đa 5 từ (ví dụ: [[CHON: Nháp, chưa ký | Bị từ chối cấp mã | Đã có mã CQT]]). Mỗi vấn đề hỏi lại TỐI ĐA 2 lần và chỉ hỏi những thông tin quyết định cách làm (loại hóa đơn, trạng thái hóa đơn); không hỏi chi tiết lỗi sai ở đâu mà nêu ngắn gọn cách xử lý cho từng nhóm lỗi. Khi người dùng đã trả lời đủ thì phải hướng dẫn luôn. Khi hỏi lại, LUÔN có dòng [[CHON: ...]] và thêm 1 câu ngắn chỉ chỗ xem thông tin đó nếu TÀI LIỆU có (ví dụ: trạng thái hóa đơn xem ở **Hóa đơn bán ra → Danh sách hóa đơn**, cột **Trạng thái**).
 - Nếu người dùng nói chưa biết cách xem thông tin bạn vừa hỏi (ví dụ 'xem trạng thái ở đâu', 'không biết xem'), thì hướng dẫn ngay cách xem theo TÀI LIỆU rồi kèm lại [[CHON: ...]]; tuyệt đối không lặp lại cùng câu hỏi và không chuyển sang chủ đề khác. Luôn bám theo vấn đề ban đầu của người dùng trong cuộc hội thoại.
 - Nếu người dùng gửi kèm ảnh chụp màn hình: mở đầu bằng một câu cho biết họ đang ở màn hình nào hoặc gặp thông báo gì, rồi hướng dẫn theo TÀI LIỆU.
 - Không ghi nguồn, tên bài, tên mục tài liệu hay link ở câu trả lời.
@@ -333,11 +333,19 @@ if cau_hoi:
     ngu_canh = "\n\n---\n\n".join(f"[TÀI LIỆU {i}: {b['nhom']} > {b['tieu_de']}]\n{trich_doan(b['noi_dung'], f"{cau_hoi} {mo_ta_anh}", GIOI_HAN_BAI[i - 1])}"
                                    for i, b in enumerate(tai_lieu, 1)) \
         or "(Không tìm thấy bài liên quan)"
+    # Đếm số lần trợ lý vừa hỏi lại liên tiếp: tối đa 2 lần rồi phải hướng dẫn luôn, tránh hỏi vòng vo
+    so_lan_hoi_lai = 0
+    for m in reversed([m for m in ss.messages[:-1] if m["role"] == "assistant"]):
+        if not m.get("chon"):
+            break
+        so_lan_hoi_lai += 1
     lich_su = [{"role": m["role"], "content": rut_gon(m["content"], 600)} for m in ss.messages[-5:-1]]
     messages = ([{"role": "system", "content": SYSTEM_PROMPT}] + lich_su
                 + [{"role": "user", "content": f"TÀI LIỆU:\n{ngu_canh}\n\n"
                                               + (f"NGƯỜI DÙNG GỬI KÈM ẢNH CHỤP MÀN HÌNH, NỘI DUNG ẢNH:\n{mo_ta_anh}\n\n"
                                                  if mo_ta_anh else "")
+                                              + (f"LƯU Ý: Bạn đã hỏi lại người dùng {so_lan_hoi_lai} lần liên tiếp. KHÔNG được hỏi thêm, KHÔNG ghi [[CHON]]; hãy hướng dẫn luôn dựa trên các thông tin người dùng đã trả lời.\n\n"
+                                                 if so_lan_hoi_lai >= 2 else "")
                                               + f"CÂU HỎI: {cau_hoi}"}])
 
     with st.chat_message("assistant", avatar=AVATAR_TRO_LY):
@@ -373,6 +381,8 @@ if cau_hoi:
     # Câu hỏi lại kèm lựa chọn: dòng [[CHON: a | b | c]] -> hiện thành nút bấm
     m_chon = re.search(r"\[\[\s*CHON\s*:(.*?)\]\]", tra_loi_goc[0], re.S)
     chon = [x.strip() for x in m_chon.group(1).split("|") if x.strip()][:4] if m_chon else []
+    if so_lan_hoi_lai >= 2:
+        chon = []  # đã hỏi đủ 2 lần: không hiện thêm nút chọn
     if chon:
         anh = []  # câu hỏi lại thì chưa cần ảnh minh họa
         ket_qua_hoi = "Hỏi lại thông tin"
