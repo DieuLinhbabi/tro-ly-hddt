@@ -438,7 +438,8 @@ def trang_thong_ke():
 
     hom_nay = dt.date.today()
     HOI_LAI = "Hỏi lại thông tin"  # trợ lý hỏi lại khách trước khi hướng dẫn: không tính là trả lời được/không được
-    tinh_ty_le = [x for x in ds if x["ket_qua"] != HOI_LAI]
+    KHONG_TINH = (HOI_LAI, "Trò chuyện")  # hỏi lại khách, chào hỏi xã giao: không tính vào tỷ lệ
+    tinh_ty_le = [x for x in ds if x["ket_qua"] not in KHONG_TINH]
     tra_loi_duoc = sum(x["ket_qua"] == "Đã trả lời" for x in tinh_ty_le)
     giay = []
     for x in ds:  # Sheet tiếng Việt ghi "2,3" thay vì "2.3"
@@ -468,7 +469,7 @@ def trang_thong_ke():
     with phai:
         st.markdown("#### Câu chưa trả lời được")
         st.caption("Nên ưu tiên bổ sung kiến thức cho các câu này.")
-        chua = [x for x in reversed(ds) if x["ket_qua"] not in ("Đã trả lời", HOI_LAI)]
+        chua = [x for x in reversed(ds) if x["ket_qua"] not in ("Đã trả lời",) + KHONG_TINH]
         if chua:
             st.dataframe([{"Thời gian": x["thoi_gian"], "Câu hỏi": x["cau_hoi"], "Kết quả": x["ket_qua"]}
                           for x in chua[:200]], hide_index=True, width="stretch", height=420)

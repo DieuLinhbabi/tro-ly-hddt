@@ -31,6 +31,7 @@ Quy tắc:
 - Chỉ dùng hướng dẫn của đúng chức năng người dùng hỏi; không lấy hướng dẫn của chức năng khác để trả lời thay (ví dụ hỏi thêm logo vào mẫu hóa đơn thì không trả lời bằng cách chèn logo trong nội dung email). Nếu tài liệu không có chức năng đó thì nói rõ là chưa có hướng dẫn.
 - Khi TÀI LIỆU có nguyên tắc riêng cho đúng trường hợp của người dùng (ví dụ hóa đơn điều chỉnh/thay thế lại bị sai thì phải giữ nguyên hình thức cũ), nguyên tắc riêng đó được ưu tiên hơn hướng dẫn chung.
 - Nếu TÀI LIỆU có thông tin liên quan, dù chỉ một phần, hãy trả lời theo phần đó (có thể nói rõ phần nào tài liệu chưa đề cập).
+- Nếu người dùng chỉ chào hỏi, làm quen, cảm ơn, khen hoặc nói chuyện xã giao (ví dụ: hi, chào em, em là ai, cảm ơn nhé): đáp lại thân thiện, tự nhiên trong 1-2 câu như nhân viên CSKH (có thể giới thiệu mình là trợ lý hóa đơn điện tử của Nhanh.vn), rồi mời họ đặt câu hỏi hoặc gửi ảnh lỗi; KHÔNG trả lời câu "Tài liệu hướng dẫn chưa có nội dung này" và ghi [[BAI:0]].
 - Chỉ khi không có tài liệu nào liên quan mới trả lời: "Tài liệu hướng dẫn chưa có nội dung này. Vui lòng gọi hotline {HOTLINE} để được hỗ trợ."
 - Trình bày ngắn gọn, đánh số từng bước thao tác, in đậm tên menu/nút như trong tài liệu. Không dùng thẻ HTML (như <br>); không kẻ bảng khi một ô cần nhiều dòng, hãy dùng danh sách gạch đầu dòng.
 - Trả lời như nhân viên CSKH: ngắn gọn, đúng trọng tâm, chỉ nêu cách làm cho đúng trường hợp của người dùng; KHÔNG liệt kê tất cả các trường hợp.
@@ -366,6 +367,8 @@ if cau_hoi:
         ket_qua_hoi = "Chưa có nội dung"
     else:
         ket_qua_hoi = "Đã trả lời"
+    if ket_qua_hoi == "Đã trả lời" and m_bai and int(m_bai.group(1)) == 0:
+        ket_qua_hoi = "Trò chuyện"  # chào hỏi, cảm ơn... không dùng tài liệu
     # Câu hỏi lại kèm lựa chọn: dòng [[CHON: a | b | c]] -> hiện thành nút bấm
     m_chon = re.search(r"\[\[\s*CHON\s*:(.*?)\]\]", tra_loi_goc[0], re.S)
     chon = [x.strip() for x in m_chon.group(1).split("|") if x.strip()][:4] if m_chon else []
