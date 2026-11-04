@@ -35,7 +35,8 @@ Quy tắc:
 - Trình bày ngắn gọn, đánh số từng bước thao tác, in đậm tên menu/nút như trong tài liệu. Không dùng thẻ HTML (như <br>); không kẻ bảng khi một ô cần nhiều dòng, hãy dùng danh sách gạch đầu dòng.
 - Trả lời như nhân viên CSKH: ngắn gọn, đúng trọng tâm, chỉ nêu cách làm cho đúng trường hợp của người dùng; KHÔNG liệt kê tất cả các trường hợp.
 - BẮT BUỘC: với mọi câu hỏi về hóa đơn bị sai/cần sửa (kể cả hóa đơn điều chỉnh, hóa đơn thay thế vừa lập bị sai), nếu người dùng chưa nói rõ hóa đơn còn Nháp (chưa ký) hay đã ký phát hành/đã có mã CQT, thì PHẢI hỏi lại trạng thái trước theo cách bên dưới; không được gộp hướng dẫn cho nhiều trạng thái trong cùng một câu trả lời. Các từ như 'vừa lập', 'vừa tạo', 'vừa xuất' chưa cho biết hóa đơn đã ký hay chưa.
-- Nếu cách làm phụ thuộc vào thông tin người dùng CHƯA nói (ví dụ hóa đơn sai nhưng chưa nói hóa đơn đang ở trạng thái nào: Nháp/chưa ký phát hành, bị từ chối cấp mã, hay đã được cấp mã), thì CHƯA hướng dẫn mà hỏi lại 1 câu thật ngắn để khai thác thông tin. Ngay sau câu hỏi, thêm 1 dòng [[CHON: lựa chọn 1 | lựa chọn 2 | lựa chọn 3]] gồm 2-4 lựa chọn, mỗi lựa chọn tối đa 5 từ (ví dụ: [[CHON: Nháp, chưa ký | Bị từ chối cấp mã | Đã có mã CQT]]). Mỗi vấn đề chỉ hỏi lại TỐI ĐA 1 lần: khi người dùng đã trả lời hoặc bấm chọn thì phải hướng dẫn luôn, không hỏi lại nữa.
+- Nếu cách làm phụ thuộc vào thông tin người dùng CHƯA nói (ví dụ hóa đơn sai nhưng chưa nói hóa đơn đang ở trạng thái nào: Nháp/chưa ký phát hành, bị từ chối cấp mã, hay đã được cấp mã), thì CHƯA hướng dẫn mà hỏi lại 1 câu thật ngắn để khai thác thông tin. Ngay sau câu hỏi, thêm 1 dòng [[CHON: lựa chọn 1 | lựa chọn 2 | lựa chọn 3]] gồm 2-4 lựa chọn, mỗi lựa chọn tối đa 5 từ (ví dụ: [[CHON: Nháp, chưa ký | Bị từ chối cấp mã | Đã có mã CQT]]). Mỗi vấn đề chỉ hỏi lại TỐI ĐA 1 lần: khi người dùng đã trả lời hoặc bấm chọn thì phải hướng dẫn luôn, không hỏi lại nữa. Khi hỏi lại, LUÔN có dòng [[CHON: ...]] và thêm 1 câu ngắn chỉ chỗ xem thông tin đó nếu TÀI LIỆU có (ví dụ: trạng thái hóa đơn xem ở **Hóa đơn bán ra → Danh sách hóa đơn**, cột **Trạng thái**).
+- Nếu người dùng nói chưa biết cách xem thông tin bạn vừa hỏi (ví dụ 'xem trạng thái ở đâu', 'không biết xem'), thì hướng dẫn ngay cách xem theo TÀI LIỆU rồi kèm lại [[CHON: ...]]; tuyệt đối không lặp lại cùng câu hỏi và không chuyển sang chủ đề khác. Luôn bám theo vấn đề ban đầu của người dùng trong cuộc hội thoại.
 - Nếu người dùng gửi kèm ảnh chụp màn hình: mở đầu bằng một câu cho biết họ đang ở màn hình nào hoặc gặp thông báo gì, rồi hướng dẫn theo TÀI LIỆU.
 - Không ghi nguồn, tên bài, tên mục tài liệu hay link ở câu trả lời.
 - Dòng cuối cùng của câu trả lời luôn là [[BAI:x]], với x là số thứ tự TÀI LIỆU bạn dựa vào nhiều nhất; ghi [[BAI:0]] nếu không dùng tài liệu nào. Người dùng không thấy dòng này.
@@ -323,8 +324,8 @@ if cau_hoi:
             except Exception as e:
                 st.warning(f"Chưa đọc được ảnh ({e}). Trợ lý sẽ trả lời theo câu hỏi chữ.")
 
-    # Câu hỏi nối tiếp ("cái này", "còn sao chép thì sao") cần thêm câu hỏi trước để tìm đúng bài
-    cau_truoc = next((m["content"] for m in reversed(ss.messages[:-1]) if m["role"] == "user"), "")
+    # Câu hỏi nối tiếp ("cái này", "xem ở đâu") cần thêm các câu hỏi trước để tìm đúng bài theo vấn đề ban đầu
+    cau_truoc = "\n".join([m["content"] for m in ss.messages[:-1] if m["role"] == "user"][-3:])
     ket_qua = tim_bai(f"{cau_hoi}\n{cau_hoi}\n{mo_ta_anh}\n{cau_truoc}", k=len(GIOI_HAN_BAI), kem_diem=True)
     tai_lieu = [b for _, b in ket_qua]
     ngu_canh = "\n\n---\n\n".join(f"[TÀI LIỆU {i}: {b['nhom']} > {b['tieu_de']}]\n{trich_doan(b['noi_dung'], f"{cau_hoi} {mo_ta_anh}", GIOI_HAN_BAI[i - 1])}"
