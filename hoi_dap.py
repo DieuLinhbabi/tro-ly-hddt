@@ -3,13 +3,13 @@ import base64
 import io
 import json
 import re
+import time
 from collections import OrderedDict
 
 import streamlit as st
-import streamlit.components.v1 as components
 from groq import Groq
 
-from common import BRAND, HOTLINE, LOGO, trich_doan, da_ket_noi_sheet, doc_tat_ca_bai, goi_post, nguon_anh, tim_bai
+from common import BRAND, HOTLINE, LOGO, che_thong_tin, goi_post_nen, trich_doan, da_ket_noi_sheet, doc_tat_ca_bai, goi_post, nguon_anh, tim_bai
 
 DEFAULT_MODEL = "llama-3.3-70b-versatile"
 VISION_MODEL = "qwen/qwen3.8-27b"  # model Groq đọc được ảnh; đổi bằng GROQ_VISION_MODEL trong Secrets
@@ -93,11 +93,11 @@ def gui_gop_y(i: int, danh_gia: str, ghi_chu: str = ""):
 def nut_sao_chep(noi_dung: str):
     """Nút sao chép câu trả lời dạng chữ thường (bỏ ký hiệu **, #) để dán vào Zalo, email..."""
     chu = re.sub(r"\*\*|__|^#+\s*", "", noi_dung, flags=re.M).strip()
-    components.html(f"""<style>body{{margin:0;padding:2px 0}}</style>
+    st.iframe(f"""<style>body{{margin:0;padding:2px 0}}</style>
 <button id="b" style="font:500 14px 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;color:#221E1E;
 background:#FFFFFF;border:1px solid #E6E0DE;border-radius:8px;padding:6px 14px;cursor:pointer">📋 Sao chép câu trả lời</button>
 <script>
-const chu = {json.dumps(chu)};
+const chu = {json.dumps(chu).replace("</", "<\\/").replace("<!--", "<\\!--")};
 const b = document.getElementById("b");
 function xong() {{ b.textContent = "✓ Đã sao chép"; setTimeout(() => b.textContent = "📋 Sao chép câu trả lời", 2000); }}
 function cachCu() {{
@@ -234,7 +234,7 @@ for i, m in enumerate(ss.messages):
 # Sau khi có câu trả lời: đưa màn hình về đúng câu hỏi vừa hỏi để đọc từ đầu, không bị cuộn xuống cuối
 if ss.get("cuon_den") is not None:
     vi_tri = ss.pop("cuon_den") + 1  # +1 vì có lời chào ở đầu
-    components.html(f"""<script>
+    st.iframe(f"""<script>
     const doc = window.parent.document;
     function den(lan) {{
       const tin = doc.querySelectorAll('[data-testid="stChatMessage"]');
@@ -242,7 +242,7 @@ if ss.get("cuon_den") is not None:
       if (lan > 0) setTimeout(() => den(lan - 1), 250);
     }}
     setTimeout(() => den(4), 150);
-    </script>""", height=0)
+    </script>""", height=1)
 
 nhap = st.chat_input("Nhập câu hỏi, hoặc bấm dấu + để gửi kèm ảnh chụp màn hình...", accept_file=True,
                      file_type=["png", "jpg", "jpeg", "webp"])
@@ -268,6 +268,7 @@ if cau_hoi:
             st.image(anh_gui, width=320)
         st.markdown(cau_hoi)
 
+    bat_dau = time.time()
     mo_ta_anh = ""
     if anh_gui:
         with st.spinner("Đang xem ảnh..."):
@@ -311,6 +312,17 @@ if cau_hoi:
             diem_2 = ket_qua[1][0] if len(ket_qua) > 1 else 0
             if ket_qua[0][0] >= 1.3 * diem_2:
                 anh = ket_qua[0][1].get("anh", [])
+    # Ghi lại lượt hỏi để thống kê (chạy nền, đã che thông tin liên hệ)
+    if tra_loi.startswith("⚠️"):
+        ket_qua_hoi = "Lỗi AI"
+    elif "chưa có nội dung" in tra_loi.lower():
+        ket_qua_hoi = "Chưa có nội dung"
+    else:
+        ket_qua_hoi = "Đã trả lời"
+    bai_dung = (tai_lieu[int(m_bai.group(1)) - 1]["tieu_de"]
+                if m_bai and 1 <= int(m_bai.group(1)) <= len(tai_lieu) else "")
+    goi_post_nen({"action": "log_question", "cau_hoi": che_thong_tin(cau_hoi), "co_anh": bool(anh_gui),
+                  "bai": bai_dung, "ket_qua": ket_qua_hoi, "giay": round(time.time() - bat_dau, 1)})
     ss.cuon_den = len(ss.messages) - 1  # vị trí câu hỏi vừa gửi
     ss.messages.append({"role": "assistant", "content": tra_loi, "question": cau_hoi + (" [kèm ảnh]" if anh_gui else ""),
                         "anh": anh, "bai": [b["tieu_de"] for b in tai_lieu]})

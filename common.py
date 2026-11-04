@@ -4,6 +4,7 @@ import hmac
 import json
 import math
 import secrets
+import threading
 import re
 import unicodedata
 import urllib.parse
@@ -57,6 +58,39 @@ def goi_post(payload: dict) -> dict:
     if not data.get("ok"):
         raise RuntimeError(data.get("error", "Lỗi không rõ từ Google Sheet"))
     return data
+
+
+def goi_post_nen(payload: dict):
+    """Gửi lên Google Sheet ở chế độ nền: người dùng không phải chờ, lỗi thì bỏ qua."""
+    if not da_ket_noi_sheet():
+        return
+    url, token = _cfg("APPS_SCRIPT_URL"), _cfg("APPS_SCRIPT_TOKEN")
+    body = json.dumps({**payload, "token": token}).encode("utf-8")
+
+    def gui():
+        try:
+            req = urllib.request.Request(url, data=body, headers={"Content-Type": "application/json"}, method="POST")
+            urllib.request.urlopen(req, timeout=60).read()
+        except Exception:
+            pass
+
+    threading.Thread(target=gui, daemon=True).start()
+
+
+def che_thong_tin(text: str) -> str:
+    """Che email, số điện thoại, mã số thuế, số CCCD... trước khi lưu lịch sử hỏi."""
+    text = re.sub(r"[\w.+-]+@[\w-]+(\.[\w-]+)+", "[email]", text)
+    # dãy từ 9 chữ số trở lên (có thể xen dấu cách, chấm, gạch): SĐT, MST, CCCD, số tài khoản
+    return re.sub(r"\+?\d(?:[\s-]?\d){8,}", "[số đã che]", text)
+
+
+def doc_lich_su_hoi() -> list[dict]:
+    ds = []
+    for r in _goi_get("questions"):
+        c = [str(x) for x in (list(r["cells"]) + [""] * 6)[:6]]
+        ds.append({"thoi_gian": c[0], "cau_hoi": c[1], "co_anh": c[2] == "Có", "bai": c[3], "ket_qua": c[4],
+                   "giay": c[5]})
+    return ds
 
 
 # ---------- Ảnh minh họa ----------
@@ -291,6 +325,7 @@ CSS = """
 [data-testid="stSidebarHeader"] { height: 2.25rem; padding-bottom: 0; }
 [data-testid="stSidebarUserContent"] { padding-top: 0.25rem; }
 [data-testid="stSidebar"] .brand { text-align: center; margin-top: 6px; }
+[data-testid="stChatMessage"] { scroll-margin-top: 72px; }  /* chừa chỗ cho thanh trên cùng khi tự cuộn về câu hỏi */
 [data-testid="stToolbarActions"], [data-testid="stToolbarActionButton"], [data-testid="stAppDeployButton"] { display:none !important; }
 </style>
 """

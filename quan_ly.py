@@ -7,7 +7,7 @@ import streamlit as st
 
 import base64
 
-from common import (BRAND, LOGO, da_ket_noi_sheet, doc_gop_y, doc_tai_khoan, doc_tat_ca_bai, esc, ghi_anh, goi_post,
+from common import (BRAND, LOGO, da_ket_noi_sheet, doc_gop_y, doc_lich_su_hoi, doc_tai_khoan, doc_tat_ca_bai, esc, ghi_anh, goi_post,
                     kiem_tra_mat_khau, lam_moi_du_lieu, ma_hoa_mat_khau, nguon_anh)
 
 # Quyền của từng vai trò
@@ -22,7 +22,7 @@ MO_TA_QUYEN = {
     "Thực tập": "Nạp kiến thức + cập nhật kiến thức",
 }
 MENU = [("Kiến thức", {"them_bai", "sua_bai"}), ("Góp ý người dùng", {"xem_gop_y"}),
-        ("Quản lý tài khoản", {"tai_khoan"})]
+        ("Thống kê lượt hỏi", {"xem_gop_y"}), ("Quản lý tài khoản", {"tai_khoan"})]
 
 ss = st.session_state
 ss.setdefault("user", None)  # {"username", "role"}
@@ -400,9 +400,84 @@ def trang_tai_khoan():
                 st.rerun()
 
 
+# ======================= THỐNG KÊ LƯỢT HỎI =======================
+def trang_thong_ke():
+    import datetime as dt
+    from collections import Counter
+
+    h1, h2 = st.columns([3, 2])
+    h1.markdown("## Thống kê lượt hỏi")
+    h1.caption("Mọi câu hỏi trên trang hỏi đáp, đã che email, số điện thoại, mã số thuế. Lưu ở tab LichSuHoi của Google Sheet.")
+    try:
+        ds = doc_lich_su_hoi()
+    except Exception as e:
+        st.error(f"Không đọc được lịch sử hỏi: {e}. Nếu vừa cập nhật, hãy kiểm tra Apps Script đã triển khai phiên bản mới.")
+        return
+
+    def ngay(x):
+        for f in ("%d/%m/%Y %H:%M:%S", "%d/%m/%Y %H:%M", "%d/%m/%Y"):
+            try:
+                return dt.datetime.strptime(x["thoi_gian"].strip(), f).date()
+            except ValueError:
+                pass
+        return None
+
+    buf = io.StringIO()
+    w = csv.writer(buf)
+    w.writerow(["Thời gian", "Câu hỏi", "Kèm ảnh", "Bài trợ lý dùng", "Kết quả", "Thời gian trả lời (giây)"])
+    for x in ds:
+        w.writerow([x["thoi_gian"], x["cau_hoi"], "Có" if x["co_anh"] else "", x["bai"], x["ket_qua"], x["giay"]])
+    b1, b2 = h2.columns(2)
+    if b1.button("⟳  Làm mới", key="tk_lam_moi", width="stretch"):
+        st.rerun()
+    b2.download_button("⤓  Tải về Excel", buf.getvalue().encode("utf-8-sig"), "lich_su_hoi.csv", "text/csv",
+                       width="stretch")
+    if not ds:
+        st.info("Chưa có lượt hỏi nào được ghi lại. Số liệu bắt đầu từ khi bản cập nhật này chạy.")
+        return
+
+    hom_nay = dt.date.today()
+    tra_loi_duoc = sum(x["ket_qua"] == "Đã trả lời" for x in ds)
+    giay = [float(x["giay"]) for x in ds if x["giay"].replace(".", "", 1).isdigit()]
+    m = st.columns(4)
+    m[0].metric("Tổng lượt hỏi", len(ds))
+    m[1].metric("7 ngày gần nhất", sum(1 for x in ds if (d := ngay(x)) and (hom_nay - d).days < 7))
+    m[2].metric("Tỷ lệ trả lời được", f"{tra_loi_duoc / len(ds):.0%}")
+    m[3].metric("Thời gian trả lời TB", f"{sum(giay) / len(giay):.1f} giây" if giay else "—")
+
+    trai, phai = st.columns(2, gap="large")
+    with trai:
+        st.markdown("#### Lượt hỏi theo ngày")
+        theo_ngay = Counter(d for x in ds if (d := ngay(x)))
+        if theo_ngay:
+            st.bar_chart({"Lượt hỏi": {d.strftime("%d/%m"): n for d, n in sorted(theo_ngay.items())[-30:]}},
+                         height=260)
+        st.markdown("#### Bài được dùng nhiều nhất")
+        top = Counter(x["bai"] for x in ds if x["bai"]).most_common(10)
+        if top:
+            st.dataframe([{"Bài": b, "Số lượt": n} for b, n in top], hide_index=True, width="stretch")
+        else:
+            st.caption("Chưa có dữ liệu.")
+    with phai:
+        st.markdown("#### Câu chưa trả lời được")
+        st.caption("Nên ưu tiên bổ sung kiến thức cho các câu này.")
+        chua = [x for x in reversed(ds) if x["ket_qua"] != "Đã trả lời"]
+        if chua:
+            st.dataframe([{"Thời gian": x["thoi_gian"], "Câu hỏi": x["cau_hoi"], "Kết quả": x["ket_qua"]}
+                          for x in chua[:200]], hide_index=True, width="stretch", height=420)
+        else:
+            st.success("Tất cả câu hỏi đều đã được trả lời.")
+    st.markdown("#### 50 lượt hỏi gần nhất")
+    st.dataframe([{"Thời gian": x["thoi_gian"], "Câu hỏi": x["cau_hoi"], "Ảnh": "Có" if x["co_anh"] else "",
+                   "Bài dùng": x["bai"], "Kết quả": x["ket_qua"]} for x in list(reversed(ds))[:50]],
+                 hide_index=True, width="stretch")
+
+
 if tab == "Kiến thức":
     trang_kien_thuc()
 elif tab == "Góp ý người dùng":
     trang_gop_y()
+elif tab == "Thống kê lượt hỏi":
+    trang_thong_ke()
 else:
     trang_tai_khoan()
