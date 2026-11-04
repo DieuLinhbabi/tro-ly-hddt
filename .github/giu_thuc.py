@@ -5,7 +5,12 @@ from playwright.sync_api import sync_playwright
 URL = "https://trolynhanhinvoice.streamlit.app/"
 
 with sync_playwright() as p:
-    b = p.chromium.launch()
+    try:
+        b = p.chromium.launch(channel="chrome")  # Chrome có sẵn trên máy của GitHub, không cần tải thêm
+    except Exception:
+        import subprocess
+        subprocess.run([sys.executable, "-m", "playwright", "install", "chromium"], check=True)
+        b = p.chromium.launch()
     pg = b.new_page()
     pg.goto(URL, timeout=90_000)
     pg.wait_for_timeout(15_000)
