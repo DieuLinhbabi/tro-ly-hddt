@@ -13,6 +13,7 @@ from common import LOGO_NHO, BRAND, HOTLINE, LOGO, che_thong_tin, goi_post_nen, 
 
 DEFAULT_MODEL = "llama-3.3-70b-versatile"
 VISION_MODEL = "qwen/qwen3.8-27b"  # model Groq đọc được ảnh; đổi bằng GROQ_VISION_MODEL trong Secrets
+DEFAULT_GEMINI_MODEL = "gemini-3.8-flash"  # AI dự phòng; đổi bằng GEMINI_MODEL trong Secrets
 CAU_HOI_ANH = "Màn hình trong ảnh là gì và tôi cần làm gì tiếp theo?"
 PROMPT_DOC_ANH = ("Đây là ảnh chụp màn hình phần mềm hóa đơn điện tử do người dùng gửi. Hãy mô tả ngắn gọn bằng tiếng Việt: "
                   "đang ở màn hình/menu nào, các nút và ô nhập chính, và chép NGUYÊN VĂN mọi thông báo lỗi hay cảnh báo "
@@ -92,6 +93,15 @@ if "GROQ_API_KEY" not in st.secrets:
 client = Groq(api_key=st.secrets["GROQ_API_KEY"], max_retries=1, timeout=60)
 model = st.secrets.get("GROQ_MODEL", DEFAULT_MODEL)
 vision_model = st.secrets.get("GROQ_VISION_MODEL", VISION_MODEL)
+
+# AI dự phòng: chỉ dùng Gemini khi Groq báo quá tải hoặc lỗi. Không khai báo GEMINI_API_KEY thì bỏ qua.
+GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/openai/"
+gemini_client = None
+if st.secrets.get("GEMINI_API_KEY"):
+    from openai import OpenAI
+    gemini_client = OpenAI(api_key=st.secrets["GEMINI_API_KEY"], base_url=GEMINI_URL, max_retries=0, timeout=60)
+gemini_model = st.secrets.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL)
+ai_da_dung = ["Groq"]  # AI đã trả lời câu hiện tại, để ghi vào thống kê
 
 
 def gui_gop_y(i: int, danh_gia: str, ghi_chu: str = ""):
@@ -187,10 +197,27 @@ def chuan_bi_anh(f) -> bytes:
     return buf.getvalue()
 
 
+def goi_ai(**kw):
+    """Gọi Groq trước; nếu Groq quá tải hoặc lỗi thì tự chuyển sang Gemini (nếu đã khai báo khóa)."""
+    ten_model = kw.pop("model")
+    try:
+        kq = client.chat.completions.create(model=ten_model, **kw, **tham_so_them(ten_model))
+        ai_da_dung[0] = "Groq"
+        return kq
+    except Exception:
+        if gemini_client is None:
+            raise
+        # Gemini tính cả phần "suy nghĩ" vào giới hạn chữ, nên nới thêm để câu trả lời không bị cụt
+        kw["max_tokens"] = kw.get("max_tokens", 1500) + 1000
+        kq = gemini_client.chat.completions.create(model=gemini_model, reasoning_effort="low", **kw)
+        ai_da_dung[0] = "Gemini"
+        return kq
+
+
 def doc_anh_bang_ai(anh: bytes, cau_hoi: str) -> str:
     """Nhờ model đọc ảnh mô tả màn hình/lỗi, để trợ lý tìm đúng bài hướng dẫn."""
     url = "data:image/jpeg;base64," + base64.b64encode(anh).decode()
-    kq = client.chat.completions.create(
+    kq = goi_ai(
         model=vision_model, temperature=0.2, max_tokens=800,
         messages=[{"role": "user", "content": [
             {"type": "text", "text": f"{PROMPT_DOC_ANH}\nCâu hỏi kèm theo của người dùng: {cau_hoi}"},
@@ -355,8 +382,7 @@ if cau_hoi:
     with st.chat_message("assistant", avatar=AVATAR_TRO_LY):
         try:
             with st.spinner("Trợ lý đang soạn câu trả lời..."):
-                stream = client.chat.completions.create(model=model, messages=messages, temperature=0, stream=True,
-                                                        max_tokens=1500, **tham_so_them(model))
+                stream = goi_ai(model=model, messages=messages, temperature=0, stream=True, max_tokens=1500)
             tra_loi = st.write_stream(an_ma_bai(chunk.choices[0].delta.content or "" for chunk in stream)).strip()
         except Exception as e:
             tra_loi = bao_loi_ai(e)
@@ -393,6 +419,8 @@ if cau_hoi:
     tra_loi = re.sub(r"<br\s*/?>", " ", tra_loi)
     bai_dung = (tai_lieu[int(m_bai.group(1)) - 1]["tieu_de"]
                 if m_bai and 1 <= int(m_bai.group(1)) <= len(tai_lieu) else "")
+    if ai_da_dung[0] == "Gemini":  # đánh dấu câu do AI dự phòng trả lời, để so sánh chất lượng
+        bai_dung = f"{bai_dung} · (Gemini trả lời)" if bai_dung else "(Gemini trả lời)"
     goi_post_nen({"action": "log_question", "cau_hoi": che_thong_tin(cau_hoi), "co_anh": bool(anh_gui),
                   "bai": bai_dung, "ket_qua": ket_qua_hoi, "giay": round(time.time() - bat_dau, 1)})
     ss.cuon_den = len(ss.messages) - 1  # vị trí câu hỏi vừa gửi

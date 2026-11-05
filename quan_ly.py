@@ -461,11 +461,15 @@ def trang_thong_ke():
             st.bar_chart({"Lượt hỏi": {d.strftime("%d/%m"): n for d, n in sorted(theo_ngay.items())[-30:]}},
                          height=260)
         st.markdown("#### Bài được dùng nhiều nhất")
-        top = Counter(x["bai"] for x in ds if x["bai"]).most_common(10)
+        GEMINI = "(Gemini trả lời)"  # câu do AI dự phòng trả lời, ghi kèm sau tên bài
+        ten_bai = [x["bai"].replace(f" · {GEMINI}", "").replace(GEMINI, "").strip() for x in ds]
+        top = Counter(b for b in ten_bai if b).most_common(10)
         if top:
             st.dataframe([{"Bài": b, "Số lượt": n} for b, n in top], hide_index=True, width="stretch")
         else:
             st.caption("Chưa có dữ liệu.")
+        so_gemini = sum(GEMINI in x["bai"] for x in ds)
+        st.caption(f"Groq trả lời {len(ds) - so_gemini} lượt · Gemini (dự phòng khi Groq quá tải) trả lời {so_gemini} lượt.")
     with phai:
         st.markdown("#### Câu chưa trả lời được")
         st.caption("Nên ưu tiên bổ sung kiến thức cho các câu này.")
