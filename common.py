@@ -378,6 +378,7 @@ CSS = """
 .stMainBlockContainer:has(.hero), .stApp:has(.hero) [data-testid="stBottomBlockContainer"] { max-width: 980px; margin-left: auto; margin-right: auto; }
 .hero-logo { display: none; height: 46px; margin: 0 0 18px; }
 .stApp:has([data-testid="stSidebar"][data-collapsed="true"]) .hero-logo { display: block; }
+.stMain .stButton button p { white-space: normal; text-align: center; }  /* nút dài thì xuống dòng, không bị cắt chữ */
 </style>
 """
 
