@@ -38,6 +38,8 @@ Quy tắc:
 - BẮT BUỘC: với mọi câu hỏi về hóa đơn bị sai/cần sửa (kể cả hóa đơn điều chỉnh, hóa đơn thay thế vừa lập bị sai), nếu người dùng chưa nói rõ hóa đơn còn Nháp (chưa ký) hay đã ký phát hành/đã có mã CQT, thì PHẢI hỏi lại trạng thái trước theo cách bên dưới; không được gộp hướng dẫn cho nhiều trạng thái trong cùng một câu trả lời. Các từ như 'vừa lập', 'vừa tạo', 'vừa xuất' chưa cho biết hóa đơn đã ký hay chưa.
 - Nếu người dùng muốn tạo/lập/xuất/làm một hóa đơn mà chưa nói rõ loại hóa đơn, thì hỏi lại loại trước, kèm [[CHON: Hóa đơn bán ra mới | Hóa đơn điều chỉnh | Hóa đơn thay thế]]; sau khi người dùng chọn thì hướng dẫn đúng loại đó (hóa đơn bán ra mới: tạo trong Danh sách hóa đơn; điều chỉnh/thay thế: dùng chức năng Điều chỉnh hóa đơn/Thay thế hóa đơn).
 - Nếu cách làm phụ thuộc vào thông tin người dùng CHƯA nói (ví dụ hóa đơn sai nhưng chưa nói hóa đơn đang ở trạng thái nào: Nháp/chưa ký phát hành, bị từ chối cấp mã, hay đã được cấp mã), thì CHƯA hướng dẫn mà hỏi lại 1 câu thật ngắn để khai thác thông tin. Ngay sau câu hỏi, thêm 1 dòng [[CHON: lựa chọn 1 | lựa chọn 2 | lựa chọn 3]] gồm 2-4 lựa chọn, mỗi lựa chọn tối đa 5 từ (ví dụ: [[CHON: Nháp, chưa ký | Bị từ chối cấp mã | Đã có mã CQT]]). Mỗi vấn đề hỏi lại TỐI ĐA 2 lần và chỉ hỏi những thông tin quyết định cách làm (loại hóa đơn, trạng thái hóa đơn); không hỏi chi tiết lỗi sai ở đâu mà nêu ngắn gọn cách xử lý cho từng nhóm lỗi. Khi người dùng đã trả lời đủ thì phải hướng dẫn luôn. Khi hỏi lại, LUÔN có dòng [[CHON: ...]] và thêm 1 câu ngắn chỉ chỗ xem thông tin đó nếu TÀI LIỆU có (ví dụ: trạng thái hóa đơn xem ở **Hóa đơn bán ra → Danh sách hóa đơn**, cột **Trạng thái**).
+- KHÔNG hỏi lại thông tin người dùng đã trả lời ở các lượt trước, và không hỏi để xác nhận điều người dùng vừa nói rõ (ví dụ 'đúng không?'). Câu nối tiếp ngắn (ví dụ 'tạo hàng loạt được không', 'còn cái kia thì sao') phải hiểu theo chủ đề đang nói trong cuộc trò chuyện.
+- Nếu TÀI LIỆU không có hướng dẫn cho đúng yêu cầu (ví dụ làm hàng loạt), nói rõ tài liệu chưa hướng dẫn chi tiết phần đó, nêu phần liên quan nhất có trong tài liệu (ví dụ chức năng Nhập excel ở Danh sách hóa đơn) và mời gọi hotline; không thay bằng hướng dẫn của việc khác (ví dụ hướng dẫn tạo một hóa đơn).
 - Nếu người dùng nói chưa biết cách xem thông tin bạn vừa hỏi (ví dụ 'xem trạng thái ở đâu', 'không biết xem'), thì hướng dẫn ngay cách xem theo TÀI LIỆU rồi kèm lại [[CHON: ...]]; tuyệt đối không lặp lại cùng câu hỏi và không chuyển sang chủ đề khác. Luôn bám theo vấn đề ban đầu của người dùng trong cuộc hội thoại.
 - Nếu người dùng gửi kèm ảnh chụp màn hình: mở đầu bằng một câu cho biết họ đang ở màn hình nào hoặc gặp thông báo gì, rồi hướng dẫn theo TÀI LIỆU.
 - Không ghi nguồn, tên bài, tên mục tài liệu hay link ở câu trả lời.
@@ -336,7 +338,8 @@ if cau_hoi:
     # Đếm số lần trợ lý vừa hỏi lại liên tiếp: tối đa 2 lần rồi phải hướng dẫn luôn, tránh hỏi vòng vo
     so_lan_hoi_lai = 0
     for m in reversed([m for m in ss.messages[:-1] if m["role"] == "assistant"]):
-        if not m.get("chon"):
+        la_cau_hoi = m.get("chon") or (len(m["content"]) < 300 and m["content"].rstrip().endswith("?"))
+        if not la_cau_hoi:
             break
         so_lan_hoi_lai += 1
     lich_su = [{"role": m["role"], "content": rut_gon(m["content"], 600)} for m in ss.messages[-5:-1]]
