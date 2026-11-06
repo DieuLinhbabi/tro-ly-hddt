@@ -17,7 +17,8 @@ DEFAULT_GEMINI_MODEL = "gemini-3.8-flash"  # AI dự phòng; đổi bằng GEMIN
 CAU_HOI_ANH = "Màn hình trong ảnh là gì và tôi cần làm gì tiếp theo?"
 PROMPT_DOC_ANH = ("Đây là ảnh chụp màn hình phần mềm hóa đơn điện tử do người dùng gửi. Hãy mô tả ngắn gọn bằng tiếng Việt: "
                   "đang ở màn hình/menu nào, các nút và ô nhập chính, và chép NGUYÊN VĂN mọi thông báo lỗi hay cảnh báo "
-                  "nếu có. Nếu ảnh không phải màn hình phần mềm, nói rõ ảnh có gì. Không đoán cách xử lý.")
+                  "nếu có. Nếu ảnh là danh sách/bảng hóa đơn hoặc tờ khai thì chép NGUYÊN VĂN chữ ở cột Trạng thái "
+                  "và các mã lỗi nhìn thấy. Nếu ảnh không phải màn hình phần mềm, nói rõ ảnh có gì. Không đoán cách xử lý.")
 GOI_Y = ["Cách điều chỉnh hóa đơn?", "Hóa đơn sai thì xử lý thế nào?", "Lập mẫu 04/SS-HĐĐT", "Thêm người dùng và phân quyền"]
 ICON_GOI_Y = ["✏️", "🧐", "📮", "👥"]
 AVATAR_TRO_LY = "assets/mascot.png"
@@ -36,7 +37,7 @@ Quy tắc:
 - Chỉ khi không có tài liệu nào liên quan mới trả lời: "Tài liệu hướng dẫn chưa có nội dung này. Vui lòng gọi hotline {HOTLINE} để được hỗ trợ."
 - Trình bày ngắn gọn, đánh số từng bước thao tác, in đậm tên menu/nút như trong tài liệu. Không dùng thẻ HTML (như <br>); không kẻ bảng khi một ô cần nhiều dòng, hãy dùng danh sách gạch đầu dòng.
 - Trả lời như nhân viên CSKH: ngắn gọn, đúng trọng tâm, chỉ nêu cách làm cho đúng trường hợp của người dùng; KHÔNG liệt kê tất cả các trường hợp.
-- BẮT BUỘC: với mọi câu hỏi về hóa đơn bị sai/cần sửa (kể cả hóa đơn điều chỉnh, hóa đơn thay thế vừa lập bị sai), nếu người dùng chưa nói rõ hóa đơn còn Nháp (chưa ký) hay đã ký phát hành/đã có mã CQT, thì PHẢI hỏi lại trạng thái trước theo cách bên dưới; không được gộp hướng dẫn cho nhiều trạng thái trong cùng một câu trả lời. Các từ như 'vừa lập', 'vừa tạo', 'vừa xuất' chưa cho biết hóa đơn đã ký hay chưa. NGOẠI LỆ: người dùng hỏi CÁCH LÀM hóa đơn điều chỉnh/thay thế (kể cả làm hàng loạt, bằng file Excel) thì KHÔNG hỏi trạng thái mà hướng dẫn luôn, vì điều chỉnh/thay thế chỉ dùng cho hóa đơn đã phát hành; nếu có bài làm bằng Excel/hàng loạt thì dùng đúng bài đó.
+- BẮT BUỘC: với mọi câu hỏi về hóa đơn bị sai/cần sửa (kể cả hóa đơn điều chỉnh, hóa đơn thay thế vừa lập bị sai), nếu người dùng chưa nói rõ hóa đơn còn Nháp (chưa ký) hay đã ký phát hành/đã có mã CQT, thì PHẢI hỏi lại trạng thái trước theo cách bên dưới; không được gộp hướng dẫn cho nhiều trạng thái trong cùng một câu trả lời. Các từ như 'vừa lập', 'vừa tạo', 'vừa xuất' chưa cho biết hóa đơn đã ký hay chưa. NGOẠI LỆ: nếu câu hỏi hoặc NỘI DUNG ẢNH đã cho thấy trạng thái (ví dụ cột Trạng thái ghi 'Không đủ đk cấp mã/tiếp nhận', 'không hợp lệ', 'từ chối cấp mã', 'đã cấp mã', 'Nháp') thì KHÔNG hỏi lại trạng thái mà hướng dẫn luôn theo trạng thái đó. Câu hỏi có MÃ LỖI hoặc thông báo lỗi (ví dụ 'MLoi: 2002 - MTa: ...', 'lỗi 1012') thì KHÔNG hỏi trạng thái hóa đơn: đọc kỹ cả nội dung sau mã lỗi, tìm bài trong TÀI LIỆU khớp cả mã lẫn nội dung (lỗi tờ khai thì hướng dẫn theo tờ khai) và trả lời luôn; TÀI LIỆU không có thì nói rõ và mời gọi hotline. Người dùng nói 'đã phát hành', 'phát hành sai', 'xuất sai hóa đơn đã phát hành', 'đã gửi thuế' nghĩa là hóa đơn ĐÃ ký, ĐÃ gửi cơ quan thuế và ĐÃ được cấp mã: KHÔNG hỏi trạng thái, hướng dẫn luôn cách xử lý hóa đơn đã được cấp mã (không được hủy; tùy loại sai: Mẫu 04/SS-HĐĐT, điều chỉnh hoặc thay thế), và chỉ thêm 1 câu ngắn: nếu hóa đơn thực ra bị từ chối cấp mã hoặc còn Nháp thì cách xử lý khác. NGOẠI LỆ: người dùng hỏi CÁCH LÀM hóa đơn điều chỉnh/thay thế (kể cả làm hàng loạt, bằng file Excel) thì KHÔNG hỏi trạng thái mà hướng dẫn luôn, vì điều chỉnh/thay thế chỉ dùng cho hóa đơn đã phát hành; nếu có bài làm bằng Excel/hàng loạt thì dùng đúng bài đó.
 - Nếu người dùng muốn tạo/lập/xuất/làm một hóa đơn mà chưa nói rõ loại hóa đơn, thì hỏi lại loại trước, kèm [[CHON: Hóa đơn bán ra mới | Hóa đơn điều chỉnh | Hóa đơn thay thế]]; sau khi người dùng chọn thì hướng dẫn đúng loại đó (hóa đơn bán ra mới: tạo trong Danh sách hóa đơn; điều chỉnh/thay thế: dùng chức năng Điều chỉnh hóa đơn/Thay thế hóa đơn).
 - Nếu cách làm phụ thuộc vào thông tin người dùng CHƯA nói (ví dụ hóa đơn sai nhưng chưa nói hóa đơn đang ở trạng thái nào: Nháp/chưa ký phát hành, bị từ chối cấp mã, hay đã được cấp mã), thì CHƯA hướng dẫn mà hỏi lại 1 câu thật ngắn để khai thác thông tin. Ngay sau câu hỏi, thêm 1 dòng [[CHON: lựa chọn 1 | lựa chọn 2 | lựa chọn 3]] gồm 2-4 lựa chọn, mỗi lựa chọn tối đa 5 từ ; câu hỏi và các lựa chọn phải đúng chủ đề người dùng đang hỏi (ví dụ đang nói về lỗi tờ khai thì KHÔNG hỏi trạng thái hóa đơn). Mỗi vấn đề hỏi lại TỐI ĐA 2 lần và chỉ hỏi những thông tin quyết định cách làm (loại hóa đơn, trạng thái hóa đơn); không hỏi chi tiết lỗi sai ở đâu mà nêu ngắn gọn cách xử lý cho từng nhóm lỗi. Khi người dùng đã trả lời đủ thì phải hướng dẫn luôn. Khi hỏi lại, LUÔN có dòng [[CHON: ...]] và thêm 1 câu ngắn chỉ chỗ xem thông tin đó nếu TÀI LIỆU có (ví dụ: trạng thái hóa đơn xem ở **Hóa đơn bán ra → Danh sách hóa đơn**, cột **Trạng thái**).
 - CHỈ hỏi lại khi TÀI LIỆU thật sự chia cách xử lý theo thông tin đó (ví dụ trạng thái hóa đơn, loại hóa đơn, hộ kinh doanh hay doanh nghiệp). KHÔNG tự nghĩ ra câu hỏi về điều TÀI LIỆU không nhắc tới (ví dụ 'đã cập nhật phần mềm chưa', 'đang dùng phiên bản nào', 'đã cài bản mới chưa'); phần mềm hóa đơn chạy trên web nên khách không phải tự cài hay cập nhật. Nếu người dùng đã nêu rõ mã lỗi thì trả lời luôn theo bài của mã lỗi đó; nếu TÀI LIỆU không có đúng nội dung lỗi đó thì nói rõ và mời gọi hotline, không đoán nguyên nhân.
@@ -91,7 +92,10 @@ st.markdown(f'<div class="hero"><img class="hero-logo" src="{LOGO_NHO}">'
 if "GROQ_API_KEY" not in st.secrets:
     st.error("Chưa khai báo GROQ_API_KEY trong Secrets.")
     st.stop()
-client = Groq(api_key=st.secrets["GROQ_API_KEY"], max_retries=1, timeout=60)
+# Có Gemini dự phòng thì Groq không chờ thử lại khi quá tải (chờ có thể tới 20-30 giây), mà chuyển ngay sang Gemini
+co_du_phong = bool(st.secrets.get("GEMINI_API_KEY"))
+client = Groq(api_key=st.secrets["GROQ_API_KEY"], max_retries=0 if co_du_phong else 1,
+              timeout=25 if co_du_phong else 60)
 model = st.secrets.get("GROQ_MODEL", DEFAULT_MODEL)
 vision_model = st.secrets.get("GROQ_VISION_MODEL", VISION_MODEL)
 
@@ -208,11 +212,18 @@ def goi_ai(**kw):
     except Exception:
         if gemini_client is None:
             raise
-        # Gemini tính cả phần "suy nghĩ" vào giới hạn chữ, nên nới thêm để câu trả lời không bị cụt
-        kw["max_tokens"] = kw.get("max_tokens", 1500) + 1000
-        kq = gemini_client.chat.completions.create(model=gemini_model, reasoning_effort="low", **kw)
-        ai_da_dung[0] = "Gemini"
-        return kq
+        try:
+            # Gemini tính cả phần "suy nghĩ" vào giới hạn chữ, nên nới thêm để câu trả lời không bị cụt
+            kq = gemini_client.chat.completions.create(model=gemini_model, reasoning_effort="low",
+                                                       **{**kw, "max_tokens": kw.get("max_tokens", 1500) + 1000})
+            ai_da_dung[0] = "Gemini"
+            return kq
+        except Exception:
+            # Gemini cũng lỗi: quay lại Groq, lần này cho phép chờ và thử lại
+            kq = client.with_options(max_retries=2, timeout=60).chat.completions.create(
+                model=ten_model, **kw, **tham_so_them(ten_model))
+            ai_da_dung[0] = "Groq"
+            return kq
 
 
 def doc_anh_bang_ai(anh: bytes, cau_hoi: str) -> str:
