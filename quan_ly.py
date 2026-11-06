@@ -524,14 +524,17 @@ def trang_thong_ke():
                          height=260)
         st.markdown("#### Bài được dùng nhiều nhất")
         GEMINI = "(Gemini trả lời)"  # câu do AI dự phòng trả lời, ghi kèm sau tên bài
-        ten_bai = [x["bai"].replace(f" · {GEMINI}", "").replace(GEMINI, "").strip() for x in ds]
+        # phần ghi chú sau tên bài, ví dụ " · (Gemini trả lời)", " · (Groq quá tải)", không tính vào tên bài
+        ten_bai = ["" if x["bai"].startswith("(") else x["bai"].split(" · (")[0].strip() for x in ds]
         top = Counter(b for b in ten_bai if b).most_common(10)
         if top:
             st.dataframe([{"Bài": b, "Số lượt": n} for b, n in top], hide_index=True, width="stretch")
         else:
             st.caption("Chưa có dữ liệu.")
         so_gemini = sum(GEMINI in x["bai"] for x in ds)
-        st.caption(f"Groq trả lời {len(ds) - so_gemini} lượt · Gemini (dự phòng khi Groq quá tải) trả lời {so_gemini} lượt.")
+        so_qua_tai = sum("(Groq" in x["bai"] for x in ds)
+        st.caption(f"Groq trả lời {len(ds) - so_gemini} lượt · Gemini (dự phòng khi Groq quá tải) trả lời {so_gemini} lượt"
+                   f" · Groq quá tải/lỗi {so_qua_tai} lượt (xem lý do ở cột Bài dùng).")
     with phai:
         cau_chua_tra_loi(ds, KHONG_TINH)
     st.markdown("#### 50 lượt hỏi gần nhất")

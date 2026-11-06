@@ -202,6 +202,23 @@ def chuan_bi_anh(f) -> bytes:
     return buf.getvalue()
 
 
+loi_ai = []  # lý do AI lỗi trong lượt hỏi hiện tại, ghi vào thống kê để biết vì sao trả lời chậm
+
+
+def ten_loi(e: Exception) -> str:
+    t = str(e).lower()
+    if "429" in t or "rate" in t or "quota" in t or "resource_exhausted" in t:
+        return ("hết hạn mức ngày" if "per day" in t or "tpd" in t or "rpd" in t or "daily" in t
+                else "quá tải")
+    if "timeout" in t or "timed out" in t:
+        return "quá thời gian"
+    if "404" in t or "not found" in t or "not_found" in t:
+        return "sai tên mô hình"
+    if "401" in t or "403" in t or "api key" in t or "permission" in t:
+        return "sai khóa API"
+    return "lỗi " + str(e)[:60]
+
+
 def goi_ai(**kw):
     """Gọi Groq trước; nếu Groq quá tải hoặc lỗi thì tự chuyển sang Gemini (nếu đã khai báo khóa)."""
     ten_model = kw.pop("model")
@@ -209,7 +226,8 @@ def goi_ai(**kw):
         kq = client.chat.completions.create(model=ten_model, **kw, **tham_so_them(ten_model))
         ai_da_dung[0] = "Groq"
         return kq
-    except Exception:
+    except Exception as e:
+        loi_ai.append(f"Groq {ten_loi(e)}")
         if gemini_client is None:
             raise
         try:
@@ -218,7 +236,8 @@ def goi_ai(**kw):
                                                        **{**kw, "max_tokens": kw.get("max_tokens", 1500) + 1000})
             ai_da_dung[0] = "Gemini"
             return kq
-        except Exception:
+        except Exception as e2:
+            loi_ai.append(f"Gemini {ten_loi(e2)}")
             # Gemini cũng lỗi: quay lại Groq, lần này cho phép chờ và thử lại
             kq = client.with_options(max_retries=2, timeout=60).chat.completions.create(
                 model=ten_model, **kw, **tham_so_them(ten_model))
@@ -450,6 +469,9 @@ if cau_hoi:
                 if m_bai and 1 <= int(m_bai.group(1)) <= len(tai_lieu) else "")
     if ai_da_dung[0] == "Gemini":  # đánh dấu câu do AI dự phòng trả lời, để so sánh chất lượng
         bai_dung = f"{bai_dung} · (Gemini trả lời)" if bai_dung else "(Gemini trả lời)"
+    if loi_ai:  # ghi lý do AI chính bị lỗi/chậm, ví dụ "(Groq quá tải; Gemini sai tên mô hình)"
+        ghi = "(" + "; ".join(dict.fromkeys(loi_ai)) + ")"
+        bai_dung = f"{bai_dung} · {ghi}" if bai_dung else ghi
     goi_post_nen({"action": "log_question", "cau_hoi": che_thong_tin(cau_hoi), "co_anh": bool(anh_gui),
                   "bai": bai_dung, "ket_qua": ket_qua_hoi, "giay": round(time.time() - bat_dau, 1)})
     ss.cuon_den = len(ss.messages) - 1  # vị trí câu hỏi vừa gửi
