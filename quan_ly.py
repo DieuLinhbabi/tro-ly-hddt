@@ -532,9 +532,12 @@ def trang_thong_ke():
         else:
             st.caption("Chưa có dữ liệu.")
         so_gemini = sum(GEMINI in x["bai"] for x in ds)
-        so_qua_tai = sum("(Groq" in x["bai"] for x in ds)
-        st.caption(f"Groq trả lời {len(ds) - so_gemini} lượt · Gemini (dự phòng khi Groq quá tải) trả lời {so_gemini} lượt"
-                   f" · Groq quá tải/lỗi {so_qua_tai} lượt (xem lý do ở cột Bài dùng).")
+        so_groq_du_phong = sum("trả lời)" in x["bai"] and GEMINI not in x["bai"] for x in ds)
+        so_qua_tai = sum(any(k in x["bai"] for k in ("quá tải", "hết hạn mức", "quá thời gian", "sai ", "lỗi "))
+                         for x in ds)
+        st.caption(f"Mô hình chính trả lời {len(ds) - so_gemini - so_groq_du_phong} lượt · mô hình Groq dự phòng "
+                   f"{so_groq_du_phong} lượt · Gemini {so_gemini} lượt · có lúc quá tải/lỗi {so_qua_tai} lượt "
+                   f"(xem lý do ở cột Bài dùng).")
     with phai:
         cau_chua_tra_loi(ds, KHONG_TINH)
     st.markdown("#### 50 lượt hỏi gần nhất")

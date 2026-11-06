@@ -11,7 +11,10 @@ from groq import Groq
 
 from common import LOGO_NHO, BRAND, HOTLINE, LOGO, che_thong_tin, goi_post_nen, trich_doan, da_ket_noi_sheet, doc_tat_ca_bai, goi_post, nguon_anh, tim_bai
 
-DEFAULT_MODEL = "llama-3.3-70b-versatile"
+DEFAULT_MODEL = "openai/gpt-oss-120b"
+# Mô hình Groq dự phòng (mỗi mô hình có hạn mức riêng), thử lần lượt khi mô hình chính quá tải.
+# Đổi bằng GROQ_DU_PHONG trong Secrets, các tên cách nhau bằng dấu phẩy.
+DEFAULT_GROQ_DU_PHONG = "openai/gpt-oss-20b, qwen/qwen3.8-27b"
 VISION_MODEL = "qwen/qwen3.8-27b"  # model Groq đọc được ảnh; đổi bằng GROQ_VISION_MODEL trong Secrets
 DEFAULT_GEMINI_MODEL = "gemini-3.8-flash"  # AI dự phòng; đổi bằng GEMINI_MODEL trong Secrets
 CAU_HOI_ANH = "Màn hình trong ảnh là gì và tôi cần làm gì tiếp theo?"
@@ -93,11 +96,12 @@ if "GROQ_API_KEY" not in st.secrets:
     st.error("Chưa khai báo GROQ_API_KEY trong Secrets.")
     st.stop()
 # Có Gemini dự phòng thì Groq không chờ thử lại khi quá tải (chờ có thể tới 20-30 giây), mà chuyển ngay sang Gemini
-co_du_phong = bool(st.secrets.get("GEMINI_API_KEY"))
-client = Groq(api_key=st.secrets["GROQ_API_KEY"], max_retries=0 if co_du_phong else 1,
-              timeout=25 if co_du_phong else 60)
+# Groq không chờ thử lại khi quá tải (chờ có thể tới 20-30 giây), mà chuyển ngay sang mô hình dự phòng
+client = Groq(api_key=st.secrets["GROQ_API_KEY"], max_retries=0, timeout=25)
 model = st.secrets.get("GROQ_MODEL", DEFAULT_MODEL)
 vision_model = st.secrets.get("GROQ_VISION_MODEL", VISION_MODEL)
+groq_du_phong = [m.strip() for m in str(st.secrets.get("GROQ_DU_PHONG", DEFAULT_GROQ_DU_PHONG)).split(",")
+                 if m.strip() and m.strip() != model]
 
 # AI dự phòng: chỉ dùng Gemini khi Groq báo quá tải hoặc lỗi. Không khai báo GEMINI_API_KEY thì bỏ qua.
 GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/openai/"
@@ -106,7 +110,7 @@ if st.secrets.get("GEMINI_API_KEY"):
     from openai import OpenAI
     gemini_client = OpenAI(api_key=st.secrets["GEMINI_API_KEY"], base_url=GEMINI_URL, max_retries=0, timeout=60)
 gemini_model = st.secrets.get("GEMINI_MODEL", DEFAULT_GEMINI_MODEL)
-ai_da_dung = ["Groq"]  # AI đã trả lời câu hiện tại, để ghi vào thống kê
+ai_da_dung = [model]  # AI đã trả lời câu hiện tại, để ghi vào thống kê
 
 
 def gui_gop_y(i: int, danh_gia: str, ghi_chu: str = ""):
@@ -219,17 +223,23 @@ def ten_loi(e: Exception) -> str:
     return "lỗi " + str(e)[:60]
 
 
+def ten_ngan(m: str) -> str:
+    return m.split("/")[-1]
+
+
 def goi_ai(**kw):
-    """Gọi Groq trước; nếu Groq quá tải hoặc lỗi thì tự chuyển sang Gemini (nếu đã khai báo khóa)."""
+    """Gọi lần lượt: mô hình Groq chính → các mô hình Groq dự phòng → Gemini → chờ và thử lại Groq chính.
+    Câu kèm ảnh chỉ dùng mô hình đọc ảnh (các mô hình Groq khác không đọc được ảnh)."""
     ten_model = kw.pop("model")
-    try:
-        kq = client.chat.completions.create(model=ten_model, **kw, **tham_so_them(ten_model))
-        ai_da_dung[0] = "Groq"
-        return kq
-    except Exception as e:
-        loi_ai.append(f"Groq {ten_loi(e)}")
-        if gemini_client is None:
-            raise
+    lan_luot = [ten_model] if ten_model == vision_model else [ten_model] + groq_du_phong
+    for m in lan_luot:
+        try:
+            kq = client.chat.completions.create(model=m, **kw, **tham_so_them(m))
+            ai_da_dung[0] = m
+            return kq
+        except Exception as e:
+            loi_ai.append(f"{ten_ngan(m)} {ten_loi(e)}")
+    if gemini_client is not None:
         try:
             # Gemini tính cả phần "suy nghĩ" vào giới hạn chữ, nên nới thêm để câu trả lời không bị cụt
             kq = gemini_client.chat.completions.create(model=gemini_model, reasoning_effort="low",
@@ -238,11 +248,42 @@ def goi_ai(**kw):
             return kq
         except Exception as e2:
             loi_ai.append(f"Gemini {ten_loi(e2)}")
-            # Gemini cũng lỗi: quay lại Groq, lần này cho phép chờ và thử lại
-            kq = client.with_options(max_retries=2, timeout=60).chat.completions.create(
-                model=ten_model, **kw, **tham_so_them(ten_model))
-            ai_da_dung[0] = "Groq"
-            return kq
+    # Tất cả đều lỗi: quay lại Groq chính, lần này cho phép chờ và thử lại
+    kq = client.with_options(max_retries=2, timeout=60).chat.completions.create(
+        model=ten_model, **kw, **tham_so_them(ten_model))
+    ai_da_dung[0] = ten_model
+    return kq
+
+
+def bo_suy_nghi(dong_chu):
+    """Một số mô hình (như Qwen) viết phần suy nghĩ trong <think>...</think> trước câu trả lời: bỏ phần đó đi."""
+    cho, trong = "", False
+    for manh in dong_chu:
+        cho += manh
+        while True:
+            if trong:
+                j = cho.find("</think>")
+                if j == -1:
+                    cho = cho[-8:]  # giữ đuôi phòng thẻ đóng bị cắt đôi
+                    break
+                cho, trong = cho[j + 8:], False
+            else:
+                i = cho.find("<think>")
+                if i == -1:
+                    k = cho.rfind("<")
+                    if k != -1 and "<think>".startswith(cho[k:]):
+                        if cho[:k]:
+                            yield cho[:k]
+                        cho = cho[k:]
+                    else:
+                        yield cho
+                        cho = ""
+                    break
+                if cho[:i]:
+                    yield cho[:i]
+                cho, trong = cho[i + 7:], True
+    if cho and not trong:
+        yield cho
 
 
 def doc_anh_bang_ai(anh: bytes, cau_hoi: str) -> str:
@@ -431,7 +472,8 @@ if cau_hoi:
         try:
             with st.spinner("Trợ lý đang soạn câu trả lời..."):
                 stream = goi_ai(model=model, messages=messages, temperature=0, stream=True, max_tokens=1500)
-            tra_loi = st.write_stream(an_ma_bai(chunk.choices[0].delta.content or "" for chunk in stream)).strip()
+            tra_loi = st.write_stream(an_ma_bai(bo_suy_nghi(
+                chunk.choices[0].delta.content or "" for chunk in stream if chunk.choices))).strip()
         except Exception as e:
             tra_loi = bao_loi_ai(e)
             st.error(tra_loi)
@@ -467,8 +509,9 @@ if cau_hoi:
     tra_loi = re.sub(r"<br\s*/?>", " ", tra_loi)
     bai_dung = (tai_lieu[int(m_bai.group(1)) - 1]["tieu_de"]
                 if m_bai and 1 <= int(m_bai.group(1)) <= len(tai_lieu) else "")
-    if ai_da_dung[0] == "Gemini":  # đánh dấu câu do AI dự phòng trả lời, để so sánh chất lượng
-        bai_dung = f"{bai_dung} · (Gemini trả lời)" if bai_dung else "(Gemini trả lời)"
+    if ai_da_dung[0] != model:  # đánh dấu câu do AI dự phòng trả lời, để so sánh chất lượng
+        nhan = "(Gemini trả lời)" if ai_da_dung[0] == "Gemini" else f"({ten_ngan(ai_da_dung[0])} trả lời)"
+        bai_dung = f"{bai_dung} · {nhan}" if bai_dung else nhan
     if loi_ai:  # ghi lý do AI chính bị lỗi/chậm, ví dụ "(Groq quá tải; Gemini sai tên mô hình)"
         ghi = "(" + "; ".join(dict.fromkeys(loi_ai)) + ")"
         bai_dung = f"{bai_dung} · {ghi}" if bai_dung else ghi
