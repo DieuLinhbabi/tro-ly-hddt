@@ -232,6 +232,7 @@ def trang_kien_thuc():
             luu = st.form_submit_button("Lưu vào Sheet", type="primary", width="stretch")
         if st.button("Hủy", width="stretch"):
             ss.dang_sua = None
+            ss.pop("cau_cho_xu_ly", None)
             st.rerun()
         if luu:
             ten_nhom = nhom_moi.strip() if nhom == "(Nhóm mới)" else nhom
@@ -257,6 +258,12 @@ def trang_kien_thuc():
                 return
             lam_moi_du_lieu()
             ss.dang_sua, ss.bai_moi_goi_y = None, ""
+            cho = ss.pop("cau_cho_xu_ly", None)
+            if cho and b is None:  # bài mới thêm từ "Câu chưa trả lời được": đánh dấu câu đó đã xử lý
+                try:
+                    goi_post({"action": "mark_question", "items": cho})
+                except Exception:
+                    pass
             st.toast("Đã lưu vào Google Sheet. Trợ lý dùng nội dung mới ngay.")
             st.rerun()
 
@@ -401,6 +408,61 @@ def trang_tai_khoan():
 
 
 # ======================= THỐNG KÊ LƯỢT HỎI =======================
+def cau_chua_tra_loi(ds: list, khong_tinh: tuple):
+    """Danh sách câu trợ lý chưa trả lời được: bổ sung kiến thức, đánh dấu đã xử lý, xóa."""
+    st.markdown("#### Câu chưa trả lời được")
+    st.caption("Nên ưu tiên bổ sung kiến thức cho các câu này. Tích ô đầu dòng để chọn câu cần xử lý.")
+    tat_ca = [x for x in reversed(ds) if x["ket_qua"] not in ("Đã trả lời",) + khong_tinh]
+    so_da_xu_ly = sum(x["trang_thai"] == "Đã xử lý" for x in tat_ca)
+    hien_da_xu_ly = st.toggle(f"Hiện cả câu đã xử lý ({so_da_xu_ly})", key="hien_da_xu_ly")
+    chua = [x for x in tat_ca if hien_da_xu_ly or x["trang_thai"] != "Đã xử lý"][:200]
+    if not chua:
+        st.success("Không còn câu nào cần xử lý.")
+        return
+    dong = [{"Câu hỏi": x["cau_hoi"], "Thời gian": x["thoi_gian"], "Kết quả": x["ket_qua"]} for x in chua]
+    if hien_da_xu_ly:
+        for d, x in zip(dong, chua):
+            d["Trạng thái"] = x["trang_thai"] or "Chưa xử lý"
+    bang = st.dataframe(
+        dong, hide_index=True, width="stretch", height=min(380, 35 * (len(dong) + 1) + 3),
+        on_select="rerun", selection_mode="multi-row",
+        key=f"bang_chua_{hien_da_xu_ly}")
+    chon = [chua[i] for i in bang.selection.rows if i < len(chua)]
+    items = [{"row": x["row"], "cau_hoi": x["cau_hoi"]} for x in chon]
+
+    c1, c2, c3 = st.columns(3)
+    if co_quyen("them_bai") and c1.button("✎ Bổ sung kiến thức", width="stretch", disabled=len(chon) != 1,
+                                          help="Chọn đúng 1 câu để thêm bài mới cho câu đó"):
+        ss.chuyen_tab, ss.dang_sua, ss.bai_moi_goi_y = "Kiến thức", "moi", chon[0]["cau_hoi"]
+        ss.cau_cho_xu_ly = items  # lưu bài xong thì tự đánh dấu câu này đã xử lý
+        st.rerun()
+    if co_quyen("xu_ly_gop_y"):
+        if c2.button("✓ Đánh dấu đã xử lý", width="stretch", disabled=not chon):
+            try:
+                goi_post({"action": "mark_question", "items": items})
+                st.toast(f"Đã đánh dấu {len(items)} câu là đã xử lý.")
+                st.rerun()
+            except Exception as e:
+                st.error(f"Chưa cập nhật được: {e}")
+        if c3.button("🗑 Xóa", width="stretch", disabled=not chon):
+            ss.xac_nhan_xoa_cau = items
+        x = ss.get("xac_nhan_xoa_cau")
+        if x:
+            st.warning(f"Xóa hẳn {len(x)} câu đã chọn khỏi lịch sử hỏi? Số liệu thống kê sẽ không tính các câu này nữa.")
+            k1, k2 = st.columns(2)
+            if k1.button("Xóa luôn", type="primary", width="stretch", key="xoa_cau_ok"):
+                try:
+                    goi_post({"action": "delete_question", "items": x})
+                    st.toast(f"Đã xóa {len(x)} câu.")
+                except Exception as e:
+                    st.error(f"Chưa xóa được: {e}")
+                ss.xac_nhan_xoa_cau = None
+                st.rerun()
+            if k2.button("Hủy", width="stretch", key="xoa_cau_huy"):
+                ss.xac_nhan_xoa_cau = None
+                st.rerun()
+
+
 def trang_thong_ke():
     import datetime as dt
     from collections import Counter
@@ -471,14 +533,7 @@ def trang_thong_ke():
         so_gemini = sum(GEMINI in x["bai"] for x in ds)
         st.caption(f"Groq trả lời {len(ds) - so_gemini} lượt · Gemini (dự phòng khi Groq quá tải) trả lời {so_gemini} lượt.")
     with phai:
-        st.markdown("#### Câu chưa trả lời được")
-        st.caption("Nên ưu tiên bổ sung kiến thức cho các câu này.")
-        chua = [x for x in reversed(ds) if x["ket_qua"] not in ("Đã trả lời",) + KHONG_TINH]
-        if chua:
-            st.dataframe([{"Thời gian": x["thoi_gian"], "Câu hỏi": x["cau_hoi"], "Kết quả": x["ket_qua"]}
-                          for x in chua[:200]], hide_index=True, width="stretch", height=420)
-        else:
-            st.success("Tất cả câu hỏi đều đã được trả lời.")
+        cau_chua_tra_loi(ds, KHONG_TINH)
     st.markdown("#### 50 lượt hỏi gần nhất")
     st.dataframe([{"Thời gian": x["thoi_gian"], "Câu hỏi": x["cau_hoi"], "Ảnh": "Có" if x["co_anh"] else "",
                    "Bài dùng": x["bai"], "Kết quả": x["ket_qua"]} for x in list(reversed(ds))[:50]],

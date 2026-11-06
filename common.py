@@ -101,9 +101,9 @@ def che_thong_tin(text: str) -> str:
 def doc_lich_su_hoi() -> list[dict]:
     ds = []
     for r in _goi_get("questions"):
-        c = [str(x) for x in (list(r["cells"]) + [""] * 6)[:6]]
-        ds.append({"thoi_gian": c[0], "cau_hoi": c[1], "co_anh": c[2] == "Có", "bai": c[3], "ket_qua": c[4],
-                   "giay": c[5]})
+        c = [str(x) for x in (list(r["cells"]) + [""] * 7)[:7]]
+        ds.append({"row": r["row"], "thoi_gian": c[0], "cau_hoi": c[1], "co_anh": c[2] == "Có", "bai": c[3],
+                   "ket_qua": c[4], "giay": c[5], "trang_thai": c[6]})
     return ds
 
 
