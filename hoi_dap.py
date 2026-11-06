@@ -382,6 +382,22 @@ if cau_hoi:
         if not la_cau_hoi:
             break
         so_lan_hoi_lai += 1
+    # Nhận biết sẵn trong câu hỏi để AI không hỏi lại trạng thái thừa (AI hay bỏ qua quy tắc này nếu chỉ ghi trong SYSTEM_PROMPT)
+    q = cau_hoi.lower()
+    co_ma_loi = bool(re.search(r"mloi|mã lỗi|\blỗi\s*:?\s*-?\d{3,}", q))
+    da_phat_hanh = (bool(re.search(r"phát hành|đã gửi (thuế|cqt|cơ quan thuế)|(đã|được) cấp mã|đã có mã", q))
+                    and not re.search(r"chưa\s+(ký\s+)?(phát hành|gửi|cấp mã|có mã)", q)
+                    and bool(re.search(r"sai|nhầm|sửa|điều chỉnh|thay thế|hủy|xóa", q)))  # chỉ khi đang nói về hóa đơn bị sai
+    luu_y_them = ""
+    if co_ma_loi:
+        luu_y_them += ("LƯU Ý: Câu hỏi có mã lỗi. KHÔNG hỏi trạng thái hóa đơn; đọc kỹ cả nội dung sau mã lỗi, "
+                       "trả lời luôn theo bài khớp cả mã lẫn nội dung; TÀI LIỆU không có thì nói rõ và mời gọi hotline.\n\n")
+    elif da_phat_hanh:
+        luu_y_them += ("LƯU Ý: Người dùng đã cho biết hóa đơn ĐÃ phát hành, tức là đã ký, đã gửi cơ quan thuế và đã được "
+                       "cấp mã. KHÔNG hỏi lại trạng thái hóa đơn, KHÔNG ghi [[CHON]] về trạng thái. Hướng dẫn luôn cách xử lý "
+                       "hóa đơn đã được cấp mã theo TÀI LIỆU: không được hủy; nêu ngắn cách xử lý cho từng nhóm sai "
+                       "(chỉ sai tên/địa chỉ: Mẫu 04/SS-HĐĐT; sai MST, hàng hóa, tiền, thuế: điều chỉnh hoặc thay thế; "
+                       "hóa đơn điều chỉnh/thay thế bị sai: giữ nguyên hình thức cũ).\n\n")
     lich_su = [{"role": m["role"], "content": rut_gon(m["content"], 600)} for m in ss.messages[-5:-1]]
     messages = ([{"role": "system", "content": SYSTEM_PROMPT}] + lich_su
                 + [{"role": "user", "content": f"TÀI LIỆU:\n{ngu_canh}\n\n"
@@ -389,6 +405,7 @@ if cau_hoi:
                                                  if mo_ta_anh else "")
                                               + (f"LƯU Ý: Bạn đã hỏi lại người dùng {so_lan_hoi_lai} lần liên tiếp. KHÔNG được hỏi thêm, KHÔNG ghi [[CHON]]; hãy hướng dẫn luôn dựa trên các thông tin người dùng đã trả lời.\n\n"
                                                  if so_lan_hoi_lai >= 2 else "")
+                                              + luu_y_them
                                               + f"CÂU HỎI: {cau_hoi}"}])
 
     with st.chat_message("assistant", avatar=AVATAR_TRO_LY):
